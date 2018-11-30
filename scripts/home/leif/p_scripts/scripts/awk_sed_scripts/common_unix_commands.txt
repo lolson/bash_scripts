@@ -1,0 +1,13 @@
+Common Unix Commands
+      find . -exec grep "stuff" '{}' \; -print
+      
+      ps -elf | grep java	//show running java ps
+      ps -aef | grep httpd
+      
+      netstat -na | grep 8080	//show what TCP ps bound to port 8080
+      
+
+Change Terminal Type
+csh or tcsh 		setenv TERM vt100
+sh 			TERM=vt100; export TERM
+ksh, bash, or zsh 	export TERM=vt100      

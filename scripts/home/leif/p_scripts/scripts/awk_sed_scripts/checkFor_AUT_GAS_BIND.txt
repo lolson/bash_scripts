@@ -1,0 +1,7 @@
+STDOUT=/opt/product/Trilliant Networks/SerViewComTaskManager/bin/stdout.log
+DEVICES= ( 104889 104282 )
+for dev in "${DEVICES[@]}"
+do
+    grep AUT_GAS_BIND $STDOUT | grep $dev
+done
+

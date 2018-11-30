@@ -1,0 +1,82 @@
+/*
+ File: test_gmsec_api
+
+ Purpose: Unit tests for the GMSEC API wrapper functions
+
+ Author: Marilyn Mix, Omitron
+*/
+
+#include "gmsec_wrapper.h"
+
+#include <stdio.h>
+#include <string.h>
+#include <time.h>
+/*
+Compile:
+ gcc -g test_gmsec_api.c -I../include \
+         -I/filesvr/GMSEC_API/include \
+         -L../lib -lgmsec_wrapper \
+	 -L/filesvr/GMSEC_API/bin \
+	 -lGMSECAPI -o apitest
+
+
+ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/filesvr/GMSEC_API/bin/
+
+*/
+
+/* Main routine  */
+int main(int argc, char* argv[])
+{
+  GMSEC_CONNECTION_HANDLE conn = CreateBusConnection(); 
+  if (conn == 0) return 0;
+ 
+  int count = 0;
+  int hbInterval = 2;
+  time_t baseTime = time(NULL);
+  time_t currentTime;
+  //  char *severity = "CRITICAL";
+  //char *severity = "MEDIUM";
+  char *severity = "1";
+  //char *component = "Cwrapper";
+  char *component = "CWRAPPER";
+  //char *subsystem = "COMMON";
+  char *subsystem = "OTAC";
+  char *occurance = "SYS";
+
+  char *message = "Testing C wrapper for GMSEC API.";
+  int loop_count = 1;
+  int retVal = 0;
+
+  //  Test heartbeat
+
+  if (argc > 1)
+    {
+      loop_count = atoi(argv[1]);
+    }
+
+  printf ("Return Value = %d\n",retVal);
+  while(count < loop_count)
+    {
+      currentTime = time(NULL);     // system time in seconds:
+      //     printf ("currentTime = %d baseTime= %d hbInterval=%d\n", currentTime , baseTime, hbInterval);
+        if( (currentTime - baseTime) >= hbInterval)
+	  {
+	    baseTime = currentTime;
+	    PublishHbMessage(conn, component, subsystem, hbInterval);
+	  }
+      
+      retVal = PublishLogMessage(conn, component, subsystem, occurance, severity,
+			message);
+      printf ("Return Value = %d\n",retVal);
+
+      char timestamp[] = "2014-001-00:00:00.000000";
+      PublishLogTimeMessage(conn, component, subsystem, occurance, timestamp,
+			    severity, message);
+      count++;
+      sleep(2);
+    }
+  
+  DestroyBusConnection(conn);
+
+  return 0;
+}

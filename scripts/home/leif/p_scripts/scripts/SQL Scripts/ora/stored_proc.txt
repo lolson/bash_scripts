@@ -1,0 +1,49 @@
+Stored Procedure - Discover Devices
+
+BTW why bother with mesh gates? This should be entirely transparent to Unity.
+createDeviceInfos(); 
+
+Insert devices into tbldevice_info all devices present in device_pkey table and not present in tbldevice_info.
+Assign partner_id and product_id to every meshgates
+
+configureMeshgates(partner);
+Merge into tbldevice_info tdi
+USING
+(SELECT device_id, p.model
+   FROM product p, device_view dv
+  WHERE p.model = dv.model
+    AND p.model = 'ND05' 
+) u
+on u.device_id = tdi.device_id
+WHEN MATCHED
+ UPDATE
+    SET partner_id = parm_Partner_id
+         product_id = u.product_id
+)
+Assign partner_id and product_id to every devices
+
+configureDevices();
+
+UPDATE tbldevice_info
+   SET partner_id = parm_default_Partner
+;
+
+MERGE INTO tbldevice_info di
+USING
+(SELECT product_id, DEVICEID
+   FROM tblproduct p, device_view dv, tbllookup t, tbllookup t1
+  WHERE t.lookup_id = p.device_type_id 
+    and t.value = dv.DEVICECLASS 
+    and t.value IS NOT NULL
+    AND dv.mesh_radio_version like '_% %'
+    and t1.lookup_id = p.radio_type_id 
+    AND    t1.value     = dv.mesh_radio_version
+) u
+on (u.DEVICEID = di.DEVICE_ID)
+WHEN matched THEN
+UPDATE 
+   SET product_id = u.product_id
+;
+Notes
+ configureDevices(); include configureMeshgates(partner);
+ 

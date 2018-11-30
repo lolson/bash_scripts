@@ -1,0 +1,51 @@
+delete from changelog where change_number='61';
+drop index DEVICE_PKEY_DEVICE;
+
+drop materialized view device_param_view;
+drop materialized view info_view;
+
+create or replace view info_view as
+select
+e.device_id
+,MAX(DECODE(e.dev_info, 1, e.value,NULL)) as latitude
+,MAX(DECODE(e.dev_info, 1, e.information_type,NULL)) as info_latitude
+,MAX(DECODE(e.dev_info, 2, e.value,NULL)) as longitude
+,MAX(DECODE(e.dev_info, 2, e.information_type,NULL)) as info_longitude
+,MAX(DECODE(e.dev_info, 3, e.value,NULL)) as altitude
+,MAX(DECODE(e.dev_info, 3, e.information_type,NULL)) as info_altitude
+,MAX(DECODE(e.dev_info, 4, e.value,NULL)) as mesh_radio_version
+,MAX(DECODE(e.dev_info, 4, e.information_type,NULL)) as info_mesh_radio_version
+    from (SELECT device_id,
+               information_type,  value ,
+               decode(information_type,'GPS_latitude',1,
+                        'GPS_longitude',2,
+                        'GPS_altitude',3,
+                        'mesh_radio_version',4,0) dev_info
+                     FROM  info) e
+GROUP BY e.device_id;
+commit;
+
+
+create or replace view device_param_view as
+select
+e.device_id
+,MAX(DECODE(e.dev_info, 1, e.value,NULL)) as calledApTitle
+,MAX(DECODE(e.dev_info, 2, e.value,NULL)) as meshgateApTitle
+,MAX(DECODE(e.dev_info, 3, e.value,NULL)) as callingApTitle
+,MAX(DECODE(e.dev_info, 4, e.value,NULL)) as responseTimeout
+,MAX(DECODE(e.dev_info, 5, e.value,NULL)) as serverAddress
+,MAX(DECODE(e.dev_info, 6, e.value,NULL)) as serverPort
+,MAX(DECODE(e.dev_info, 7, e.value,NULL)) as ser_session
+    from (SELECT device_id,
+               information_type,  value ,
+               decode(information_type,'c1222IOHandler.calledApTitle',1,
+                        'c1222IOHandler.meshgateApTitle',2,
+                        'c1222IOHandler.callingApTitle',3,
+                        'c1222IOHandler.responseTimeOut',4,
+                        'c1222IOHandler.serverAddress',5,
+                        'c1222IOHandler.serverPort',6,
+                        'c1222IOHandler.session',7,0) dev_info
+                     FROM   device_parameter) e
+GROUP BY e.device_id  ;
+commit;
+

@@ -1,0 +1,192 @@
+1. Mission Profile
+    a. Stabilization
+        i. Spinners
+    b. Constellation/Formation
+        i. In operation for 17 and 20 yrs
+2. Spacecraft Systems
+    a. C&DH
+        i. TDDM, TDDSDS
+    b. Comm/Antennas
+        i. Both have solar arrays
+    c. Flight Software
+        i. Control very different across the two missions
+3. Ground System/Arch
+    a. Telemetry & Command
+        i. ITOS replaced TPOCC
+        ii. Same ITOS version used across both
+        iii. One is done via loads an the other real-time procs
+        iv. Generic pass startup/cleanup
+    b. Planning and Scheduling
+        i. Scheduling
+        ii. Homegrown HTML tools, made by MMOC and scheduling team.  Based DSN pass scheduling, puts time into CRON which calls ITOS STOL procedure
+        iii. One instance of HTML tools handles both missions
+        iv. HTML Tools
+            1. Shows when passes happening
+            2. Views
+            3. Offline tool
+            4. Recorder management
+        v. Recorder management html pages
+    c. Flight Dynamics
+        i. FDF does OD
+        ii. Attitude done in house, Mtass, Msas
+    d. Trending & Analysis
+        i. Wind uses ITPS
+        ii. DAT
+        iii. Ace TAPS
+    e. Automation
+        i. STOL
+        ii. STOL unique across both
+        iii. One done with real-time commands, the other loads
+        iv. At a high level STOL scripts are similar
+        v. CRON-based
+        vi. ITOS procs missions specific, some common processes, setup/teardown, runs over list - make shift array that holds processes that should be shutdown
+            1. Pass cleanup, pid update, tlm destroy, user input, temp wait
+            2. Tools for way getting at particular piece, simpler than whats available from ITOS
+            3. DOG-
+        vii. Perl- almost all
+        viii. Nags sends ANSR notifications
+            1. Could just email directly
+        ix. ITOS toActiion - GMSEC bus - ANSR gets it and emails it out, smart sockets TIPCO
+        x. RoomAlert - informational supplement humidity, temperature metrics, flood
+            1. Another use of GMSEC
+    f. Computing platform
+        i. OS
+            1. No UNIX
+            2. Windows- GMAN, ITPS, Win XP
+            3. Solaris - WIND
+            4. Mostly Linux - 7/1 ratio Linux/Windows, 12% PCs
+            5. About 20 total systems
+            6. RHEL 5, RH7 (10 years ago)
+        ii. Virtualization
+            1. No virtualization
+            2. Just more work, more configuration
+            3. Transition always a challenge and a risk
+            4. Shared resources could get squeezed by higher priority missions
+                - Other side is that more capability could be available that would not otherwise be available
+                - Resource contention
+        iii. Hardware
+            1. PC windows for CMS, GMAN and ITPS
+            2. Solaris LZ processing for WIND
+    g. System Administration
+        i. Lisa Dobiins, local SA for all Goddard accepted, some local routers
+        ii. Have not had to back out any patches
+        iii. Only certain computers can connect to DSN and actually command
+    h. Networking
+        i. NAGIOS for network monitoring
+            1. Sends messages to ANSR
+    i. Security
+        i. Code 700
+        ii. Mostly abstracted from system admin
+        iii. Opening firewalls, for code 700
+        iv. IONET scan, credential scan, Windows and Linux patching, scans
+        v. Patchlink runs on Fridays for both Windows and Linux
+    j. How much storage space for houskeeping telemetry
+4. Current Operations/Functions
+    a. Anomaolies
+    b. LEOP phase
+    c. Nominal
+        i. Mission Planning
+            1. Station Contacts/Passes
+                - Both DSN
+                - A dedicated person who negotiates a schedules
+                - JPL has a suite of tools, matrixed from task order 3
+            2. Maneuvers
+                - ACE weekly manuver
+                - Quaterly station keeping - WIND
+            3. Payload
+                - PI sends in text files for requests- WIND
+                - Regular process, more automated
+                - ACE is all done real time, requests come in via email
+                - Infrequent
+            4. Commanding
+                - Passes are automated
+        ii. Spacecraft Subsystem Trending
+            1. Archival Retrieval
+                - Nothing offsite
+                - Local storage, trying to virtualize
+    d. Extended operations phase
+        i. Up for a review  every 2 yerars
+        ii. WIND could be up for 50 more yrs
+        iii. ACE 2024
+    e. Disposal plans
+        i. Put it in helio centric orbit, so stays out of region for L1
+    f. Staffing/Roles
+        i. M-F 8 hour
+        ii. Flex on Fridays
+        iii. 5 full time, 1 vacancy shared staff for all three, Geotail - level 0 task
+        iv. Sink or swim mentality
+    g. Flight dynamics
+        i. FD products
+            1. Generate ACE products daily, monthly for WIND
+            2. MATHLAB, MSASS, MTASS, in house verification tool
+            3. AOR reports
+            4. Station Keeping
+            5. Monthly attitude report
+            6. FDF delivers OD: weekly/ACE, monthly/WIND
+        ii. Tracking Data Analysis
+        iii. Orbit determination/control
+        iv. Attitude determination/control
+    h. Major issues & Failures
+        i. 2014 WIND attitude processing issue
+        ii. No simulation, scanning logs
+        iii. ACE - issue: temperature anomalies
+        iv. Lots of issues with instruments, being turned off, TDRSS instrument most regular type of anomolies about every 1.5 - 2 years
+            1. In four years about 3 anomalies per spacecraft
+        v. Limit violation, trending
+        vi. Biggest issue knowledge about spacecraft and how it works
+            1. Depth and breadth
+            2. Much docuementation
+            3. How is spacecraft, and ground software system
+            4. Need enough to diagnose
+            5. Specialists for independent sub-systems
+    i. Major Successes
+        i. High level of automation
+    j. Simulator
+        i. NA
+5. Questions/Comments
+    a. Ace/WInd already a multi mission moc
+        i. Same machine, telemerty display looks different
+        ii. ACE/WIND have separate desktops
+        iii. Linux
+        iv. Devils Pie- puts window in right Linux Workspace (Desktop)
+        v. Devils Pie plugs into the window manager
+    b. Hard to beat costs of university with existing multi mission
+        i. Mostly employees doing most of the effort as opposed to grad student
+        ii. In actuallity commercial entity attached to SOC
+    c. Freemind - Flash hosted
+    d. Any other automation would like to have?
+        i. Happy with CRON
+        ii. When you identify something repeating enough than would automate
+        iii. Restarting ITOS
+            1. Easier to fix the existing verison of ITOS than
+            2. Cost/risk of regression
+            3. Prograting changes
+            4. Risk of new enhancements breaking custom
+    e. What do we need? spacecrafts work in a specfic way.  Things change, want simple flexible tools. Have suite of tools that are updatable.
+        i. Build around a core of tools MathLab that should do in basic stuff and do it right without bugs
+        ii. GUIs are not automatable
+        iii. Nice to have access to CLI
+        iv. Prefer access to underlying functions
+        v. Rather not have bring up to main process and GUI to access a single function
+6. COF Advantages & Disadvantages
+    a. Why do think we are not using multi mission facilities now?
+        i. Every new mission has funding to their own
+        ii. Mission manager wants to their way, have the money so will spend it as sees fit
+    b. Short term mission with no money would be interested in shared resources
+        i. Cubesat mission
+    c. Orbital, UC Berkley, Penn State very competitive cost wise
+        i. Disadvantage is they are in their in silo, don't have access to resources like expertise at Goddard
+    d. Already share the conference room
+    e. Share facility
+        i. Depends on number of missions
+        ii. Not issue sharing with 3 missions, depends on space available
+    f. Baseline core procs? common software?
+        i. Hardware being different
+        ii. Hard to adjust to new tool when used to old tool
+        iii. Two SSRs would respond in similar way
+        iv. Could organize documenation in same way
+    g. TPOC - resuable software 75%, why did everyone have there own TPOC? MSOC as multi mission was not embraced and not sustainable.
+7. Attendance: Eric, Jackie, John Lankin
+8. Ground Networks
+    a. DSN
+    b. ACE uses NEN

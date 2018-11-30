@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project name="SerViewComBuild" default="start" basedir=".">
+
+	<property name="SERVICE_NAME" value="SerViewCom Task Manager" />
+	<property name="MAIN_DIR" location="../" />
+	<property name="LOG_DIR" location="${MAIN_DIR}/log/taskManager" />
+	<property name="APP_INSTANCE" value="svccentrica" />
+	<property name="USER" value="${user}" />
+	<property name="PWD" value="${pwd}" />
+	<property name="user" value="" />
+	<property name="pwd" value="" />
+	<property environment="localEnv" />
+
+	<path id="project.class.path">
+		<fileset dir="${MAIN_DIR}/lib">
+			<include name="**/*.jar" />
+		</fileset>
+                <pathelement location="${MAIN_DIR}/lib"/>
+	</path>
+	<property name="serviceClassPath" refid="project.class.path" />
+
+	<target name="start" description="Start the Task Manager">
+		<mkdir dir="${LOG_DIR}" />
+		<java classname="com.trilliantnetworks.svc.taskmanager.TaskManager" fork="true">
+			<classpath refid="project.class.path" />
+			<jvmarg value="-Xincgc" />
+			<jvmarg value="-XX:NewSize=64m" />
+			<jvmarg value="-XX:MaxNewSize=64m" />
+			<jvmarg value="-Xmx1024m" />
+			<jvmarg value="-Xms1024m" />
+			<sysproperty key="java.library.path" value="${MAIN_DIR}/lib" />
+			<sysproperty key="java.util.logging.config.file" value="${MAIN_DIR}/conf/taskManager.properties" />
+			<sysproperty key="appInstance" value="${APP_INSTANCE}" />
+			<sysproperty key="com.trilliantnetworks.remoteservices.port" value="8888" />
+			<sysproperty key="trilliantnetworks.conf" value="../conf" />
+			<sysproperty key="com.management.config.file" value="${MAIN_DIR}/conf/jvmMonitoring/management.properties" />
+			<sysproperty key="env.place" value="${MAIN_DIR}/conf/spring" />
+		</java>
+	</target>
+  
+	<target name="stop" description="Stop the Task Manager">
+		<mkdir dir="${LOG_DIR}" />
+		<java classname="com.trilliantnetworks.svc.taskmanager.ShutdownSvc" fork="true">
+			<classpath refid="project.class.path" />
+			<jvmarg value="-Xincgc" />
+			<jvmarg value="-XX:NewSize=64m" />
+			<jvmarg value="-XX:MaxNewSize=64m" />
+			<jvmarg value="-Xmx1024m" />
+			<jvmarg value="-Xms1024m" />
+			<sysproperty key="java.library.path" value="${MAIN_DIR}/lib" />
+			<sysproperty key="java.util.logging.config.file" value="${MAIN_DIR}/conf/taskManager.properties" />
+			<sysproperty key="appInstance" value="${APP_INSTANCE}" />
+			<sysproperty key="trilliantnetworks.conf" value="../conf" />
+			<sysproperty key="com.management.config.file" value="${MAIN_DIR}/conf/jvmMonitoring/management.properties" />
+			<sysproperty key="env.place" value="${MAIN_DIR}/conf/spring" />
+		</java>
+	</target>  
+
+	<target name="validateJvmFile">
+		<property name="jvmDLLFile" value="${localEnv.JAVA_HOME}/bin/client/jvm.dll" />
+		<condition property="jvmFile.exists">
+			<available file="${jvmDLLFile}" />
+		</condition>
+		<fail unless="jvmFile.exists" message="Unable to find the following file : ${jvmDLLFile}, the JAVA_HOME environment variable should point to a JRE" />
+	</target>
+
+	<target name="installService" depends="validateJvmFile" if="jvmFile.exists" description="Install the Task Manager as a Windows service">
+		<mkdir dir="${LOG_DIR}" />
+		<exec executable="TaskManagerJS.exe">
+			<arg line='-install "${SERVICE_NAME}"' />
+			<arg line='"${localEnv.JAVA_HOME}/bin/client/jvm.dll"' />
+			<arg line='-jvm_option -Xincgc' />
+			<arg line='-jvm_option -XX:NewSize=64m' />
+			<arg line='-jvm_option -XX:MaxNewSize=64m' />
+			<arg line='-jvm_option -Xmx1024m' />
+			<arg line='-jvm_option -Xms1024m' />
+			<arg line='-jvm_option -Djava.library.path="${MAIN_DIR}/lib"' />
+			<arg line='-jvm_option -Djava.class.path="${serviceClassPath}"' />
+			<arg line='-jvm_option -Djava.util.logging.config.file="${MAIN_DIR}/conf/taskManager.properties"' />
+			<arg line='-jvm_option -Dcom.management.config.file="${MAIN_DIR}/conf/jvmMonitoring/management.properties"' />
+			<arg line='-DappInstance=${APP_INSTANCE}' />
+			<arg line='-Dcom.trilliantnetworks.remoteservices.port=8888' />
+			<arg line='-Dtrilliantnetworks.conf=../conf' />
+			<arg line='-start com.trilliantnetworks.svc.taskmanager.TaskManager' />
+			<arg line='-stop com.trilliantnetworks.svc.taskmanager.TaskManager' />
+			<arg line='-method shutDown' />
+			<arg line='-err "${LOG_DIR}/stderr.log"' />
+			<arg line='-current "${MAIN_DIR}/bin"' />
+			<arg line='-path "${localEnv.JAVA_HOME}/bin"' />
+		</exec>
+	</target>
+
+	<target name="stopService" description="Stop the Task Manager Windows service">
+		<exec executable="net">
+			<arg value="stop" />
+			<arg value="${SERVICE_NAME}" />
+		</exec>
+	</target>
+
+	<target name="uninstallService" depends="stopService" description="Uninstall the Task Manager Windows service">
+		<exec executable="TaskManagerJS.exe">
+			<arg line='-uninstall "${SERVICE_NAME}"' />
+		</exec>
+	</target>
+
+	<target name="startService" description="Start the Task Manager Windows service">
+		<exec executable="net">
+			<arg value="start" />
+			<arg value="${SERVICE_NAME}" />
+		</exec>
+	</target>
+
+	<target name="restartService" depends="stopService,startService" description="Restart the Task Manager Windows service" />
+	<property name="arg1" value="" />
+	<property name="arg2" value="" />
+
+	<target name="dropDB">
+		<antcall target="deleteSqlScript" />
+	</target>
+
+	<target name="upgradeDB">
+		<antcall target="upgradeSqlScript" />
+	</target>
+
+	<target name="createDB">
+		<antcall target="createSqlScript" />
+	</target>
+
+	<target name="createSqlScript">
+		<java classname="com.trilliantnetworks.svc.createdb.XMLStatementParserWrapper" fork="yes" failonerror="true">
+			<jvmarg value="-Dtrilliantnetworks.conf=../conf" />
+			<jvmarg value="-DappInstance=${APP_INSTANCE}" />
+			<arg value="../sqlScripts/conf/createScriptsDB.xml" />
+			<arg value="-user=${user}" />
+			<arg value="-pwd=${pwd}" />
+			<classpath refid="project.class.path" />
+		</java>
+	</target>
+
+	<target name="deleteSqlScript">
+		<java classname="com.trilliantnetworks.svc.createdb.XMLStatementParserWrapper" fork="yes" failonerror="true">
+			<jvmarg value="-Dtrilliantnetworks.conf=../conf" />
+			<jvmarg value="-DappInstance=${APP_INSTANCE}" />
+			<arg value="../sqlScripts/conf/deleteScriptsDB.xml" />
+			<arg value="-user=${user}" />
+			<arg value="-pwd=${pwd}" />
+			<classpath refid="project.class.path" />
+		</java>
+	</target>
+
+	<target name="upgradeSqlScript">
+		<java classname="com.trilliantnetworks.svc.createdb.XMLStatementParserWrapper" fork="yes" failonerror="true">
+			<jvmarg value="-Dtrilliantnetworks.conf=../conf" />
+			<jvmarg value="-DappInstance=${APP_INSTANCE}" />
+			<arg value="-upgrade" />
+			<arg value="../sqlScripts/conf/createScriptsDB.xml" />
+			<arg value="-user=${user}" />
+			<arg value="-pwd=${pwd}" />
+			<classpath refid="project.class.path" />
+		</java>
+	</target>
+</project>

@@ -1,0 +1,38 @@
+Sample Where in
+
+select device_id from device_pkey 
+where device_pkey.pkey in (
+select device_id from tblcmep_failure where cmep_summary_id=(
+select cmep_summary_id from tblcmep_summary where group_id='QARWC498'
+and summary_day='TODAY'));
+
+
+Sample Join
+
+select t2.name as template, t1.name as value_name, t1.description 
+from tbldevice_parameter_values t1
+join tbldevice_parameter_template t2
+on t1.device_parameter_template_id = t2.device_parameter_template_id; 
+
+
+select t2.name as template, t1.name as value_name
+from tbldevice_parameter_values t1
+join tbldevice_parameter_template t2
+on t1.device_parameter_template_id = t2.device_parameter_template_id
+where t1.visibility_level='EXTERNAL'
+order by template;
+
+
+--resolved the null fields for the rate program field in the tbldevice_info table for 175k records. I used the following SQL to map them back to the rate programs in the tblaccount_rate_program table:
+ 
+Update smmhe.tbldevice_info
+Set (smmhe.tbldevice_info.RATEPROGRAM_ID) =
+( 
+Select smmhe.TBLACCOUNT_RATE_PROGRAM.RATE_PROGRAM_ID 
+From smmhe.TBLACCOUNT_RATE_PROGRAM
+Where smmhe.TBLACCOUNT_RATE_PROGRAM.SDP_ID = smmhe.tbldevice_info.sdp_id 
+)
+Where smmhe.tbldevice_info.RATEPROGRAM_ID is null;
+ 
+
+

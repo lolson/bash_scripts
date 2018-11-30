@@ -1,0 +1,72 @@
+#!/bin/ksh
+# /installer/tools/install.ug
+# ---- Installation script.
+
+USAGE=0
+
+if [[ $1 = -? ]]; then
+   USAGE=1
+fi
+if [[ $1 = -h ]]; then
+   USAGE=1
+fi
+if (( $# < 2 )); then
+   USAGE=1
+fi
+
+if (( USAGE == 1 )); then
+   echo " "
+   echo "Usage: install.ug username groupname"
+   echo " "
+   echo "       Installs ASIST User Guide files, acroread, and desktop icon."
+   echo "   Ex: install.ug asist ASIST"
+   echo "       install.ug local_asist ASIST"
+   echo " "
+   echo " NOTE: Use this program only if Adobe Reader (acroread) is not"
+   echo "       installed already (now distributed with RedHat)."
+   echo " "
+   echo "whence acroread?"
+   whence acroread
+   echo " "
+   exit 1
+fi
+
+if [[ `whoami` != root ]]; then
+   echo " "
+   echo "You have to be root user to install.ug"
+   echo " "
+   exit 666
+fi
+
+   USERNAME=$1
+   GROUPNAME=$2
+
+   echo " "
+   echo "       Installing ASIST User Guide files, acroread, "
+   echo "       and desktop icon for user $USERNAME:$GROUPNAME"
+   echo " "
+
+   cd /usr/local
+
+   cp /installer/Uguide/AdobeReader.tz .
+
+   tar -xvzf AdobeReader.tz
+
+   rm AdobeReader.tz
+ 
+   cd AdobeReader
+
+   echo " "
+   echo "       Installing AdobeReader... "
+   echo " "
+
+   ./INSTALL 
+
+   echo " "
+   echo "       Installing Desktop icon for $USERNAME:$GROUPNAME... "
+   cp "/installer/Uguide/ASIST User Guide.desktop" /u/$USERNAME/Desktop
+
+   chown $USERNAME:$GROUPNAME "/u/$USERNAME/Desktop/ASIST User Guide.desktop" 
+   chmod 774 "/u/$USERNAME/Desktop/ASIST User Guide.desktop" 
+   echo "       Done. "
+

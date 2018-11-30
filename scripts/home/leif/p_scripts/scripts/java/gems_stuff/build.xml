@@ -1,0 +1,468 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project basedir="." default="all" name="nexus">
+
+<!-- First install JBoss, then set the JBOSS_HOME
+    environment variable on your system, or edit them directly below.
+    Examples ...
+    JBOSS_HOME=C:/gems-jboss-as-7.1.1 or JBOSS_HOME=/opt/gems-jboss-as-7.1.1 -->
+    <target name="init">
+        <property environment="env"/>
+    
+        <!-- START OF CONFIGURATIONS -->
+
+        <!-- directories -->
+        <property name="nexus.home" value="${basedir}"/>
+        <property name="build.dir" location="build"/>
+        <property name="classes.dir" location="${build.dir}/classes"/>
+        <property name="java.dir" location="src/java"/>
+        <property name="resources.dir" location="src/resources"/>
+        <property name="modules.dir" location="lib/modules"/>
+        <property name="lib.dir" location="lib"/>
+        <property name="dist.dir" location="${build.dir}/dist"/>
+        <property name="jboss.home" location="${env.JBOSS_HOME}"/>
+        <property name="conf.dir" location="conf"/>
+        <property name="objects.dir" location="objects"/>
+        <property name="javadoc.dir" location="doc/api"/>
+        <property name="help.dir" location="doc/help"/>
+        
+        <!-- archives -->
+        <property name="nexus.jar" location="${lib.dir}/nexus.jar"/>
+        <property name="upass.jar" location="${lib.dir}/upass.jar"/>
+        <property name="gems.jar" location="${lib.dir}/gems.jar"/>
+        <property name="gscc.jar" location="${lib.dir}/gscc.jar"/>
+        <property name="gems-web.war" location="${dist.dir}/gems-web.war"/>
+        <property name="nexus.ear" location="${dist.dir}/nexus.ear"/>
+        <property name="nexus-services-ejb.jar" location="${dist.dir}/nexus-services-ejb.jar"/>
+        
+        <condition property="label" value="gems-1.4-installer">
+            <not>
+                <isset property="label"/>
+            </not>
+        </condition>
+
+        <!-- END OF CONFIGURATIONS -->
+
+        <path id="nexus.classpath">
+            <pathelement path="${classes.dir}"/>
+            <fileset dir="${modules.dir}">
+                <include name="**/*.jar"/>
+            </fileset>
+            <!--fileset dir="${resources.dir}">
+                <include name="**/*.jar"/>
+            </fileset -->
+            <fileset dir="${lib.dir}">
+                <include name="*.jar"/>
+            </fileset>
+            <fileset dir="${lib.dir}/jide">
+                <include name="*.jar"/>
+            </fileset>
+            <fileset dir="${lib.dir}/drools">
+                <include name="*.jar"/>
+            </fileset>
+            <fileset dir="${lib.dir}/jboss">
+                <include name="**/*.jar"/>
+            </fileset>
+            <!-- fileset dir="${lib.dir}/hibernate">
+                <include name="*.jar"/>
+            </fileset -->
+            <fileset dir="${resources.dir}/gems-web.war/WEB-INF/lib">
+                <include name="*.jar"/>
+            </fileset>
+            <!-- fileset dir="${objects.dir}/lib">
+                <include name="*msl-mpcsmonitor.jar"/>
+            </fileset -->
+        </path>
+
+         <path id="run.classpath">
+            <pathelement path="${classes.dir}"/>
+            <!-- fileset dir="${modules.dir}">
+                <include name="**/*.jar"/>
+            </fileset -->
+            <fileset dir="${lib.dir}">
+                <include name="*.jar"/>
+            </fileset>
+            <!-- fileset dir="${lib.dir}/hibernate">
+                <include name="hibernate*.jar"/>
+            </fileset -->
+            <fileset dir="${lib.dir}/jide">
+                <include name="*.jar"/>
+            </fileset>
+            <fileset dir="${lib.dir}/drools">
+                <include name="*.jar"/>
+            </fileset>
+            <fileset dir="${lib.dir}/jboss">
+                <include name="*.jar"/>
+            </fileset>
+            <fileset dir="${lib.dir}/jboss/server">
+                <include name="*.jar"/>
+            </fileset>
+            <fileset dir="${objects.dir}/lib">
+                <include name="*.jar"/>
+            </fileset> 
+        </path>
+
+        <path id="hibernate.classpath">
+            <pathelement path="${nexus.home}/hibernate"/>
+            <fileset dir="${nexus.home}/lib/hibernate">
+                <include name="*.jar"/>
+            </fileset>
+            <fileset dir="${lib.dir}">
+                <include name="*.jar"/>
+            </fileset>
+            <!-- fileset dir="${lib.dir}/jboss">
+                <include name="*.jar"/>
+            </fileset -->
+        </path>
+
+        <taskdef name="hibernate" classname="org.hibernate.tool.ant.HibernateToolTask" classpathref="hibernate.classpath"/>
+
+        <taskdef name="izpack" classname="com.izforge.izpack.ant.IzPackTask" classpath="${lib.dir}/izpack-standalone-compiler.jar"/>
+        
+        <taskdef resource="net/sf/antcontrib/antlib.xml" classpath="${lib.dir}/ant-contrib-1.0b3.jar"/>
+    </target>
+
+    <!-- COMPILE, DEPLOY, AND CLEAN TARGETS -->
+    
+    <target depends="init" name="compile">
+        <mkdir dir="${classes.dir}"/>
+        <javac nowarn="on" debug="true" deprecation="false" destdir="${classes.dir}" srcdir="${java.dir}" listfiles="true" includeAntRuntime="false" source="1.6" target="1.6">
+            <classpath refid="nexus.classpath"/>
+            <include name="**/*.java"/>
+        </javac>
+    </target>
+
+    <target depends="init,compile" name="jar">
+        <mkdir dir="${dist.dir}"/>
+        
+        <copy todir="${classes.dir}">
+            <fileset dir="${java.dir}">
+                <include name="**/*.hbm.xml"/>
+                <include name="**/log4j.xml"/>
+                <include name="**/*.gif"/>
+                <include name="**/*.png"/>
+                <include name="**/*.htm"/>
+            </fileset>
+        </copy>
+        
+        <jar basedir="${classes.dir}" includes="com/emergentspace/nexus/**" excludes="**/*Bean*.class" compress="true" jarfile="${nexus.jar}">
+            <fileset dir="${resources.dir}/nexus.jar"/>
+        </jar>
+            
+        <jar basedir="${classes.dir}" includes="com/emergentspace/upass/**" excludes="**/*Bean*.class" compress="true" jarfile="${upass.jar}"/>
+        <jar basedir="${classes.dir}" includes="com/emergentspace/gems/**" excludes="**/*Bean*.class" compress="true" jarfile="${gems.jar}"/>
+        
+        <jar basedir="${classes.dir}" includes="com/emergentspace/gscc/**" compress="true" jarfile="${gscc.jar}">
+            <manifest>
+                <attribute name="Main-Class" value="com.emergentspace.gscc.MainWindowDockable"/>
+            </manifest>
+        </jar>
+        
+        <!-- jar basedir="${classes.dir}" includes="**/*Bean.class,**/*Local.class,**/*Remote.class,**/*Client.class" compress="true" jarfile="${nexus-services-ejb.jar}" -->
+        <jar basedir="${classes.dir}" includes="**/*Bean*.class" compress="true" jarfile="${nexus-services-ejb.jar}">
+            <fileset dir="${resources.dir}/nexus-services-ejb.jar"/>
+        </jar>
+    </target>
+    
+    <target depends="init,compile" name="war">
+        <war destfile="${gems-web.war}" webxml="${resources.dir}/gems-web.war/WEB-INF/web.xml">
+            <fileset dir="${resources.dir}/gems-web.war"/>
+            <classes dir="${classes.dir}">
+                <include name="**/gemsweb/*.class"/>
+                <include name="**/gemsweb/*.xml"/>
+            </classes>
+        </war>
+    </target>
+    
+    <target depends="init,jar,war" name="ear">
+        <delete file="${nexus.ear}"/>
+        
+        <jar compress="true" jarfile="${nexus.ear}">
+            <fileset dir="${resources.dir}/nexus.ear"/>
+            <fileset dir="${dist.dir}">
+                <include name="nexus-services-ejb.jar"/>
+                <include name="gems-web.war"/>
+            </fileset>
+            <fileset dir="${nexus.home}">
+                <include name="lib/nexus.jar"/>
+                <include name="lib/gems.jar"/>
+                <include name="lib/upass.jar"/>
+                <include name="lib/activemq-*.jar"/>
+                <include name="lib/gscc-ttf.jar"/>
+                <include name="lib/gmsec.jar"/>
+                <include name="lib/jide/jide-charts.jar"/>
+                <include name="lib/jide/jide-common.jar"/>
+                <include name="lib/jide/jide-grids.jar"/>
+                <include name="lib/jsch-*.jar"/>
+                <include name="lib/protobuf-*.jar"/>
+                <include name="lib/quartz-*.jar"/>
+                <include name="lib/swixml.jar"/>
+            </fileset>
+            
+            <!-- custom objects required for Hibernate (hard-coded for now) -->
+            <fileset dir="${objects.dir}">
+                <include name="lib/f6sim.jar"/>
+                <include name="lib/flexpath-study.jar"/>
+                <include name="lib/gsdemo.jar"/>
+                <include name="lib/msl-mission.jar"/>
+                <include name="lib/upass-bundle-examples.jar"/>
+                <include name="lib/upass-bundle-objects.jar"/>
+            </fileset>
+        </jar>
+    </target>
+    
+    <target depends="init,jar" name="liferay">
+        <jar compress="true" jarfile="${dist.dir}/liferay-portal-6.1.0.war">
+            <fileset dir="${resources.dir}/liferay-portal-6.1.0.war"/>
+        </jar>
+    </target>
+
+    <target depends="init,jar,war,ear" name="all" description="Build everything"/>
+
+    <target depends="init" name="javadoc" description="Javadoc for Nexus API">
+        <mkdir dir="${javadoc.dir}"/>
+        <javadoc destdir="${javadoc.dir}" access="private" classpathref="nexus.classpath" windowtitle="Nexus Automation Platform" useexternalfile="yes">
+            <fileset dir="${java.dir}">
+                <include name="**/*.java"/>
+            </fileset>
+            <group title="Nexus" packages="com.emergentspace.nexus.*"/>
+            <group title="UPASS" packages="com.emergentspace.upass.*"/>
+            <group title="GEMS" packages="com.emergentspace.gems.*"/>
+            <group title="GSCC" packages="com.emergentspace.gscc:com.emergentspace.gscc.*"/>
+            <link href="http://java.sun.com/javase/6/docs/api/"/>
+            <link href="http://logging.apache.org/log4j/docs/api/"/>
+            <link href="http://www.hibernate.org/hib_docs/v3/api/"/>
+            <link href="https://docs.jboss.org/author/display/AS71/Documentation" />
+            <link href="http://www.toedter.com/en/jcalendar/api/"/>
+        </javadoc>
+    </target>
+
+    <target depends="init" name="helpset" description="Build help set">
+        <jar compress="true" jarfile="${lib.dir}/nexus-help.jar">
+            <fileset dir="${help.dir}"/>
+            <fileset dir="${javadoc.dir}/.." includes="api/**"/>
+        </jar>
+    </target>
+    
+    <target depends="init" name="clean" description="Clean all build products">
+        <delete dir="${build.dir}"/>
+        <delete dir="${javadoc.dir}"/>
+        <delete file="${nexus.jar}"/>
+        <delete file="${upass.jar}"/>
+        <delete file="${gems.jar}"/>
+        <delete file="${gscc.jar}"/>
+        <delete>
+            <fileset dir="${jboss.home}/standalone/deployments" includes="nexus.ear*"/>
+        </delete>
+    </target>
+
+    <target depends="init,jar" name="deploy" description="Deploy updates to the JBoss server">
+        <copy todir="${jboss.home}/modules">
+            <fileset dir="${modules.dir}"/>
+        </copy>
+        
+        <delete file="${jboss.home}/standalone/configuration/standalone-nexus.xml"/>
+        <copy file="${conf.dir}/standalone-nexus.xml" todir="${jboss.home}/standalone/configuration"/>
+        
+        <copy file="${nexus.ear}" todir="${jboss.home}/standalone/deployments"/>
+        <delete file="${jboss.home}/standalone/deployments/nexus.ear.failed"/>
+    </target>
+
+    <target depends="clean,ear,deploy" name="super" description="Build everything and deploy"/>
+    
+    <!-- HIBERNATE REVERSE ENGINEERING AND COMPILE TARGETS -->
+
+    <target depends="init" name="reveng">
+        <mkdir dir="${nexus.home}/hibernate"/>
+        <hibernate destdir="${nexus.home}/hibernate">
+            <jdbcconfiguration configurationfile="${conf.dir}/hibernate.cfg.xml"
+                           revengfile="${conf.dir}/hibernate.reveng.xml"/>
+            <hbm2hbmxml/>
+        </hibernate>
+    </target>
+
+    <target depends="init" name="hbm2java">
+        <hibernate destdir="${nexus.home}/hibernate">
+            <configuration configurationfile="${nexus.home}/conf/hibernate.cfg.xml"/>
+            <hbm2java jdk5="true" ejb3="false"/>
+        </hibernate>
+        <javac destdir="${nexus.home}/hibernate" srcdir="${nexus.home}/hibernate" listfiles="true">
+            <classpath refid="nexus.classpath"/>
+            <include name="com/emergentspace/**/*.java"/>
+        </javac>
+    </target>
+
+    <target depends="init" name="hbm2ddl">
+        <hibernate destdir="${nexus.home}/hibernate">
+            <configuration configurationfile="${nexus.home}/conf/hibernate.cfg.xml"/>
+            <hbm2ddl drop="true" create="true" export="true" update="false"
+                 outputfilename="nexus.ddl" delimiter=";" format="true"/>
+            <!-- hbm2doc/ -->
+        </hibernate>
+    </target>
+    
+    <!-- BUILD IZPACK INSTALLER -->
+    <target depends="init, jar" name="installer">
+        <!-- @TODO a lot of changes will be needed here -->
+        
+        <!-- Eventually a release will be built for each customer and the
+             build process will have the user manually including
+             customer-specific packages.  But currently we make a single
+             release that contains all customers' packages. -->
+        <ant dir="objects" target="deploy_release" inheritAll="false"/>
+
+        <!-- copy files to the jboss directory -->
+        <mkdir dir="${nexus.home}/jboss"/>
+        <copy todir="${nexus.home}/jboss">
+            <fileset dir="${jboss.home}">
+                <include name="bin/**"/>
+                <include name="client/**"/>
+                <include name="common/**"/>
+                <include name="docs/**"/>
+                <include name="lib/**"/>
+                <include name="copyright.txt"/>
+                <include name="JBossORG-EULA.txt"/>
+                <include name="lgpl.html"/>
+            </fileset>
+        </copy>
+        
+        <mkdir dir="${nexus.home}/jboss/server/nexus"/>
+        <copy todir="${nexus.home}/jboss/server/nexus">
+            <fileset dir="${jboss.home}/server/nexus">
+                <include name="conf/**"/>
+                <include name="deploy/**"/>
+                <include name="deployers/**"/>
+                <include name="lib/**"/>
+            </fileset>
+        </copy>
+        
+        <mkdir dir="${nexus.home}/jboss/server/nexus/data/liferay/deploy"/>
+        <mkdir dir="${nexus.home}/jboss/server/nexus/data/gems-images"/>
+        <copy todir="${nexus.home}/jboss/server/nexus/data">
+            <fileset dir="${jboss.home}/server/nexus/data">
+                <include name="*.xml"/>
+            </fileset>
+        </copy>
+        <copy todir="${nexus.home}/jboss/server/nexus/data/gems-images">
+            <fileset dir="${jboss.home}/server/nexus/data/gems-images">
+                <include name="*.png"/>
+                <include name="*.jpg"/>
+            </fileset>
+        </copy>
+        
+        <!-- If not already here, create it so Jenkins builds -->
+        <mkdir dir="${nexus.home}/jboss/docs"/>
+        
+        <echo>Make sure the javadoc documentation was generated recently</echo>
+        
+        <echo>Make sure the db/release.&lt;sh|bat&gt; script was ran manually to generate database scripts</echo>
+
+        <!--
+        <exec executable="${nexus.home}/bin/version.sh" osfamily="unix"/>
+        <exec executable="${nexus.home}/bin/version.bat" osfamily="windows"/>
+        -->
+
+        <!-- run izpack to build the installer
+        output="${lib.dir}/gems-${env.PRODUCT_VERSION}-installer.jar"
+        -->
+        <izpack input="${conf.dir}/install.xml"
+                output="${dist.dir}/${label}.jar"
+                installerType="standard"
+                basedir="${nexus.home}"/>
+    </target>
+
+    <target depends="init" name="version">
+        <exec executable="${nexus.home}/bin/version.sh" osfamily="unix"/>
+        <exec executable="${nexus.home}/bin/version.bat" osfamily="windows"/>
+
+        <echo message="PRODUCT_VERSION = ${env.PRODUCT_VERSION}"/>
+    </target>
+    
+    <!-- TARGET TO OPEN THE GUI MAIN WINDOW -->
+    <target depends="init,jar" name="run">
+        <java classname="com.emergentspace.gscc.MainWindowDockable" fork="true">
+            <classpath refid="run.classpath"/>
+        </java>
+    </target>
+    
+    <target depends="init,jar" name="runDisplayFrame">
+        <java classname="com.emergentspace.gems.display.TestDisplayFrame" fork="true">
+            <classpath refid="run.classpath"/>
+        </java>
+    </target>
+
+    <target depends="init,jar" name="debugDisplayFrame">
+        <nbjpdastart addressproperty="jpda.address" name="nexus" transport="dt_socket">
+            <classpath refid="run.classpath"/>
+        </nbjpdastart>
+        <java classname="com.emergentspace.gems.display.TestDisplayFrame" fork="true">
+            <classpath refid="run.classpath"/>
+            <jvmarg value="-Xdebug"/>
+            <jvmarg value="-Xrunjdwp:transport=dt_socket,address=${jpda.address}"/>
+        </java>
+    </target>
+    
+    <target depends="init,jar" name="runDebug">
+        <nbjpdastart addressproperty="jpda.address" name="nexus" transport="dt_socket">
+            <classpath refid="run.classpath"/>
+        </nbjpdastart>
+        <java classname="com.emergentspace.gscc.MainWindowDockable" fork="true">
+            <classpath refid="run.classpath"/>
+            <jvmarg value="-Xdebug"/>
+            <jvmarg value="-Xrunjdwp:transport=dt_socket,address=${jpda.address}"/>
+        </java>
+    </target>
+    
+    <target depends="init,jar" name="runDesktop">
+        <java classname="com.emergentspace.gscc.MainWindowDesktop" fork="true">
+            <classpath refid="nexus.classpath"/>
+        </java>
+    </target>
+    
+    <target depends="init,jar" name="runDockable">
+        <java classname="com.emergentspace.gscc.MainWindowDockable" fork="true">
+            <classpath refid="nexus.classpath"/>
+        </java>
+    </target>
+    
+    <target depends="init,jar" name="profileRun">
+        <fail unless="netbeans.home">This target can only run inside the NetBeans IDE</fail>
+        <nbprofiledirect>
+            <classpath refid="nexus.classpath"/>
+        </nbprofiledirect>
+        <java classname="com.emergentspace.gscc.MainWindowDockable" fork="true">
+            <jvmarg value="${profiler.info.jvmargs.agent}"/>
+            <classpath refid="nexus.classpath"/>
+        </java>
+    </target>
+
+    <target depends="init,jar" name="shell">
+        <java classname="com.emergentspace.gscc.cli.Shell" fork="true">
+            <classpath refid="nexus.classpath"/>
+        </java>
+    </target>
+
+    <target depends="init,jar" name="console">
+        <java classname="com.emergentspace.gscc.cli.Console" fork="true">
+            <classpath refid="nexus.classpath"/>
+        </java>
+    </target>
+
+    <!-- TARGET TO OPEN THE CHAINSAW LOG VIEWER -->
+    <target depends="init" name="chainsaw">
+        <java classname="org.apache.log4j.chainsaw.LogUI" fork="true">
+            <classpath>
+                <fileset dir="${lib.dir}/chainsaw">
+                    <include name="*.jar"/>
+                </fileset>
+            </classpath>
+            <sysproperty key="org.apache.commons.logging.Log" value="org.apache.commons.logging.impl.Log4JLogger"/>
+        </java>
+    </target>
+
+    <target depends="compile" name="objects">
+        <subant target="all">
+            <fileset dir="objects" includes="build.xml"/>
+        </subant>
+    </target>
+
+</project>

@@ -1,0 +1,11 @@
+create user svc identified by svc;
+grant connect to svc;
+grant create any table to svc;
+grant create table to svc;
+grant unlimited tablespace to svc;
+grant create sequence to svc;
+grant create trigger to svc;
+grant create procedure to svc;
+grant create materialized view to svc;
+grant create view to svc;
+ALTER USER svc quota unlimited on USERS;

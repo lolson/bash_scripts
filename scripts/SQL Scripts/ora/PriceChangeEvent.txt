@@ -1,0 +1,102 @@
+-- Find total associated devices to rateprogams
+select rp_name, count(device_id) from (
+select dev.device_id, rp.rp_name from
+(select name as rp_name, rateprogram_id from smmhe.tblrateprogram where
+name='GD-DS___EA'
+or name='GD-DS___EM'
+or name='GD-DS___LO'
+or name='GD-DS___MD'
+or name='GD-DS___MS'
+or name='GD-DS___NO'
+or name='GD-DS___NS'
+or name='GD-DS___NW'
+or name='GD-DS___SE'
+or name='GD-DS___SO'
+or name='GD-DS___SS'
+or name='GD-DS___SW'
+or name='GD-DS___WA'
+or name='GD-DS___YO'
+) rp
+join
+smmhe.tblaccount_rate_program arp on arp.rate_program_id = rp.rateprogram_id
+join
+smmhe.tbldevice_info di on di.account_id = arp.account_id
+join
+smmhe.device dev on dev.id = di.device_id
+where arp.type = 'Gas' and dev.device_class = 'NEMA.76.71.48.52'
+order by device_id desc)
+group by rp_name order by rp_name;
+
+-- Expected Number of Gas Tariff Tasks per Rate Program
+
+select rp_name, count(device_id), job_group from (
+select dev.device_id, rp.rp_name, sr.job_group from --expected
+--select sr.device_id, rp.rp_name, sr.job_group from --actual
+(select name as rp_name, rateprogram_id from smmhe.tblrateprogram where
+name='GD-DS___EA'
+or name='GD-DS___EM'
+or name='GD-DS___LO'
+or name='GD-DS___MD'
+or name='GD-DS___MS'
+or name='GD-DS___NO'
+or name='GD-DS___NS'
+or name='GD-DS___NW'
+or name='GD-DS___SE'
+or name='GD-DS___SO'
+or name='GD-DS___SS'
+or name='GD-DS___SW'
+or name='GD-DS___WA'
+or name='GD-DS___YO'
+) rp
+join
+smmhe.tblaccount_rate_program arp on arp.rate_program_id = rp.rateprogram_id
+join
+smmhe.tbldevice_info di on di.account_id = arp.account_id
+join
+smmhe.device dev on dev.id = di.device_id
+join 
+smmhe.scheduler_run sr on sr.device_id = dev.device_id
+where arp.type = 'Gas' and dev.device_class = 'NEMA.76.71.48.52'
+and sr.started_at between TO_TIMESTAMP('16/11/2011 08:00:00.000000','DD/MM/YYYY HH24:MI:SS.FF') 
+AND TO_TIMESTAMP('16/11/2011 23:59:00.000000','DD/MM/YYYY HH24:MI:SS.FF')
+and sr.job_group = 'setGasTariff'
+order by device_id desc)
+group by rp_name, job_group order by rp_name;
+
+
+-- Expected Number of Electric Tariff Tasks per Rate Program
+
+select rp_name, count(device_id), job_group from (
+--select dev.device_id, rp.rp_name, sr.job_group from --expected
+select sr.device_id, rp.rp_name, sr.job_group from --actual
+(select name as rp_name, rateprogram_id from smmhe.tblrateprogram where
+name='ED-D1___EA'
+or name='ED-D1___EM'
+or name='ED-D1___LO'
+or name='ED-D1___MD'
+or name='ED-D1___MS'
+or name='ED-D1___NO'
+or name='ED-D1___NS'
+or name='ED-D1___NW'
+or name='ED-D1___SE'
+or name='ED-D1___SO'
+or name='ED-D1___SS'
+or name='ED-D1___SW'
+or name='ED-D1___WA'
+or name='ED-D1___YO'
+) rp
+join
+smmhe.tblaccount_rate_program arp on arp.rate_program_id = rp.rateprogram_id
+join
+smmhe.tbldevice_info di on di.account_id = arp.account_id
+join
+smmhe.device dev on dev.id = di.device_id
+join 
+smmhe.scheduler_run sr on sr.device_id = dev.device_id
+where arp.type = 'Electric' and dev.device_class = 'NEMA.76.71.48.52'
+and sr.started_at between TO_TIMESTAMP('16/11/2011 08:00:00.000000','DD/MM/YYYY HH24:MI:SS.FF') 
+AND TO_TIMESTAMP('16/11/2011 23:59:00.000000','DD/MM/YYYY HH24:MI:SS.FF')
+and sr.job_group = 'setElectricTariff'
+order by device_id desc)
+group by rp_name, job_group order by rp_name;
+

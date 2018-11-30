@@ -1,0 +1,5 @@
+For local Oracle XE
+
+Make sure at least both are running: 
+1) OracleServiceXE
+2) OracleXETNSListener

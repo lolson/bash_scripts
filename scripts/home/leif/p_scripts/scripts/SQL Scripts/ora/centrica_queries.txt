@@ -1,0 +1,52 @@
+Queries to monitor Centrica SMS device call:
+
+See if deivce cmd scheduled to run:
+select run_id, job_name, started_at, ended_at, job_group, message 
+from scheduler_run where job_group != 'groupedCommandRequest' order by started_at desc;
+
+--check scheduler run for today's tasks
+select * from scheduler_run where job_name='SAM11046' 
+and trunc(started_at)=trunc(sysdate);
+
+
+Monitor dev_logs for a given run id:
+select * from dev_logs where run_id='58739' order by timestamp desc;
+
+Check xml value content in device parameter value tbl:
+select * from tbldevice_parameter_values order by created_date desc;
+
+Other queries:
+select name, standing_charge from tblrateplan where name like 'default%';
+select *  from prepayment_balances order by read_date desc;
+select name, created_date, status, rateplan_type, fuel_type, standing_charge  from  tblrateplan;
+
+
+Other: 
+
+select t1.name value_name, t1.description from tbldevice_parameter_values t1
+join tbldevice_parameter_template t2
+on t1.device_parameter_template_id = t2.device_parameter_template_id;
+
+select t1.name, t1.values_xml
+from tbldevice_parameter_values t1
+join tbldevice_parameter_template t2
+on t1.device_parameter_template_id = t2.device_parameter_template_id
+where t1.visibility_level='EXTERNAL';
+
+
+select * from u_scheduler_task where task_id ='1212227276637882228';
+
+select * from u_scheduler_run where run_id = '1205859276637900618';
+
+select * from tbldevice_param_temp_product where product_id=(select product_id from tblproduct where model='5262');
+
+select l.lookup_id , f.name, f.column_position, f.row_position from 
+tbllookup l
+join tblfield f
+on 
+l.lookup_id = f.entity_type
+where l.name = 'ET_DEVICE'
+order by f.row_position;
+
+
+

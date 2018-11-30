@@ -1,0 +1,5 @@
+-- Paged query
+
+select * from device_reading limit 0, 20;
+
+select * from table_name limit start_int, end_int

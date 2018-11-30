@@ -1,0 +1,24 @@
+For those who are interested, I've put a copy of the setup installer for the freely distributed Oracle 10g Express Edition on the "guido" share drive under Software/Oracle10gXE.  Expect the installed Oracle XE app to take about 1.3 GB of disk space.  Once installed you will need to create an environmental variable ORACLE_SID with the value “xe” to access your running oracle instance with SQL plus.  However you should not need an ORACLE_HOME environmental property set.  You will also need to create a user “svc” with password “svc.”  The easiest way to do this is by using the Oracle Application Express web interface, a link from your Start > Programs > Oracle Database 10g Edition  > Go to database home page should bring up a login page pointing to a URL like http://127.0.0.1:8090/apex
+I logged in as SYSTEM user  and navigate to Administration > Database Users > Create User
+Note that configuring the APEX http listener to use its default port setting of 8080 will interfere with Tomcat, so during installation set another port like 8090 (otherwise you can run a sql script as user SYSTEM to change the port used).  
+
+Also I've added an operational context called "xe" on the build server SVC configuration manager that points to local oracle instance with sid "xe" and user/pass credentials svc / svc.  If you edit your <SVC_INSTALL>\ServiewComTaskManager\bin\build.xml “APP_INSTANCE” property to point to “xe” instead of serviewcom and run the createDB.bat script it should succefully create and populate your local xe svc/svc schema.
+
+Add a environment/ resource in server.xml for this Oracle instance
+
+Error on refresh data (after config appContext-refresh-ds.xml to point to local xe instnace:
+Error msg: "org.dbunit.database.AmbiguousTableNameException: AQ$_SCHEDULES"
+Solution:  removed dba rights from user "svc"
+Otherwise: Recreating the database user with fewer rights (connect, resource) (not dba)
+solved the actual problem (AmbiguousTableNameException).
+
+Error on refresh data: java.sql.SQLException: ORA-01536: space quota exceeded for tablespace 'USERS'
+Reason: default a space quota on the users tablespace is too small
+Solution: from sql plus ran:
+ALTER USER <user> quota unlimited on USERS;
+// where <user> is your specified username
+
+Error on refresh data: Error typecasting value <false> to DECIMAL
+Reason: not sure, perhaps bad dataLoad xml
+Resultion: works for MySQL, perhaps it ignores whatever field Oracle is complaining about 
+Presumably seeding the database works( though not using dbunit test refresh data)

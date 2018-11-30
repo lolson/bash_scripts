@@ -1,0 +1,1315 @@
+#
+# A fatal error has been detected by the Java Runtime Environment:
+#
+#  SIGBUS (0x7) at pc=0x00007f0e9534365c, pid=21736, tid=139697996109568
+#
+# JRE version: 6.0_45-b06
+# Java VM: Java HotSpot(TM) 64-Bit Server VM (20.45-b01 mixed mode linux-amd64 compressed oops)
+# Problematic frame:
+# C  [libc.so.6+0x14f65c]  __nss_hosts_lookup+0x1d5dc
+#
+# If you would like to submit a bug report, please visit:
+#   http://java.sun.com/webapps/bugreport/crash.jsp
+# The crash happened outside the Java Virtual Machine in native code.
+# See problematic frame for where to report the bug.
+#
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x00007f0da4038800):  JavaThread "127.0.0.1-startStop-3" daemon [_thread_in_native, id=21979, stack(0x00007f0df95f1000,0x00007f0df96f2000)]
+
+siginfo:si_signo=SIGBUS: si_errno=0, si_code=2 (BUS_ADRERR), si_addr=0x00007f0e897ab000
+
+Registers:
+RAX=0x00007f0d8023bd40, RBX=0x0000000000006966, RCX=0x000000000000434e, RDX=0x000000000000134e
+RSP=0x00007f0df96eebf8, RBP=0x00007f0e897a8052, RSI=0x00007f0e897aafa0, RDI=0x00007f0d8023ec60
+R8 =0x00007f0d8023bd40, R9 =0x000000010956c340, R10=0x00007f0e950823d8, R11=0x000000000000010e
+R12=0x00007f0d8047b610, R13=0x000000000000436e, R14=0x00007f0e908301d0, R15=0x0000000000006e6f
+RIP=0x00007f0e9534365c, EFLAGS=0x0000000000010206, CSGSFS=0x0000000000000033, ERR=0x0000000000000004
+  TRAPNO=0x000000000000000e
+
+Top of Stack: (sp=0x00007f0df96eebf8)
+0x00007f0df96eebf8:   00007f0e8ee7631e 00000000f96eec20
+0x00007f0df96eec08:   00007f0e90830350 00007f0e908301d0
+0x00007f0df96eec18:   0000000000000000 0000000065596b56
+0x00007f0df96eec28:   00007f0df96eec90 0000000000000000
+0x00007f0df96eec38:   00007f0e8ee765c4 00007f0da4038800
+0x00007f0df96eec48:   00007f0df96eec90 00007f0da40389d0
+0x00007f0df96eec58:   0000000000000008 00007f0df96ef0e8
+0x00007f0df96eec68:   0000000000000008 0000000000000001
+0x00007f0df96eec78:   00007f0e8ee6e797 00007f0df96eec90
+0x00007f0df96eec88:   00007f0e908301d0 464e492d4154454d
+0x00007f0df96eec98:   00007f0da403002f 0000000000000000
+0x00007f0df96eeca8:   00007f0da4038800 00007f0e95084250
+0x00007f0df96eecb8:   00007f0e9504e159 00007f0e95084250
+0x00007f0df96eecc8:   00007f0da4038800 00007f0df96ef030
+0x00007f0df96eecd8:   00007f0e94d67127 00007f0e95069ad0
+0x00007f0df96eece8:   00007f0e4561a130 000000005018aa40
+0x00007f0df96eecf8:   00007f0e5018ae18 0000000000000000
+0x00007f0df96eed08:   00000000ed6a0430 00007f0e4561a128
+0x00007f0df96eed18:   00007f0e4561a138 00007f0e4561a120
+0x00007f0df96eed28:   00000000ed6da8c8 00000000c0217500
+0x00007f0df96eed38:   00007f0e94d583ed 0000000000000000
+0x00007f0df96eed48:   0000000100000000 00007f0da4038800
+0x00007f0df96eed58:   01007f0e4561a200 00000000ed6a0430
+0x00007f0df96eed68:   00007f0da4010100 0000000000000000
+0x00007f0df96eed78:   00007f0df96eed28 00007f0df96eed69
+0x00007f0df96eed88:   0000000800000002 0000000000000000
+0x00007f0df96eed98:   00000000b1b48ef8 00007f0da4016a50
+0x00007f0df96eeda8:   00007f0e5018aa30 00007f0e5018aa40
+0x00007f0df96eedb8:   00007f0e5018ae18 00007f0da40389d0
+0x00007f0df96eedc8:   00007f0df96eee20 00007f0df96eee60
+0x00007f0df96eedd8:   00007f0da4038800 00007f0e9006c370
+0x00007f0df96eede8:   00007f0df96eee90 00007f0df96eefb0 
+
+Instructions: (pc=0x00007f0e9534365c)
+0x00007f0e9534363c:   00 00 00 f3 0f 6f 06 f3 0f 6f 4e 10 f3 0f 6f 56
+0x00007f0e9534364c:   20 f3 0f 6f 5e 30 f3 0f 6f 66 40 f3 0f 6f 6e 50
+0x00007f0e9534365c:   f3 0f 6f 76 60 f3 0f 6f 7e 70 66 0f 7f 07 66 0f
+0x00007f0e9534366c:   7f 4f 10 66 0f 7f 57 20 66 0f 7f 5f 30 66 0f 7f 
+
+Register to memory mapping:
+
+RAX=0x00007f0d8023bd40 is an unknown value
+RBX=0x0000000000006966 is an unknown value
+RCX=0x000000000000434e is an unknown value
+RDX=0x000000000000134e is an unknown value
+RSP=0x00007f0df96eebf8 is pointing into the stack for thread: 0x00007f0da4038800
+RBP=0x00007f0e897a8052 is an unknown value
+RSI=0x00007f0e897aafa0 is an unknown value
+RDI=0x00007f0d8023ec60 is an unknown value
+R8 =0x00007f0d8023bd40 is an unknown value
+R9 =0x000000010956c340 is an unknown value
+R10=0x00007f0e950823d8: <offset 0xa9e3d8> in /home/leif/redhat2014/jre1.6.0_45/lib/amd64/server/libjvm.so at 0x00007f0e945e4000
+R11=0x000000000000010e is an unknown value
+R12=0x00007f0d8047b610 is an unknown value
+R13=0x000000000000436e is an unknown value
+R14=0x00007f0e908301d0 is an unknown value
+R15=0x0000000000006e6f is an unknown value
+
+
+Stack: [0x00007f0df95f1000,0x00007f0df96f2000],  sp=0x00007f0df96eebf8,  free space=1014k
+Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+C  [libc.so.6+0x14f65c]  __nss_hosts_lookup+0x1d5dc
+
+Java frames: (J=compiled Java code, j=interpreted, Vv=VM code)
+J  java.util.zip.ZipFile.getEntry(JLjava/lang/String;Z)J
+J  java.util.jar.JarFile.getEntry(Ljava/lang/String;)Ljava/util/zip/ZipEntry;
+J  sun.misc.URLClassPath$JarLoader.findResource(Ljava/lang/String;Z)Ljava/net/URL;
+J  sun.misc.URLClassPath$1.next()Z
+j  sun.misc.URLClassPath$1.hasMoreElements()Z+1
+j  java.net.URLClassLoader$3$1.run()Ljava/lang/Object;+7
+v  ~StubRoutines::call_stub
+J  java.security.AccessController.doPrivileged(Ljava/security/PrivilegedAction;Ljava/security/AccessControlContext;)Ljava/lang/Object;
+j  java.net.URLClassLoader$3.next()Z+24
+j  java.net.URLClassLoader$3.hasMoreElements()Z+1
+J  sun.misc.CompoundEnumeration.next()Z
+j  sun.misc.CompoundEnumeration.hasMoreElements()Z+1
+J  sun.misc.CompoundEnumeration.next()Z
+j  sun.misc.CompoundEnumeration.hasMoreElements()Z+1
+J  java.util.Collections.list(Ljava/util/Enumeration;)Ljava/util/ArrayList;
+j  org.apache.xbean.finder.UrlSet.getUrls(Ljava/lang/ClassLoader;)Ljava/util/List;+14
+j  org.apache.xbean.finder.UrlSet.<init>(Ljava/lang/ClassLoader;)V+2
+j  org.apache.tomee.loader.EmbeddedJarScanner.scan(Ljavax/servlet/ServletContext;Ljava/lang/ClassLoader;Lorg/apache/tomcat/JarScannerCallback;Ljava/util/Set;)V+5
+j  org.apache.tomee.loader.TomEEJarScanner.scan(Ljavax/servlet/ServletContext;Ljava/lang/ClassLoader;Lorg/apache/tomcat/JarScannerCallback;Ljava/util/Set;)V+31
+j  org.apache.catalina.startup.ContextConfig.processJarsForWebFragments()Ljava/util/Map;+48
+j  org.apache.catalina.startup.ContextConfig.webConfig()V+48
+j  org.apache.tomee.catalina.OpenEJBContextConfig.webConfig()V+1
+j  org.apache.catalina.startup.ContextConfig.configureStart()V+101
+j  org.apache.tomee.catalina.OpenEJBContextConfig.configureStart()V+1
+j  org.apache.catalina.startup.ContextConfig.lifecycleEvent(Lorg/apache/catalina/LifecycleEvent;)V+57
+j  org.apache.catalina.util.LifecycleSupport.fireLifecycleEvent(Ljava/lang/String;Ljava/lang/Object;)V+37
+j  org.apache.catalina.util.LifecycleBase.fireLifecycleEvent(Ljava/lang/String;Ljava/lang/Object;)V+6
+j  org.apache.catalina.core.StandardContext.startInternal()V+586
+j  org.apache.catalina.util.LifecycleBase.start()V+210
+j  org.apache.catalina.core.ContainerBase.addChildInternal(Lorg/apache/catalina/Container;)V+170
+j  org.apache.catalina.core.ContainerBase.addChild(Lorg/apache/catalina/Container;)V+26
+j  org.apache.catalina.core.StandardHost.addChild(Lorg/apache/catalina/Container;)V+40
+j  org.apache.catalina.startup.HostConfig.deployDirectory(Lorg/apache/catalina/util/ContextName;Ljava/io/File;)V+463
+j  org.apache.catalina.startup.HostConfig$DeployDirectory.run()V+12
+j  java.util.concurrent.Executors$RunnableAdapter.call()Ljava/lang/Object;+4
+j  java.util.concurrent.FutureTask$Sync.innerRun()V+30
+j  java.util.concurrent.FutureTask.run()V+4
+j  java.util.concurrent.ThreadPoolExecutor$Worker.runTask(Ljava/lang/Runnable;)V+66
+j  java.util.concurrent.ThreadPoolExecutor$Worker.run()V+33
+j  java.lang.Thread.run()V+11
+v  ~StubRoutines::call_stub
+
+---------------  P R O C E S S  ---------------
+
+Java Threads: ( => current thread )
+  0x00007f0e90ecf000 JavaThread "Catalina-startStop-2" daemon [_thread_blocked, id=21998, stack(0x00007f0df9d67000,0x00007f0df9e68000)]
+=>0x00007f0da4038800 JavaThread "127.0.0.1-startStop-3" daemon [_thread_in_native, id=21979, stack(0x00007f0df95f1000,0x00007f0df96f2000)]
+  0x00007f0da4031800 JavaThread "MultiThreadedHttpConnectionManager cleanup" daemon [_thread_blocked, id=21959, stack(0x00007f0e88e62000,0x00007f0e88f63000)]
+  0x00007f0e2aa80000 JavaThread "liferay/hot_deploy-1" daemon [_thread_blocked, id=21880, stack(0x00007f0df96f2000,0x00007f0df97f3000)]
+  0x00007f0e29581000 JavaThread "liferay/search_writer/SYSTEM_ENGINE-1" daemon [_thread_blocked, id=21879, stack(0x00007f0e89064000,0x00007f0e89165000)]
+  0x00007f0e90946000 JavaThread "ajp-bio-8009-AsyncTimeout" daemon [_thread_blocked, id=21864, stack(0x00007f0df9963000,0x00007f0df9a64000)]
+  0x00007f0e90945000 JavaThread "ajp-bio-8009-Acceptor-0" daemon [_thread_blocked, id=21863, stack(0x00007f0df9a64000,0x00007f0df9b65000)]
+  0x00007f0e90944800 JavaThread "http-bio-8443-AsyncTimeout" daemon [_thread_blocked, id=21862, stack(0x00007f0df9b65000,0x00007f0df9c66000)]
+  0x00007f0e90ed0000 JavaThread "http-bio-8443-Acceptor-0" daemon [_thread_blocked, id=21861, stack(0x00007f0df9c66000,0x00007f0df9d67000)]
+  0x00007f0e29326800 JavaThread "com.liferay.portal.kernel.deploy.auto.AutoDeployScanner" daemon [_thread_blocked, id=21855, stack(0x00007f0df9e68000,0x00007f0df9f69000)]
+  0x00007f0e2aa33800 JavaThread "org.python.google.common.base.internal.Finalizer" daemon [_thread_blocked, id=21851, stack(0x00007f0df9f6b000,0x00007f0dfa06c000)]
+  0x00007f0e28f26800 JavaThread "com.mchange.v2.async.ThreadPoolAsynchronousRunner$PoolThread-#9" daemon [_thread_blocked, id=21828, stack(0x00007f0dfa06c000,0x00007f0dfa16d000)]
+  0x00007f0e28289000 JavaThread "com.mchange.v2.async.ThreadPoolAsynchronousRunner$PoolThread-#8" daemon [_thread_blocked, id=21827, stack(0x00007f0dfa16d000,0x00007f0dfa26e000)]
+  0x00007f0e282fd800 JavaThread "com.mchange.v2.async.ThreadPoolAsynchronousRunner$PoolThread-#7" daemon [_thread_blocked, id=21826, stack(0x00007f0dfa26e000,0x00007f0dfa36f000)]
+  0x00007f0e28096800 JavaThread "com.mchange.v2.async.ThreadPoolAsynchronousRunner$PoolThread-#6" daemon [_thread_blocked, id=21825, stack(0x00007f0dfa36f000,0x00007f0dfa470000)]
+  0x00007f0e28f32000 JavaThread "com.mchange.v2.async.ThreadPoolAsynchronousRunner$PoolThread-#5" daemon [_thread_blocked, id=21824, stack(0x00007f0dfa470000,0x00007f0dfa571000)]
+  0x00007f0e28d9e800 JavaThread "com.mchange.v2.async.ThreadPoolAsynchronousRunner$PoolThread-#4" daemon [_thread_blocked, id=21823, stack(0x00007f0dfa571000,0x00007f0dfa672000)]
+  0x00007f0e28f2b000 JavaThread "com.mchange.v2.async.ThreadPoolAsynchronousRunner$PoolThread-#3" daemon [_thread_blocked, id=21822, stack(0x00007f0dfa672000,0x00007f0dfa773000)]
+  0x00007f0e29440000 JavaThread "com.mchange.v2.async.ThreadPoolAsynchronousRunner$PoolThread-#2" daemon [_thread_blocked, id=21821, stack(0x00007f0dfa773000,0x00007f0dfa874000)]
+  0x00007f0e2943f800 JavaThread "com.mchange.v2.async.ThreadPoolAsynchronousRunner$PoolThread-#1" daemon [_thread_blocked, id=21820, stack(0x00007f0dfa874000,0x00007f0dfa975000)]
+  0x00007f0e2863a000 JavaThread "com.mchange.v2.async.ThreadPoolAsynchronousRunner$PoolThread-#0" daemon [_thread_blocked, id=21819, stack(0x00007f0dfa975000,0x00007f0dfaa76000)]
+  0x00007f0e28639800 JavaThread "Timer-2" daemon [_thread_blocked, id=21818, stack(0x00007f0dfaa76000,0x00007f0dfab77000)]
+  0x00007f0e2863f800 JavaThread "com.mchange.v2.async.ThreadPoolAsynchronousRunner$PoolThread-#9" daemon [_thread_blocked, id=21814, stack(0x00007f0de3eff000,0x00007f0de4000000)]
+  0x00007f0e28d07000 JavaThread "com.mchange.v2.async.ThreadPoolAsynchronousRunner$PoolThread-#8" daemon [_thread_blocked, id=21813, stack(0x00007f0dfab77000,0x00007f0dfac78000)]
+  0x00007f0e28ddb000 JavaThread "com.mchange.v2.async.ThreadPoolAsynchronousRunner$PoolThread-#7" daemon [_thread_blocked, id=21812, stack(0x00007f0dfac78000,0x00007f0dfad79000)]
+  0x00007f0e28a46000 JavaThread "com.mchange.v2.async.ThreadPoolAsynchronousRunner$PoolThread-#6" daemon [_thread_blocked, id=21811, stack(0x00007f0dfad79000,0x00007f0dfae7a000)]
+  0x00007f0e28d60800 JavaThread "com.mchange.v2.async.ThreadPoolAsynchronousRunner$PoolThread-#5" daemon [_thread_blocked, id=21810, stack(0x00007f0dfae7a000,0x00007f0dfaf7b000)]
+  0x00007f0e294c1000 JavaThread "com.mchange.v2.async.ThreadPoolAsynchronousRunner$PoolThread-#4" daemon [_thread_blocked, id=21809, stack(0x00007f0e8865a000,0x00007f0e8875b000)]
+  0x00007f0e2970b800 JavaThread "com.mchange.v2.async.ThreadPoolAsynchronousRunner$PoolThread-#3" daemon [_thread_blocked, id=21808, stack(0x00007f0e8885c000,0x00007f0e8895d000)]
+  0x00007f0e28660800 JavaThread "com.mchange.v2.async.ThreadPoolAsynchronousRunner$PoolThread-#2" daemon [_thread_blocked, id=21807, stack(0x00007f0e88458000,0x00007f0e88559000)]
+  0x00007f0e28a1c800 JavaThread "com.mchange.v2.async.ThreadPoolAsynchronousRunner$PoolThread-#1" daemon [_thread_blocked, id=21806, stack(0x00007f0e88d61000,0x00007f0e88e62000)]
+  0x00007f0e294c6000 JavaThread "com.mchange.v2.async.ThreadPoolAsynchronousRunner$PoolThread-#0" daemon [_thread_blocked, id=21805, stack(0x00007f0e88c60000,0x00007f0e88d61000)]
+  0x00007f0e28a19800 JavaThread "Timer-1" daemon [_thread_blocked, id=21804, stack(0x00007f0e88f63000,0x00007f0e89064000)]
+  0x00007f0e910c0000 JavaThread "org.apache.openejb.pool.scheduler.4" daemon [_thread_blocked, id=21783, stack(0x00007f0e8895d000,0x00007f0e88a5e000)]
+  0x00007f0e910bf000 JavaThread "org.apache.openejb.pool.scheduler.3" daemon [_thread_blocked, id=21782, stack(0x00007f0e88b5f000,0x00007f0e88c60000)]
+  0x00007f0e910c9000 JavaThread "org.apache.openejb.pool.scheduler.2" daemon [_thread_blocked, id=21781, stack(0x00007f0e88a5e000,0x00007f0e88b5f000)]
+  0x00007f0e910cc800 JavaThread "org.apache.openejb.pool.scheduler.1" daemon [_thread_blocked, id=21780, stack(0x00007f0e89266000,0x00007f0e89367000)]
+  0x00007f0e910a6800 JavaThread "Timer-0" daemon [_thread_blocked, id=21779, stack(0x00007f0e88559000,0x00007f0e8865a000)]
+  0x00007f0e910bb800 JavaThread "OpenEJB-TimerService-Scheduler_QuartzSchedulerThread" daemon [_thread_blocked, id=21778, stack(0x00007f0e89165000,0x00007f0e89266000)]
+  0x00007f0e90e12000 JavaThread "Stateful cache" daemon [_thread_blocked, id=21777, stack(0x00007f0e89367000,0x00007f0e89468000)]
+  0x00007f0e90e1e800 JavaThread "Abandoned connection cleanup thread" daemon [_thread_blocked, id=21776, stack(0x00007f0e8875b000,0x00007f0e8885c000)]
+  0x00007f0e90ba0000 JavaThread "RetryTimer" daemon [_thread_blocked, id=21775, stack(0x00007f0e88357000,0x00007f0e88458000)]
+  0x00007f0e90a58000 JavaThread "GC Daemon" daemon [_thread_blocked, id=21756, stack(0x00007f0e89588000,0x00007f0e89689000)]
+  0x00007f0e900ac800 JavaThread "Low Memory Detector" daemon [_thread_blocked, id=21754, stack(0x00007f0e89da9000,0x00007f0e89eaa000)]
+  0x00007f0e900aa000 JavaThread "C2 CompilerThread1" daemon [_thread_blocked, id=21753, stack(0x00007f0e89eaa000,0x00007f0e89fab000)]
+  0x00007f0e900a7000 JavaThread "C2 CompilerThread0" daemon [_thread_blocked, id=21752, stack(0x00007f0e89fab000,0x00007f0e8a0ac000)]
+  0x00007f0e900a5000 JavaThread "JDWP Event Helper Thread" daemon [_thread_blocked, id=21751, stack(0x00007f0e8a0ac000,0x00007f0e8a1ad000)]
+  0x00007f0e900a1800 JavaThread "JDWP Transport Listener: dt_socket" daemon [_thread_in_native, id=21750, stack(0x00007f0e8a1ad000,0x00007f0e8a2ae000)]
+  0x00007f0e90095800 JavaThread "Signal Dispatcher" daemon [_thread_blocked, id=21749, stack(0x00007f0e8a3b2000,0x00007f0e8a4b3000)]
+  0x00007f0e9007a000 JavaThread "Finalizer" daemon [_thread_blocked, id=21748, stack(0x00007f0e8a4b3000,0x00007f0e8a5b4000)]
+  0x00007f0e90078000 JavaThread "Reference Handler" daemon [_thread_blocked, id=21747, stack(0x00007f0e8a5b4000,0x00007f0e8a6b5000)]
+  0x00007f0e9000a800 JavaThread "main" [_thread_blocked, id=21737, stack(0x00007f0e941e7000,0x00007f0e942e8000)]
+
+Other Threads:
+  0x00007f0e90071000 VMThread [stack: 0x00007f0e8a6b5000,0x00007f0e8a7b6000] [id=21746]
+  0x00007f0e900bf000 WatcherThread [stack: 0x00007f0e89ca8000,0x00007f0e89da9000] [id=21755]
+
+VM state:not at safepoint (normal execution)
+
+VM Mutex/Monitor currently owned by a thread: None
+
+Heap
+ PSYoungGen      total 208384K, used 58963K [0x00000000eaab0000, 0x00000000fcc80000, 0x0000000100000000)
+  eden space 122688K, 37% used [0x00000000eaab0000,0x00000000ed7cfaf0,0x00000000f2280000)
+  from space 85696K, 14% used [0x00000000f78d0000,0x00000000f8545300,0x00000000fcc80000)
+  to   space 87040K, 0% used [0x00000000f2280000,0x00000000f2280000,0x00000000f7780000)
+ PSOldGen        total 299456K, used 136300K [0x00000000c0000000, 0x00000000d2470000, 0x00000000eaab0000)
+  object space 299456K, 45% used [0x00000000c0000000,0x00000000c851b200,0x00000000d2470000)
+ PSPermGen       total 262144K, used 197869K [0x00000000b0000000, 0x00000000c0000000, 0x00000000c0000000)
+  object space 262144K, 75% used [0x00000000b0000000,0x00000000bc13b6a8,0x00000000c0000000)
+
+Code Cache  [0x00007f0e8be6b000, 0x00007f0e8c9db000, 0x00007f0e8ee6b000)
+ total_blobs=3786 nmethods=2370 adapters=1376 free_code_cache=38631104 largest_free_block=38848
+
+Dynamic libraries:
+40000000-40009000 r-xp 00000000 08:01 41025644                           /home/leif/redhat2014/jre1.6.0_45/bin/java
+40108000-4010a000 rwxp 00008000 08:01 41025644                           /home/leif/redhat2014/jre1.6.0_45/bin/java
+40f0f000-40f30000 rwxp 00000000 00:00 0                                  [heap]
+b0000000-c0000000 rwxp 00000000 00:00 0 
+c0000000-d2470000 rwxp 00000000 00:00 0 
+d2470000-de430000 ---p 00000000 00:00 0 
+de430000-eaab0000 rwxp 00000000 00:00 0 
+eaab0000-fcc80000 rwxp 00000000 00:00 0 
+fcc80000-100000000 ---p 00000000 00:00 0 
+7f0d80000000-7f0d804c7000 rwxp 00000000 00:00 0 
+7f0d804c7000-7f0d84000000 ---p 00000000 00:00 0 
+7f0d88000000-7f0d88021000 rwxp 00000000 00:00 0 
+7f0d88021000-7f0d8c000000 ---p 00000000 00:00 0 
+7f0d8c000000-7f0d8c021000 rwxp 00000000 00:00 0 
+7f0d8c021000-7f0d90000000 ---p 00000000 00:00 0 
+7f0d90000000-7f0d90021000 rwxp 00000000 00:00 0 
+7f0d90021000-7f0d94000000 ---p 00000000 00:00 0 
+7f0d94000000-7f0d94021000 rwxp 00000000 00:00 0 
+7f0d94021000-7f0d98000000 ---p 00000000 00:00 0 
+7f0d98000000-7f0d986e5000 rwxp 00000000 00:00 0 
+7f0d986e5000-7f0d9c000000 ---p 00000000 00:00 0 
+7f0d9c000000-7f0d9c021000 rwxp 00000000 00:00 0 
+7f0d9c021000-7f0da0000000 ---p 00000000 00:00 0 
+7f0da0000000-7f0da058a000 rwxp 00000000 00:00 0 
+7f0da058a000-7f0da4000000 ---p 00000000 00:00 0 
+7f0da4000000-7f0da43f2000 rwxp 00000000 00:00 0 
+7f0da43f2000-7f0da8000000 ---p 00000000 00:00 0 
+7f0da8000000-7f0da8021000 rwxp 00000000 00:00 0 
+7f0da8021000-7f0dac000000 ---p 00000000 00:00 0 
+7f0dac000000-7f0dac021000 rwxp 00000000 00:00 0 
+7f0dac021000-7f0db0000000 ---p 00000000 00:00 0 
+7f0db0000000-7f0db0021000 rwxp 00000000 00:00 0 
+7f0db0021000-7f0db4000000 ---p 00000000 00:00 0 
+7f0db4000000-7f0db4021000 rwxp 00000000 00:00 0 
+7f0db4021000-7f0db8000000 ---p 00000000 00:00 0 
+7f0db8000000-7f0db8021000 rwxp 00000000 00:00 0 
+7f0db8021000-7f0dbc000000 ---p 00000000 00:00 0 
+7f0dbc000000-7f0dbc021000 rwxp 00000000 00:00 0 
+7f0dbc021000-7f0dc0000000 ---p 00000000 00:00 0 
+7f0dc0000000-7f0dc0021000 rwxp 00000000 00:00 0 
+7f0dc0021000-7f0dc4000000 ---p 00000000 00:00 0 
+7f0dc4000000-7f0dc4021000 rwxp 00000000 00:00 0 
+7f0dc4021000-7f0dc8000000 ---p 00000000 00:00 0 
+7f0dc8000000-7f0dc8021000 rwxp 00000000 00:00 0 
+7f0dc8021000-7f0dcc000000 ---p 00000000 00:00 0 
+7f0dcc000000-7f0dcc021000 rwxp 00000000 00:00 0 
+7f0dcc021000-7f0dd0000000 ---p 00000000 00:00 0 
+7f0dd0000000-7f0dd0021000 rwxp 00000000 00:00 0 
+7f0dd0021000-7f0dd4000000 ---p 00000000 00:00 0 
+7f0dd4000000-7f0dd4021000 rwxp 00000000 00:00 0 
+7f0dd4021000-7f0dd8000000 ---p 00000000 00:00 0 
+7f0dd8000000-7f0dd804e000 rwxp 00000000 00:00 0 
+7f0dd804e000-7f0ddc000000 ---p 00000000 00:00 0 
+7f0ddc000000-7f0ddc021000 rwxp 00000000 00:00 0 
+7f0ddc021000-7f0de0000000 ---p 00000000 00:00 0 
+7f0de3eff000-7f0de3f02000 ---p 00000000 00:00 0 
+7f0de3f02000-7f0de4000000 rwxp 00000000 00:00 0 
+7f0de4000000-7f0de4049000 rwxp 00000000 00:00 0 
+7f0de4049000-7f0de8000000 ---p 00000000 00:00 0 
+7f0de8000000-7f0de8021000 rwxp 00000000 00:00 0 
+7f0de8021000-7f0dec000000 ---p 00000000 00:00 0 
+7f0dec000000-7f0dee643000 rwxp 00000000 00:00 0 
+7f0dee643000-7f0df0000000 ---p 00000000 00:00 0 
+7f0df0000000-7f0df00f3000 rwxp 00000000 00:00 0 
+7f0df00f3000-7f0df4000000 ---p 00000000 00:00 0 
+7f0df4000000-7f0df408d000 rwxp 00000000 00:00 0 
+7f0df408d000-7f0df8000000 ---p 00000000 00:00 0 
+7f0df95f1000-7f0df95f4000 ---p 00000000 00:00 0 
+7f0df95f4000-7f0df96f2000 rwxp 00000000 00:00 0 
+7f0df96f2000-7f0df96f5000 ---p 00000000 00:00 0 
+7f0df96f5000-7f0df97f3000 rwxp 00000000 00:00 0 
+7f0df97f3000-7f0df97f9000 r-xs 00049000 08:01 39722633                   /home/leif/opt/mbs-tomcat-7.0.40/temp/1-mbs-ui/WEB-INF/lib/util-taglib.jar
+7f0df97f9000-7f0df97fe000 r-xs 00029000 08:01 39722647                   /home/leif/opt/mbs-tomcat-7.0.40/temp/1-mbs-ui/WEB-INF/lib/util-java.jar
+7f0df97fe000-7f0df9801000 r-xs 0000f000 08:01 39722645                   /home/leif/opt/mbs-tomcat-7.0.40/temp/1-mbs-ui/WEB-INF/lib/util-bridges.jar
+7f0df9801000-7f0df9819000 r-xs 001ab000 08:01 39722653                   /home/leif/opt/mbs-tomcat-7.0.40/temp/1-mbs-ui/WEB-INF/lib/primefaces-3.5.jar
+7f0df9819000-7f0df9822000 r-xs 0006d000 08:01 39722630                   /home/leif/opt/mbs-tomcat-7.0.40/temp/1-mbs-ui/WEB-INF/lib/log4j.jar
+7f0df9822000-7f0df9825000 r-xs 0001a000 08:01 39722638                   /home/leif/opt/mbs-tomcat-7.0.40/temp/1-mbs-ui/WEB-INF/lib/liferay-faces-util-3.1.2-ga3.jar
+7f0df9825000-7f0df9828000 r-xs 00014000 08:01 39722652                   /home/leif/opt/mbs-tomcat-7.0.40/temp/1-mbs-ui/WEB-INF/lib/liferay-faces-portal-3.1.2-ga3.jar
+7f0df9828000-7f0df9833000 r-xs 0006f000 08:01 39722644                   /home/leif/opt/mbs-tomcat-7.0.40/temp/1-mbs-ui/WEB-INF/lib/liferay-faces-bridge-impl-3.1.2-ga3.jar
+7f0df9833000-7f0df9835000 r-xs 00006000 08:01 39722643                   /home/leif/opt/mbs-tomcat-7.0.40/temp/1-mbs-ui/WEB-INF/lib/liferay-faces-bridge-api-3.1.2-ga3.jar
+7f0df9835000-7f0df9838000 r-xs 00018000 08:01 39722629                   /home/leif/opt/mbs-tomcat-7.0.40/temp/1-mbs-ui/WEB-INF/lib/el-impl-2.2.jar
+7f0df9838000-7f0df983a000 r-xs 0000d000 08:01 39722651                   /home/leif/opt/mbs-tomcat-7.0.40/temp/1-mbs-ui/WEB-INF/lib/commons-logging.jar
+7f0df983a000-7f0df983c000 r-xs 0000f000 08:01 39722640                   /home/leif/opt/mbs-tomcat-7.0.40/temp/1-mbs-ui/WEB-INF/lib/commons-fileupload-1.3.jar
+7f0df983c000-7f0df9845000 r-xs 00072000 08:01 39722646                   /home/leif/opt/mbs-tomcat-7.0.40/temp/1-mbs-ui/WEB-INF/lib/atmosphere-runtime-1.1.0.RC1.jar
+7f0df9845000-7f0df9846000 r-xs 00001000 08:01 39722636                   /home/leif/opt/mbs-tomcat-7.0.40/temp/1-mbs-ui/WEB-INF/lib/atmosphere-compat-tomcat7-1.1.0.RC1.jar
+7f0df9846000-7f0df9847000 r-xs 00001000 08:01 39722637                   /home/leif/opt/mbs-tomcat-7.0.40/temp/1-mbs-ui/WEB-INF/lib/atmosphere-compat-tomcat-1.1.0.RC1.jar
+7f0df9847000-7f0df985b000 r-xs 0012d000 08:01 39722627                   /home/leif/opt/mbs-tomcat-7.0.40/temp/1-mbs-ui/WEB-INF/lib/all-themes-1.0.8.jar
+7f0df985b000-7f0df9862000 r-xp 00000000 08:01 393800                     /home/leif/redhat2014/jre1.6.0_45/lib/amd64/libnio.so
+7f0df9862000-7f0df9961000 ---p 00007000 08:01 393800                     /home/leif/redhat2014/jre1.6.0_45/lib/amd64/libnio.so
+7f0df9961000-7f0df9963000 rwxp 00006000 08:01 393800                     /home/leif/redhat2014/jre1.6.0_45/lib/amd64/libnio.so
+7f0df9963000-7f0df9966000 ---p 00000000 00:00 0 
+7f0df9966000-7f0df9a64000 rwxp 00000000 00:00 0 
+7f0df9a64000-7f0df9a67000 ---p 00000000 00:00 0 
+7f0df9a67000-7f0df9b65000 rwxp 00000000 00:00 0 
+7f0df9b65000-7f0df9b68000 ---p 00000000 00:00 0 
+7f0df9b68000-7f0df9c66000 rwxp 00000000 00:00 0 
+7f0df9c66000-7f0df9c69000 ---p 00000000 00:00 0 
+7f0df9c69000-7f0df9d67000 rwxp 00000000 00:00 0 
+7f0df9d67000-7f0df9d6a000 ---p 00000000 00:00 0 
+7f0df9d6a000-7f0df9e68000 rwxp 00000000 00:00 0 
+7f0df9e68000-7f0df9e6b000 ---p 00000000 00:00 0 
+7f0df9e6b000-7f0df9f69000 rwxp 00000000 00:00 0 
+7f0df9f69000-7f0df9f6b000 r-xs 00001000 08:01 393588                     /home/leif/redhat2014/jre1.6.0_45/lib/ext/dnsns.jar
+7f0df9f6b000-7f0df9f6e000 ---p 00000000 00:00 0 
+7f0df9f6e000-7f0dfa06c000 rwxp 00000000 00:00 0 
+7f0dfa06c000-7f0dfa06f000 ---p 00000000 00:00 0 
+7f0dfa06f000-7f0dfa16d000 rwxp 00000000 00:00 0 
+7f0dfa16d000-7f0dfa170000 ---p 00000000 00:00 0 
+7f0dfa170000-7f0dfa26e000 rwxp 00000000 00:00 0 
+7f0dfa26e000-7f0dfa271000 ---p 00000000 00:00 0 
+7f0dfa271000-7f0dfa36f000 rwxp 00000000 00:00 0 
+7f0dfa36f000-7f0dfa372000 ---p 00000000 00:00 0 
+7f0dfa372000-7f0dfa470000 rwxp 00000000 00:00 0 
+7f0dfa470000-7f0dfa473000 ---p 00000000 00:00 0 
+7f0dfa473000-7f0dfa571000 rwxp 00000000 00:00 0 
+7f0dfa571000-7f0dfa574000 ---p 00000000 00:00 0 
+7f0dfa574000-7f0dfa672000 rwxp 00000000 00:00 0 
+7f0dfa672000-7f0dfa675000 ---p 00000000 00:00 0 
+7f0dfa675000-7f0dfa773000 rwxp 00000000 00:00 0 
+7f0dfa773000-7f0dfa776000 ---p 00000000 00:00 0 
+7f0dfa776000-7f0dfa874000 rwxp 00000000 00:00 0 
+7f0dfa874000-7f0dfa877000 ---p 00000000 00:00 0 
+7f0dfa877000-7f0dfa975000 rwxp 00000000 00:00 0 
+7f0dfa975000-7f0dfa978000 ---p 00000000 00:00 0 
+7f0dfa978000-7f0dfaa76000 rwxp 00000000 00:00 0 
+7f0dfaa76000-7f0dfaa79000 ---p 00000000 00:00 0 
+7f0dfaa79000-7f0dfab77000 rwxp 00000000 00:00 0 
+7f0dfab77000-7f0dfab7a000 ---p 00000000 00:00 0 
+7f0dfab7a000-7f0dfac78000 rwxp 00000000 00:00 0 
+7f0dfac78000-7f0dfac7b000 ---p 00000000 00:00 0 
+7f0dfac7b000-7f0dfad79000 rwxp 00000000 00:00 0 
+7f0dfad79000-7f0dfad7c000 ---p 00000000 00:00 0 
+7f0dfad7c000-7f0dfae7a000 rwxp 00000000 00:00 0 
+7f0dfae7a000-7f0dfae7d000 ---p 00000000 00:00 0 
+7f0dfae7d000-7f0dfaf7b000 rwxp 00000000 00:00 0 
+7f0dfaf7b000-7f0dfaf80000 r-xp 00000000 08:01 393843                     /home/leif/redhat2014/jre1.6.0_45/lib/amd64/headless/libmawt.so
+7f0dfaf80000-7f0dfb07f000 ---p 00005000 08:01 393843                     /home/leif/redhat2014/jre1.6.0_45/lib/amd64/headless/libmawt.so
+7f0dfb07f000-7f0dfb081000 rwxp 00004000 08:01 393843                     /home/leif/redhat2014/jre1.6.0_45/lib/amd64/headless/libmawt.so
+7f0dfb081000-7f0dfb114000 r-xp 00000000 08:01 393845                     /home/leif/redhat2014/jre1.6.0_45/lib/amd64/libawt.so
+7f0dfb114000-7f0dfb213000 ---p 00093000 08:01 393845                     /home/leif/redhat2014/jre1.6.0_45/lib/amd64/libawt.so
+7f0dfb213000-7f0dfb22c000 rwxp 00092000 08:01 393845                     /home/leif/redhat2014/jre1.6.0_45/lib/amd64/libawt.so
+7f0dfb22c000-7f0dfb251000 rwxp 00000000 00:00 0 
+7f0dfb251000-7f0dfb258000 r-xs 0005c000 08:01 4331182                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/xuggle-xuggler-noarch.jar
+7f0dfb258000-7f0dfb264000 r-xs 0006a000 08:01 4331181                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/xstream.jar
+7f0dfb264000-7f0dfb266000 r-xs 00005000 08:01 4331180                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/xpp3.jar
+7f0dfb266000-7f0dfb272000 r-xs 00063000 08:01 4331179                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/xmlsec.jar
+7f0dfb272000-7f0dfb27b000 r-xs 0002d000 08:01 4331178                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/xml-apis.jar
+7f0dfb27b000-7f0dfb294000 r-xs 00135000 08:01 4331177                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/xercesImpl.jar
+7f0dfb294000-7f0dfb2d2000 r-xs 0025b000 08:01 4331176                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/xbean.jar
+7f0dfb2d2000-7f0dfb2d5000 r-xs 00029000 08:01 4331175                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/xbean-spring.jar
+7f0dfb2d5000-7f0dfb2fa000 r-xs 002e3000 08:01 4331174                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/xalan.jar
+7f0dfb2fa000-7f0dfb300000 r-xs 00079000 08:01 4331173                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/wstx.jar
+7f0dfb300000-7f0dfb305000 r-xs 00020000 08:01 4331172                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/wsdl4j.jar
+7f0dfb305000-7f0dfb30d000 r-xs 0005f000 08:01 4331171                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/velocity.jar
+7f0dfb30d000-7f0dfb310000 r-xs 00020000 08:01 4331170                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/velocity-tools.jar
+7f0dfb310000-7f0dfb34a000 r-xs 004ab000 08:01 4331169                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/vaadin.jar
+7f0dfb34a000-7f0dfb350000 r-xs 00049000 08:01 4331168                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/util-taglib.jar
+7f0dfb350000-7f0dfb355000 r-xs 00029000 08:01 4331167                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/util-java.jar
+7f0dfb355000-7f0dfb358000 r-xs 0000f000 08:01 4331166                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/util-bridges.jar
+7f0dfb358000-7f0dfb35b000 r-xs 00020000 08:01 4331165                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/urlrewrite.jar
+7f0dfb35b000-7f0dfb389000 r-xs 000e5000 08:01 4331164                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/unoil.jar
+7f0dfb389000-7f0dfb394000 r-xs 0006c000 08:01 4331163                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/truezip.jar
+7f0dfb394000-7f0dfb397000 r-xs 0001a000 08:01 4331162                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/tomcat-jdbc.jar
+7f0dfb397000-7f0dfb39e000 r-xs 00049000 08:01 4331161                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/tika-parsers.jar
+7f0dfb39e000-7f0dfb3a4000 r-xs 0004b000 08:01 4331160                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/tika-core.jar
+7f0dfb3a4000-7f0dfb3a5000 r-xs 00015000 08:01 4331159                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/tagsoup.jar
+7f0dfb3a5000-7f0dfb3af000 r-xs 0007d000 08:01 4331158                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/struts.jar
+7f0dfb3af000-7f0dfb3b3000 r-xs 00030000 08:01 4331157                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/struts-el.jar
+7f0dfb3b3000-7f0dfb3b6000 r-xs 00025000 08:01 4331156                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/stringtemplate.jar
+7f0dfb3b6000-7f0dfb3b8000 r-xs 0001e000 08:01 4331155                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/streambuffer.jar
+7f0dfb3b8000-7f0dfb3ba000 r-xs 00005000 08:01 4331154                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/stax.jar
+7f0dfb3ba000-7f0dfb3bb000 r-xs 00002000 08:01 4331153                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/stax-ex.jar
+7f0dfb3bb000-7f0dfb3c5000 r-xs 00058000 08:01 4331152                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/spring-web.jar
+7f0dfb3c5000-7f0dfb3c7000 r-xs 00006000 08:01 4331151                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/spring-web-struts.jar
+7f0dfb3c7000-7f0dfb3d0000 r-xs 0005e000 08:01 4331150                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/spring-web-servlet.jar
+7f0dfb3d0000-7f0dfb3d4000 r-xs 00027000 08:01 4331149                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/spring-web-portlet.jar
+7f0dfb3d4000-7f0dfb3db000 r-xs 00032000 08:01 4331148                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/spring-transaction.jar
+7f0dfb3db000-7f0dfb3dd000 r-xs 0000d000 08:01 4331147                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/spring-oxm.jar
+7f0dfb3dd000-7f0dfb3e5000 r-xs 0004a000 08:01 4331146                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/spring-orm.jar
+7f0dfb3e5000-7f0dfb3ea000 r-xs 00029000 08:01 4331145                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/spring-jms.jar
+7f0dfb3ea000-7f0dfb3f4000 r-xs 00055000 08:01 4331144                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/spring-jdbc.jar
+7f0dfb3f4000-7f0dfb3f8000 r-xs 00026000 08:01 4331143                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/spring-expression.jar
+7f0dfb3f8000-7f0dfb401000 r-xs 00055000 08:01 4331142                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/spring-core.jar
+7f0dfb401000-7f0dfb412000 r-xs 00093000 08:01 4331141                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/spring-context.jar
+7f0dfb412000-7f0dfb415000 r-xs 00016000 08:01 4331140                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/spring-context-support.jar
+7f0dfb415000-7f0dfb420000 r-xs 0007d000 08:01 4331139                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/spring-beans.jar
+7f0dfb420000-7f0dfb422000 r-xs 00007000 08:01 4331138                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/spring-aspects.jar
+7f0dfb422000-7f0dfb423000 r-xs 0000c000 08:01 4331137                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/spring-asm.jar
+7f0dfb423000-7f0dfb42c000 r-xs 00046000 08:01 4331136                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/spring-aop.jar
+7f0dfb42c000-7f0dfb430000 r-xs 00032000 08:01 4331135                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/soap.jar
+7f0dfb430000-7f0dfb432000 r-xs 00005000 08:01 4331134                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/slf4j-api.jar
+7f0dfb432000-7f0dfb434000 r-xs 00016000 08:01 4331133                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/simplecaptcha.jar
+7f0dfb434000-7f0dfb437000 r-xs 00041000 08:01 4331132                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/serializer.jar
+7f0dfb437000-7f0dfb439000 r-xs 00007000 08:01 4331131                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/scribe.jar
+7f0dfb439000-7f0dfb43e000 r-xs 0003e000 08:01 4331130                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/saaj-impl.jar
+7f0dfb43e000-7f0dfb440000 r-xs 00003000 08:01 4331129                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/saaj-api.jar
+7f0dfb440000-7f0dfb473000 r-xs 0046d000 08:01 4331128                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/ruby-gems.jar
+7f0dfb473000-7f0dfb477000 r-xs 00032000 08:01 4331127                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/rome.jar
+7f0dfb477000-7f0dfb482000 r-xs 00032000 08:01 4331126                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/ridl.jar
+7f0dfb482000-7f0dfb48a000 r-xs 000bf000 08:01 4331125                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/rhino.jar
+7f0dfb48a000-7f0dfb48b000 r-xs 00003000 08:01 4331124                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/rdffilter.jar
+7f0dfb48b000-7f0dfb494000 r-xs 00083000 08:01 4331123                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/quartz.jar
+7f0dfb494000-7f0dfb496000 r-xs 0000e000 08:01 4331122                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/portletbridge-portlet.jar
+7f0dfb496000-7f0dfb498000 r-xs 00007000 08:01 4331121                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/portletbridge-core.jar
+7f0dfb498000-7f0dfb49a000 r-xs 00010000 08:01 4331120                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/portals-bridges.jar
+7f0dfb49a000-7f0dfb53c000 r-xs 0155d000 08:01 4331119                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/portal-impl.jar
+7f0dfb53c000-7f0dfb566000 r-xs 00208000 08:01 4331118                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/portal-client.jar
+7f0dfb566000-7f0dfb583000 r-xs 0017c000 08:01 4331117                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/poi.jar
+7f0dfb583000-7f0dfb590000 r-xs 000c1000 08:01 4331116                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/poi-scratchpad.jar
+7f0dfb590000-7f0dfb597000 r-xs 00073000 08:01 4331115                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/poi-ooxml.jar
+7f0dfb597000-7f0dfb616000 r-xs 0034a000 08:01 4331114                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/poi-ooxml-schemas.jar
+7f0dfb616000-7f0dfb62a000 r-xs 00392000 08:01 4331113                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/pdfbox.jar
+7f0dfb62a000-7f0dfb62d000 r-xs 0001e000 08:01 4331112                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/oscache.jar
+7f0dfb62d000-7f0dfb62f000 r-xs 0000e000 08:01 4331111                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/oro.jar
+7f0dfb62f000-7f0dfb633000 r-xs 0002f000 08:01 4331110                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/openid4java.jar
+7f0dfb633000-7f0dfb635000 r-xs 00002000 08:01 4331109                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/odmg.jar
+7f0dfb635000-7f0dfb636000 r-xs 0000a000 08:01 4331108                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/oauth.jar
+7f0dfb636000-7f0dfb637000 r-xs 00002000 08:01 4331107                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/oauth-provider.jar
+7f0dfb637000-7f0dfb63a000 r-xs 0001c000 08:01 4331106                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/nekohtml.jar
+7f0dfb63a000-7f0dfb63c000 r-xs 00014000 08:01 4331105                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/msnm.jar
+7f0dfb63c000-7f0dfb63e000 r-xs 00008000 08:01 4331104                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/mimepull.jar
+7f0dfb63e000-7f0dfb641000 r-xs 00014000 08:01 4331103                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/metadata-extractor.jar
+7f0dfb641000-7f0dfb647000 r-xs 0003c000 08:01 4331102                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/memcached.jar
+7f0dfb647000-7f0dfb648000 r-xs 00006000 08:01 4331101                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/lucene-memory.jar
+7f0dfb648000-7f0dfb64a000 r-xs 0000a000 08:01 4331100                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/lucene-highlighter.jar
+7f0dfb64a000-7f0dfb65c000 r-xs 000eb000 08:01 4331099                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/lucene-core.jar
+7f0dfb65c000-7f0dfb662000 r-xs 0002c000 08:01 4331098                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/lucene-analyzers.jar
+7f0dfb662000-7f0dfb66b000 r-xs 0006d000 08:01 4331097                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/log4j.jar
+7f0dfb66b000-7f0dfb671000 r-xs 0004f000 08:01 4331096                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/log4j-extras.jar
+7f0dfb671000-7f0dfb67d000 r-xs 000d6000 08:01 4331095                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/liferay-yui-compressor.jar
+7f0dfb67d000-7f0dfb69d000 r-xs 00549000 08:01 4331094                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/liferay-icu4j.jar
+7f0dfb69d000-7f0dfb69e000 r-xs 0000a000 08:01 4331093                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/kxml2.jar
+7f0dfb69e000-7f0dfb733000 r-xs 0093a000 08:01 4331092                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/jython.jar
+7f0dfb733000-7f0dfb736000 r-xs 00019000 08:01 4331091                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/jurt.jar
+7f0dfb736000-7f0dfb738000 r-xs 0000d000 08:01 4331090                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/juh.jar
+7f0dfb738000-7f0dfb740000 r-xs 00058000 08:01 4331089                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/jstl-impl.jar
+7f0dfb740000-7f0dfb742000 r-xs 00006000 08:01 4331088                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/jstl-api.jar
+7f0dfb742000-7f0dfb744000 r-xs 00001000 08:01 4331087                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/jsr107cache.jar
+7f0dfb744000-7f0dfb748000 r-xs 0001f000 08:01 4331086                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/jsqlparser.jar
+7f0dfb748000-7f0dfb755000 r-xs 000f2000 08:01 4331085                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/jspwiki.jar
+7f0dfb755000-7f0dfb757000 r-xs 0000e000 08:01 4331084                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/jsonrpc.jar
+7f0dfb757000-7f0dfb759000 r-xs 0001c000 08:01 4331083                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/json-java.jar
+7f0dfb759000-7f0dfb83e000 r-xs 00bbe000 08:01 4331082                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/jruby.jar
+7f0dfb83e000-7f0dfb83f000 r-xs 00005000 08:01 4331081                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/jrcs-diff.jar
+7f0dfb83f000-7f0dfb848000 r-xs 00085000 08:01 4331080                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/jodd.jar
+7f0dfb848000-7f0dfb854000 r-xs 00082000 08:01 4331079                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/jodd-wot.jar
+7f0dfb854000-7f0dfb855000 r-xs 00007000 08:01 4331078                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/jodconverter.jar
+7f0dfb855000-7f0dfb859000 r-xs 00037000 08:01 4331077                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/jhlabs-filters.jar
+7f0dfb859000-7f0dfb869000 r-xs 00136000 08:01 4331076                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/jgroups.jar
+7f0dfb869000-7f0dfb87a000 r-xs 0014c000 08:01 4331075                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/jfreechart.jar
+7f0dfb87a000-7f0dfb883000 r-xs 0007b000 08:01 4331074                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/jets3t.jar
+7f0dfb883000-7f0dfb887000 r-xs 00028000 08:01 4331073                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/jericho-html.jar
+7f0dfb887000-7f0dfb893000 r-xs 000a5000 08:01 4331072                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/jena.jar
+7f0dfb893000-7f0dfb895000 r-xs 0000b000 08:01 4331071                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/jempbox.jar
+7f0dfb895000-7f0dfb898000 r-xs 00023000 08:01 4331070                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/jdom.jar
+7f0dfb898000-7f0dfb89b000 r-xs 0000e000 08:01 4331069                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/jcr.jar
+7f0dfb89b000-7f0dfb8a1000 r-xs 00046000 08:01 4331068                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/jcommon.jar
+7f0dfb8a1000-7f0dfb8a7000 r-xs 0005b000 08:01 4331067                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/jcifs.jar
+7f0dfb8a7000-7f0dfb8a9000 r-xs 0000a000 08:01 4331066                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/jazzy.jar
+7f0dfb8a9000-7f0dfb8c2000 r-xs 00129000 08:01 4331065                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/jaxws-rt.jar
+7f0dfb8c2000-7f0dfb8c4000 r-xs 00006000 08:01 4331064                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/jaxrpc.jar
+7f0dfb8c4000-7f0dfb8ca000 r-xs 00032000 08:01 4331063                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/jaxen.jar
+7f0dfb8ca000-7f0dfb8dc000 r-xs 000c2000 08:01 4331062                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/jaxb-impl.jar
+7f0dfb8dc000-7f0dfb8e5000 r-xs 00096000 08:01 4331061                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/javassist.jar
+7f0dfb8e5000-7f0dfb8e7000 r-xs 00000000 08:01 4331060                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/java-diff.jar
+7f0dfb8e7000-7f0dfb8eb000 r-xs 00073000 08:01 4331059                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/jamwiki-core.jar
+7f0dfb8eb000-7f0dfb8ff000 r-xs 001bd000 08:01 4331058                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/jai_core.jar
+7f0dfb8ff000-7f0dfb903000 r-xs 0003c000 08:01 4331057                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/jai_codec.jar
+7f0dfb903000-7f0dfb905000 r-xs 00005000 08:01 4331056                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/jackrabbit-spi.jar
+7f0dfb905000-7f0dfb913000 r-xs 000a4000 08:01 4331055                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/jackrabbit-spi-commons.jar
+7f0dfb913000-7f0dfb918000 r-xs 00034000 08:01 4331054                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/jackrabbit-jcr-commons.jar
+7f0dfb918000-7f0dfb938000 r-xs 001cd000 08:01 4331053                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/jackrabbit-core.jar
+7f0dfb938000-7f0dfb93a000 r-xs 00004000 08:01 4331052                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/jackrabbit-api.jar
+7f0dfb93a000-7f0dfb93c000 r-xs 00017000 08:01 4331051                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/jabsorb.jar
+7f0dfb93c000-7f0dfb940000 r-xs 00022000 08:01 4331050                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/im4java.jar
+7f0dfb940000-7f0dfb943000 r-xs 0001d000 08:01 4331049                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/icq.jar
+7f0dfb943000-7f0dfb957000 r-xs 000d8000 08:01 4331048                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/ical4j.jar
+7f0dfb957000-7f0dfb95d000 r-xs 00031000 08:01 4331047                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/httpcore.jar
+7f0dfb95d000-7f0dfb966000 r-xs 0005f000 08:01 4331046                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/httpclient.jar
+7f0dfb966000-7f0dfb96c000 r-xs 00041000 08:01 4331045                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/htmlparser.jar
+7f0dfb96c000-7f0dfb9b4000 r-xs 003b1000 08:01 4331044                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/hibernate3.jar
+7f0dfb9b4000-7f0dfb9bc000 r-xs 00056000 08:01 4331043                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/hessian.jar
+7f0dfb9bc000-7f0dfb9c5000 r-xs 0006e000 08:01 4331042                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/gt-metadata.jar
+7f0dfb9c5000-7f0dfb9ca000 r-xs 00060000 08:01 4331041                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/gt-coverage.jar
+7f0dfb9ca000-7f0dfba15000 r-xs 00459000 08:01 4331040                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/groovy.jar
+7f0dfba15000-7f0dfba16000 r-xs 00002000 08:01 4331039                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/gif89.jar
+7f0dfba16000-7f0dfba18000 r-xs 0000e000 08:01 4331038                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/freshcookies-security.jar
+7f0dfba18000-7f0dfba29000 r-xs 000d1000 08:01 4331037                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/freemarker.jar
+7f0dfba29000-7f0dfba2c000 r-xs 00028000 08:01 4331036                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/fontbox.jar
+7f0dfba2c000-7f0dfba2e000 r-xs 00012000 08:01 4331035                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/flexjson.jar
+7f0dfba2e000-7f0dfbb0b000 r-xs 00ad8000 08:01 4331034                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/fastutil.jar
+7f0dfbb0b000-7f0dfbb1f000 r-xs 00139000 08:01 4331033                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/equinox.jar
+7f0dfbb1f000-7f0dfbb21000 r-xs 00009000 08:01 4331032                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/ehcache-jgroupsreplication.jar
+7f0dfbb21000-7f0dfbb36000 r-xs 000e3000 08:01 4331031                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/ehcache-core.jar
+7f0dfbb36000-7f0dfbb3e000 r-xs 00057000 08:01 4331030                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/ecs.jar
+7f0dfbb3e000-7f0dfbb8a000 r-xs 00528000 08:01 4331029                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/eclipselink.jar
+7f0dfbb8a000-7f0dfbb8c000 r-xs 00001000 08:01 4331028                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/eclipse-core-runtime.jar
+7f0dfbb8c000-7f0dfbb8e000 r-xs 0000c000 08:01 4331027                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/easyconf.jar
+7f0dfbb8e000-7f0dfbb93000 r-xs 00048000 08:01 4331026                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/dom4j.jar
+7f0dfbb93000-7f0dfbb97000 r-xs 00032000 08:01 4331025                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/displaytag.jar
+7f0dfbb97000-7f0dfbb9a000 r-xs 00017000 08:01 4331024                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/daisydiff.jar
+7f0dfbb9a000-7f0dfbba0000 r-xs 00064000 08:01 4331023                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/daim.jar
+7f0dfbba0000-7f0dfbba1000 r-xs 00001000 08:01 4331022                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/crypt.jar
+7f0dfbba1000-7f0dfbba8000 r-xs 00028000 08:01 4331021                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/concurrent.jar
+7f0dfbba8000-7f0dfbbab000 r-xs 0001f000 08:01 4331020                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/commons-validator.jar
+7f0dfbbab000-7f0dfbbae000 r-xs 00015000 08:01 4331019                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/commons-pool.jar
+7f0dfbbae000-7f0dfbbbd000 r-xs 000ab000 08:01 4331018                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/commons-math.jar
+7f0dfbbbd000-7f0dfbbbf000 r-xs 0000d000 08:01 4331017                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/commons-logging.jar
+7f0dfbbbf000-7f0dfbbc4000 r-xs 00041000 08:01 4331016                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/commons-lang.jar
+7f0dfbbc4000-7f0dfbbc7000 r-xs 00025000 08:01 4331015                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/commons-io.jar
+7f0dfbbc7000-7f0dfbbcd000 r-xs 00045000 08:01 4331014                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/commons-httpclient.jar
+7f0dfbbcd000-7f0dfbbcf000 r-xs 0000d000 08:01 4331013                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/commons-fileupload.jar
+7f0dfbbcf000-7f0dfbbd2000 r-xs 00010000 08:01 4331011                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/commons-discovery.jar
+7f0dfbbd2000-7f0dfbbd6000 r-xs 00020000 08:01 4331010                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/commons-digester.jar
+7f0dfbbd6000-7f0dfbbdc000 r-xs 00043000 08:01 4331008                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/commons-configuration.jar
+7f0dfbbdc000-7f0dfbbf4000 r-xp 00000000 08:01 34341417                   /lib/x86_64-linux-gnu/libresolv-2.15.so
+7f0dfbbf4000-7f0dfbdf4000 ---p 00018000 08:01 34341417                   /lib/x86_64-linux-gnu/libresolv-2.15.so
+7f0dfbdf4000-7f0dfbdf5000 r-xp 00018000 08:01 34341417                   /lib/x86_64-linux-gnu/libresolv-2.15.so
+7f0dfbdf5000-7f0dfbdf6000 rwxp 00019000 08:01 34341417                   /lib/x86_64-linux-gnu/libresolv-2.15.so
+7f0dfbdf6000-7f0dfbdf8000 rwxp 00000000 00:00 0 
+7f0dfbdf8000-7f0dfbdff000 r-xp 00000000 08:01 34341419                   /lib/x86_64-linux-gnu/libnss_dns-2.15.so
+7f0dfbdff000-7f0dfbffe000 ---p 00007000 08:01 34341419                   /lib/x86_64-linux-gnu/libnss_dns-2.15.so
+7f0dfbffe000-7f0dfbfff000 r-xp 00006000 08:01 34341419                   /lib/x86_64-linux-gnu/libnss_dns-2.15.so
+7f0dfbfff000-7f0dfc000000 rwxp 00007000 08:01 34341419                   /lib/x86_64-linux-gnu/libnss_dns-2.15.so
+7f0dfc000000-7f0dfc060000 rwxp 00000000 00:00 0 
+7f0dfc060000-7f0e00000000 ---p 00000000 00:00 0 
+7f0e00000000-7f0e00154000 rwxp 00000000 00:00 0 
+7f0e00154000-7f0e04000000 ---p 00000000 00:00 0 
+7f0e04000000-7f0e04028000 rwxp 00000000 00:00 0 
+7f0e04028000-7f0e08000000 ---p 00000000 00:00 0 
+7f0e08000000-7f0e0810b000 rwxp 00000000 00:00 0 
+7f0e0810b000-7f0e0c000000 ---p 00000000 00:00 0 
+7f0e0c000000-7f0e0c10d000 rwxp 00000000 00:00 0 
+7f0e0c10d000-7f0e10000000 ---p 00000000 00:00 0 
+7f0e10000000-7f0e10021000 rwxp 00000000 00:00 0 
+7f0e10021000-7f0e14000000 ---p 00000000 00:00 0 
+7f0e14000000-7f0e14027000 rwxp 00000000 00:00 0 
+7f0e14027000-7f0e18000000 ---p 00000000 00:00 0 
+7f0e18000000-7f0e18051000 rwxp 00000000 00:00 0 
+7f0e18051000-7f0e1c000000 ---p 00000000 00:00 0 
+7f0e1c000000-7f0e1c05f000 rwxp 00000000 00:00 0 
+7f0e1c05f000-7f0e20000000 ---p 00000000 00:00 0 
+7f0e20000000-7f0e20021000 rwxp 00000000 00:00 0 
+7f0e20021000-7f0e24000000 ---p 00000000 00:00 0 
+7f0e24000000-7f0e24021000 rwxp 00000000 00:00 0 
+7f0e24021000-7f0e28000000 ---p 00000000 00:00 0 
+7f0e28000000-7f0e2bffa000 rwxp 00000000 00:00 0 
+7f0e2bffa000-7f0e2c000000 ---p 00000000 00:00 0 
+7f0e2c000000-7f0e2c021000 rwxp 00000000 00:00 0 
+7f0e2c021000-7f0e30000000 ---p 00000000 00:00 0 
+7f0e30000000-7f0e300d2000 rwxp 00000000 00:00 0 
+7f0e300d2000-7f0e34000000 ---p 00000000 00:00 0 
+7f0e34000000-7f0e34021000 rwxp 00000000 00:00 0 
+7f0e34021000-7f0e38000000 ---p 00000000 00:00 0 
+7f0e38000000-7f0e38058000 rwxp 00000000 00:00 0 
+7f0e38058000-7f0e3c000000 ---p 00000000 00:00 0 
+7f0e3c000000-7f0e3c021000 rwxp 00000000 00:00 0 
+7f0e3c021000-7f0e40000000 ---p 00000000 00:00 0 
+7f0e40000000-7f0e40021000 rwxp 00000000 00:00 0 
+7f0e40021000-7f0e44000000 ---p 00000000 00:00 0 
+7f0e44000000-7f0e47ff4000 rwxp 00000000 00:00 0 
+7f0e47ff4000-7f0e48000000 ---p 00000000 00:00 0 
+7f0e48000000-7f0e48021000 rwxp 00000000 00:00 0 
+7f0e48021000-7f0e4c000000 ---p 00000000 00:00 0 
+7f0e4c000000-7f0e4c021000 rwxp 00000000 00:00 0 
+7f0e4c021000-7f0e50000000 ---p 00000000 00:00 0 
+7f0e50000000-7f0e53b74000 rwxp 00000000 00:00 0 
+7f0e53b74000-7f0e54000000 ---p 00000000 00:00 0 
+7f0e54000000-7f0e54021000 rwxp 00000000 00:00 0 
+7f0e54021000-7f0e58000000 ---p 00000000 00:00 0 
+7f0e58000000-7f0e58021000 rwxp 00000000 00:00 0 
+7f0e58021000-7f0e5c000000 ---p 00000000 00:00 0 
+7f0e5c000000-7f0e5c021000 rwxp 00000000 00:00 0 
+7f0e5c021000-7f0e60000000 ---p 00000000 00:00 0 
+7f0e60000000-7f0e60086000 rwxp 00000000 00:00 0 
+7f0e60086000-7f0e64000000 ---p 00000000 00:00 0 
+7f0e64000000-7f0e64021000 rwxp 00000000 00:00 0 
+7f0e64021000-7f0e68000000 ---p 00000000 00:00 0 
+7f0e68000000-7f0e68244000 rwxp 00000000 00:00 0 
+7f0e68244000-7f0e6c000000 ---p 00000000 00:00 0 
+7f0e6c000000-7f0e6c021000 rwxp 00000000 00:00 0 
+7f0e6c021000-7f0e70000000 ---p 00000000 00:00 0 
+7f0e70000000-7f0e70021000 rwxp 00000000 00:00 0 
+7f0e70021000-7f0e74000000 ---p 00000000 00:00 0 
+7f0e74000000-7f0e74021000 rwxp 00000000 00:00 0 
+7f0e74021000-7f0e78000000 ---p 00000000 00:00 0 
+7f0e78000000-7f0e78028000 rwxp 00000000 00:00 0 
+7f0e78028000-7f0e7c000000 ---p 00000000 00:00 0 
+7f0e7c000000-7f0e7c021000 rwxp 00000000 00:00 0 
+7f0e7c021000-7f0e80000000 ---p 00000000 00:00 0 
+7f0e80000000-7f0e80021000 rwxp 00000000 00:00 0 
+7f0e80021000-7f0e84000000 ---p 00000000 00:00 0 
+7f0e84000000-7f0e84023000 rwxp 00000000 00:00 0 
+7f0e84023000-7f0e88000000 ---p 00000000 00:00 0 
+7f0e88000000-7f0e88001000 r-xs 00001000 08:01 39722642                   /home/leif/opt/mbs-tomcat-7.0.40/temp/1-mbs-ui/WEB-INF/lib/atmosphere-compat-jbossweb-1.1.0.RC1.jar
+7f0e88001000-7f0e88003000 r-xs 0001c000 08:01 4331009                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/commons-dbcp.jar
+7f0e88003000-7f0e88007000 r-xs 00024000 08:01 4331007                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/commons-compress.jar
+7f0e88007000-7f0e88015000 r-xs 0007f000 08:01 4331006                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/commons-collections.jar
+7f0e88015000-7f0e88017000 r-xs 00010000 08:01 4331005                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/commons-codec.jar
+7f0e88017000-7f0e8801c000 r-xs 00034000 08:01 4331004                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/commons-beanutils.jar
+7f0e8801c000-7f0e88026000 r-xs 0005c000 08:01 4331003                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/chemistry-opencmis-commons-impl.jar
+7f0e88026000-7f0e8802b000 r-xs 00012000 08:01 4331002                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/chemistry-opencmis-commons-api.jar
+7f0e8802b000-7f0e8802e000 r-xs 0001f000 08:01 4331001                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/chemistry-opencmis-client-impl.jar
+7f0e8802e000-7f0e88034000 r-xs 00033000 08:01 4331000                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/chemistry-opencmis-client-bindings.jar
+7f0e88034000-7f0e88036000 r-xs 00006000 08:01 4330999                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/chemistry-opencmis-client-api.jar
+7f0e88036000-7f0e88038000 r-xs 00005000 08:01 4330998                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/chardet.jar
+7f0e88038000-7f0e8803f000 r-xs 0003e000 08:01 4330997                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/cglib.jar
+7f0e8803f000-7f0e88040000 r-xs 00003000 08:01 4330996                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/ccpp.jar
+7f0e88040000-7f0e88041000 r-xs 0000a000 08:01 4330995                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/ccpp-ri.jar
+7f0e88041000-7f0e88043000 r-xs 0000e000 08:01 4330994                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/cas-client-core.jar
+7f0e88043000-7f0e8804e000 r-xs 0008b000 08:01 4330993                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/c3p0.jar
+7f0e8804e000-7f0e88053000 r-xs 00040000 08:01 4330992                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/bsh.jar
+7f0e88053000-7f0e88056000 r-xs 00019000 08:01 4330991                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/bsf.jar
+7f0e88056000-7f0e88062000 r-xs 0007d000 08:01 4330990                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/bobo-browse.jar
+7f0e88062000-7f0e88070000 r-xs 000ee000 08:01 4330989                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/bnd.jar
+7f0e88070000-7f0e88095000 r-xs 00172000 08:01 4330988                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/bcprov.jar
+7f0e88095000-7f0e8809a000 r-xs 00033000 08:01 4330987                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/bcmail.jar
+7f0e8809a000-7f0e880a2000 r-xs 00049000 08:01 4330986                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/backport-concurrent.jar
+7f0e880a2000-7f0e880b7000 r-xs 00176000 08:01 4330985                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/axis.jar
+7f0e880b7000-7f0e880b9000 r-xs 00007000 08:01 4330984                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/axis-ant.jar
+7f0e880b9000-7f0e880bc000 r-xs 0001b000 08:01 4330983                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/axiom-impl.jar
+7f0e880bc000-7f0e880c5000 r-xs 0005d000 08:01 4330982                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/axiom-api.jar
+7f0e880c5000-7f0e880dc000 r-xs 00195000 08:01 4330981                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/aspectj-weaver.jar
+7f0e880dc000-7f0e880e0000 r-xs 00019000 08:01 4330980                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/aspectj-rt.jar
+7f0e880e0000-7f0e880e1000 r-xs 0000a000 08:01 4330979                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/asm.jar
+7f0e880e1000-7f0e880e4000 r-xs 0000a000 08:01 4330978                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/asm-xml.jar
+7f0e880e4000-7f0e880e5000 r-xs 00008000 08:01 4330977                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/asm-util.jar
+7f0e880e5000-7f0e880e7000 r-xs 00004000 08:01 4330976                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/asm-tree.jar
+7f0e880e7000-7f0e880e9000 r-xs 00008000 08:01 4330975                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/asm-commons.jar
+7f0e880e9000-7f0e880ea000 r-xs 00004000 08:01 4330974                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/asm-analysis.jar
+7f0e880ea000-7f0e880ec000 r-xs 00000000 08:01 4330973                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/aopalliance.jar
+7f0e880ec000-7f0e880f3000 r-xs 00083000 08:01 4330972                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/antlr3.jar
+7f0e880f3000-7f0e880f6000 r-xs 00017000 08:01 4330971                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/antlr3-runtime.jar
+7f0e880f6000-7f0e88114000 r-xs 001bb000 08:01 4330969                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/ant.jar
+7f0e88114000-7f0e88116000 r-xp 00000000 08:01 34340966                   /lib/libnss_mdns4_minimal.so.2
+7f0e88116000-7f0e88315000 ---p 00002000 08:01 34340966                   /lib/libnss_mdns4_minimal.so.2
+7f0e88315000-7f0e88316000 r-xp 00001000 08:01 34340966                   /lib/libnss_mdns4_minimal.so.2
+7f0e88316000-7f0e88317000 rwxp 00002000 08:01 34340966                   /lib/libnss_mdns4_minimal.so.2
+7f0e88317000-7f0e8831c000 r-xs 00068000 08:01 4330970                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/antlr2.jar
+7f0e8831c000-7f0e8831f000 r-xs 00068000 08:01 4330968                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/alloy-taglib.jar
+7f0e8831f000-7f0e88334000 r-xs 00215000 08:01 4330967                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/abdera.jar
+7f0e88334000-7f0e88336000 r-xs 0000b000 08:01 3019747                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/tomee/WEB-INF/lib/tomee-loader-1.5.2.jar
+7f0e88336000-7f0e88339000 r-xs 0000b000 08:01 3019745                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/tomee/WEB-INF/lib/swizzle-stream-1.6.1.jar
+7f0e88339000-7f0e88348000 r-xs 00648000 08:01 41028599                   /home/leif/redhat2014/jre1.6.0_45/lib/charsets.jar
+7f0e88348000-7f0e88357000 r-xs 00648000 08:01 41028599                   /home/leif/redhat2014/jre1.6.0_45/lib/charsets.jar
+7f0e88357000-7f0e8835a000 ---p 00000000 00:00 0 
+7f0e8835a000-7f0e88458000 rwxp 00000000 00:00 0 
+7f0e88458000-7f0e8845b000 ---p 00000000 00:00 0 
+7f0e8845b000-7f0e88559000 rwxp 00000000 00:00 0 
+7f0e88559000-7f0e8855c000 ---p 00000000 00:00 0 
+7f0e8855c000-7f0e8865a000 rwxp 00000000 00:00 0 
+7f0e8865a000-7f0e8865d000 ---p 00000000 00:00 0 
+7f0e8865d000-7f0e8875b000 rwxp 00000000 00:00 0 
+7f0e8875b000-7f0e8875e000 ---p 00000000 00:00 0 
+7f0e8875e000-7f0e8885c000 rwxp 00000000 00:00 0 
+7f0e8885c000-7f0e8885f000 ---p 00000000 00:00 0 
+7f0e8885f000-7f0e8895d000 rwxp 00000000 00:00 0 
+7f0e8895d000-7f0e88960000 ---p 00000000 00:00 0 
+7f0e88960000-7f0e88a5e000 rwxp 00000000 00:00 0 
+7f0e88a5e000-7f0e88a61000 ---p 00000000 00:00 0 
+7f0e88a61000-7f0e88b5f000 rwxp 00000000 00:00 0 
+7f0e88b5f000-7f0e88b62000 ---p 00000000 00:00 0 
+7f0e88b62000-7f0e88c60000 rwxp 00000000 00:00 0 
+7f0e88c60000-7f0e88c63000 ---p 00000000 00:00 0 
+7f0e88c63000-7f0e88d61000 rwxp 00000000 00:00 0 
+7f0e88d61000-7f0e88d64000 ---p 00000000 00:00 0 
+7f0e88d64000-7f0e88e62000 rwxp 00000000 00:00 0 
+7f0e88e62000-7f0e88e65000 ---p 00000000 00:00 0 
+7f0e88e65000-7f0e88f63000 rwxp 00000000 00:00 0 
+7f0e88f63000-7f0e88f66000 ---p 00000000 00:00 0 
+7f0e88f66000-7f0e89064000 rwxp 00000000 00:00 0 
+7f0e89064000-7f0e89067000 ---p 00000000 00:00 0 
+7f0e89067000-7f0e89165000 rwxp 00000000 00:00 0 
+7f0e89165000-7f0e89168000 ---p 00000000 00:00 0 
+7f0e89168000-7f0e89266000 rwxp 00000000 00:00 0 
+7f0e89266000-7f0e89269000 ---p 00000000 00:00 0 
+7f0e89269000-7f0e89367000 rwxp 00000000 00:00 0 
+7f0e89367000-7f0e8936a000 ---p 00000000 00:00 0 
+7f0e8936a000-7f0e89468000 rwxp 00000000 00:00 0 
+7f0e89468000-7f0e8947b000 r-xp 00000000 08:01 393799                     /home/leif/redhat2014/jre1.6.0_45/lib/amd64/libnet.so
+7f0e8947b000-7f0e8957c000 ---p 00013000 08:01 393799                     /home/leif/redhat2014/jre1.6.0_45/lib/amd64/libnet.so
+7f0e8957c000-7f0e8957f000 rwxp 00014000 08:01 393799                     /home/leif/redhat2014/jre1.6.0_45/lib/amd64/libnet.so
+7f0e8957f000-7f0e89582000 r-xs 00027000 08:01 393592                     /home/leif/redhat2014/jre1.6.0_45/lib/ext/sunjce_provider.jar
+7f0e89582000-7f0e89585000 r-xs 00036000 08:01 393591                     /home/leif/redhat2014/jre1.6.0_45/lib/ext/sunpkcs11.jar
+7f0e89585000-7f0e89588000 r-xs 00013000 08:01 41028770                   /home/leif/redhat2014/jre1.6.0_45/lib/jce.jar
+7f0e89588000-7f0e8958b000 ---p 00000000 00:00 0 
+7f0e8958b000-7f0e89689000 rwxp 00000000 00:00 0 
+7f0e89689000-7f0e89691000 r-xs 00115000 08:01 41028745                   /home/leif/redhat2014/jre1.6.0_45/lib/resources.jar
+7f0e89691000-7f0e89697000 r-xs 00087000 08:01 41028575                   /home/leif/redhat2014/jre1.6.0_45/lib/jsse.jar
+7f0e89697000-7f0e8969a000 r-xs 000c9000 08:01 394033                     /home/leif/redhat2014/jre1.6.0_45/lib/ext/localedata.jar
+7f0e8969a000-7f0e896a5000 r-xs 00085000 08:01 38145926                   /home/leif/opt/mbs-tomcat-7.0.40/lib/ext/httpclient-4.3.3.jar
+7f0e896a5000-7f0e896a9000 r-xs 0002a000 08:01 38145395                   /home/leif/opt/mbs-tomcat-7.0.40/lib/ext/commons-io-2.4.jar
+7f0e896a9000-7f0e896ab000 r-xs 0000e000 08:01 38145947                   /home/leif/opt/mbs-tomcat-7.0.40/lib/ext/gmsecapi.jar
+7f0e896ab000-7f0e8971c000 r-xs 00510000 08:01 38145899                   /home/leif/opt/mbs-tomcat-7.0.40/lib/ext/portal-service.jar
+7f0e8971c000-7f0e8971e000 r-xs 00002000 08:01 38145879                   /home/leif/opt/mbs-tomcat-7.0.40/lib/ext/jutf7.jar
+7f0e8971e000-7f0e89721000 r-xs 00022000 08:01 38145928                   /home/leif/opt/mbs-tomcat-7.0.40/lib/ext/httpclient-cache-4.3.3.jar
+7f0e89721000-7f0e89722000 r-xs 00004000 08:01 38145915                   /home/leif/opt/mbs-tomcat-7.0.40/lib/ext/akuma-1.9.jar
+7f0e89722000-7f0e89724000 r-xs 00006000 08:01 38145924                   /home/leif/opt/mbs-tomcat-7.0.40/lib/ext/fluent-hc-4.3.3.jar
+7f0e89724000-7f0e89725000 r-xs 00003000 08:01 38144524                   /home/leif/opt/mbs-tomcat-7.0.40/lib/ext/ccpp.jar
+7f0e89725000-7f0e89791000 r-xs 0043d000 08:01 38144485                   /home/leif/opt/mbs-tomcat-7.0.40/lib/ext/JMS-5.5.3-client.jar
+7f0e89791000-7f0e8979a000 r-xs 0010f000 08:01 38145944                   /home/leif/opt/mbs-tomcat-7.0.40/lib/ext/ibmpkcs.jar
+7f0e8979a000-7f0e8979f000 r-xs 0001c000 08:01 38145887                   /home/leif/opt/mbs-tomcat-7.0.40/lib/ext/persistence.jar
+7f0e8979f000-7f0e897a0000 r-xs 00008000 08:01 38145808                   /home/leif/opt/mbs-tomcat-7.0.40/lib/ext/mbs-ws.jar
+7f0e897a0000-7f0e897a8000 r-xs 00072000 08:01 38145923                   /home/leif/opt/mbs-tomcat-7.0.40/lib/ext/nexus.jar
+7f0e897a8000-7f0e897ac000 r-xs 00022000 08:01 38145914                   /home/leif/opt/mbs-tomcat-7.0.40/lib/ext/mbs.jar
+7f0e897ac000-7f0e897ae000 r-xs 0000a000 08:01 38145907                   /home/leif/opt/mbs-tomcat-7.0.40/lib/ext/portlet.jar
+7f0e897ae000-7f0e897af000 r-xs 00006000 08:01 38145945                   /home/leif/opt/mbs-tomcat-7.0.40/lib/ext/mbs-gmsec.jar
+7f0e897af000-7f0e897b1000 r-xs 00008000 08:01 38145931                   /home/leif/opt/mbs-tomcat-7.0.40/lib/ext/httpmime-4.3.3.jar
+7f0e897b1000-7f0e897b8000 r-xs 00051000 08:01 38145883                   /home/leif/opt/mbs-tomcat-7.0.40/lib/ext/mail.jar
+7f0e897b8000-7f0e897bc000 r-xs 000bb000 08:01 38145932                   /home/leif/opt/mbs-tomcat-7.0.40/lib/ext/com.ibm.mq.commonservices.jar
+7f0e897bc000-7f0e897be000 r-xs 00002000 08:01 38145855                   /home/leif/opt/mbs-tomcat-7.0.40/lib/ext/jta.jar
+7f0e897be000-7f0e897e5000 r-xs 0027a000 08:01 38145938                   /home/leif/opt/mbs-tomcat-7.0.40/lib/ext/com.ibm.mq.jmqi.jar
+7f0e897e5000-7f0e897e9000 r-xs 0003e000 08:01 38145935                   /home/leif/opt/mbs-tomcat-7.0.40/lib/ext/com.ibm.mq.headers.jar
+7f0e897e9000-7f0e897ec000 r-xs 00066000 08:01 38145936                   /home/leif/opt/mbs-tomcat-7.0.40/lib/ext/com.ibm.mq.jar
+7f0e897ec000-7f0e897ee000 r-xs 00014000 08:01 38145939                   /home/leif/opt/mbs-tomcat-7.0.40/lib/ext/com.ibm.mq.pcf.jar
+7f0e897ee000-7f0e897f0000 r-xs 00005000 08:01 38145727                   /home/leif/opt/mbs-tomcat-7.0.40/lib/ext/jms.jar
+7f0e897f0000-7f0e8982e000 r-xs 0025e000 08:01 38145916                   /home/leif/opt/mbs-tomcat-7.0.40/lib/ext/bcprov-jdk15on-150.jar
+7f0e8982e000-7f0e89835000 r-xs 000ca000 08:01 38145921                   /home/leif/opt/mbs-tomcat-7.0.40/lib/ext/mysql-connector-java-5.1.26-bin.jar
+7f0e89835000-7f0e8983e000 r-xs 0006d000 08:01 38145920                   /home/leif/opt/mbs-tomcat-7.0.40/lib/ext/log4j-1.2.16.jar
+7f0e8983e000-7f0e89842000 r-xs 00030000 08:01 38145942                   /home/leif/opt/mbs-tomcat-7.0.40/lib/ext/ibmcmsprovider.jar
+7f0e89842000-7f0e89844000 r-xs 0000c000 08:01 38144455                   /home/leif/opt/mbs-tomcat-7.0.40/lib/ext/activation.jar
+7f0e89844000-7f0e89849000 r-xs 0003a000 08:01 38145918                   /home/leif/opt/mbs-tomcat-7.0.40/lib/ext/commons-compress-1.5.jar
+7f0e89849000-7f0e89851000 r-xs 0011f000 08:01 38145943                   /home/leif/opt/mbs-tomcat-7.0.40/lib/ext/ibmjceprovider.jar
+7f0e89851000-7f0e89853000 r-xs 00002000 08:01 38145913                   /home/leif/opt/mbs-tomcat-7.0.40/lib/ext/support-tomcat.jar
+7f0e89853000-7f0e89857000 r-xs 000f1000 08:01 38145919                   /home/leif/opt/mbs-tomcat-7.0.40/lib/ext/jna-3.4.0.jar
+7f0e89857000-7f0e8985d000 r-xs 0003f000 08:01 38145930                   /home/leif/opt/mbs-tomcat-7.0.40/lib/ext/httpcore-4.3.2.jar
+7f0e8985d000-7f0e89864000 r-xs 0003a000 08:01 38145917                   /home/leif/opt/mbs-tomcat-7.0.40/lib/ext/commons-codec-1.8.jar
+7f0e89864000-7f0e8986b000 r-xs 00053000 08:01 3019833                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/tomee/lib/cxf-rt-frontend-jaxws-2.6.4.jar
+7f0e8986b000-7f0e8986f000 r-xs 00028000 08:01 3019847                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/tomee/lib/gson-2.1.jar
+7f0e8986f000-7f0e89872000 r-xs 00041000 08:01 3019891                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/tomee/lib/serializer-2.7.1.jar
+7f0e89872000-7f0e89875000 r-xs 0000f000 08:01 3019861                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/tomee/lib/neethi-3.0.1.jar
+7f0e89875000-7f0e89877000 r-xs 0000f000 08:01 3019868                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/tomee/lib/openejb-ejbd-4.5.2.jar
+7f0e89877000-7f0e89879000 r-xs 00003000 08:01 3019867                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/tomee/lib/openejb-cxf-transport-4.5.2.jar
+7f0e89879000-7f0e8987b000 r-xs 00006000 08:01 3019876                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/tomee/lib/openejb-rest-4.5.2.jar
+7f0e8987b000-7f0e8987f000 r-xs 00013000 08:01 3019838                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/tomee/lib/cxf-rt-rs-security-oauth2-2.6.4.jar
+7f0e8987f000-7f0e89882000 r-xs 00016000 08:01 3019825                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/tomee/lib/commons-pool-1.5.7.jar
+7f0e89882000-7f0e89886000 r-xs 00012000 08:01 3019845                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/tomee/lib/geronimo-jaxb_2.2_spec-1.0.1.jar
+7f0e89886000-7f0e89896000 r-xs 00086000 08:01 3019920                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/tomee/lib/xmltooling-1.3.2-1.jar
+7f0e89896000-7f0e89898000 r-xs 00003000 08:01 3019886                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/tomee/lib/openwebbeans-spi-1.1.8.jar
+7f0e89898000-7f0e8989a000 r-xs 00005000 08:01 3019893                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/tomee/lib/slf4j-api-1.7.2.jar
+7f0e8989a000-7f0e8989c000 r-xs 00002000 08:01 3019862                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/tomee/lib/openejb-api-4.5.2.jar
+7f0e8989c000-7f0e898a2000 r-xs 00037000 08:01 3019808                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/tomee/lib/bval-jsr303-0.5.jar
+7f0e898a2000-7f0e898a3000 r-xs 00004000 08:01 3019873                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/tomee/lib/openejb-jpa-integration-4.5.2.jar
+7f0e898a3000-7f0e898a5000 r-xs 00011000 08:01 3019840                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/tomee/lib/cxf-rt-ws-addr-2.6.4.jar
+7f0e898a5000-7f0e898a9000 r-xs 0002f000 08:01 3019815                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/tomee/lib/commons-beanutils-core-1.8.3.jar
+7f0e898a9000-7f0e898b2000 r-xs 000a5000 08:01 3019852                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/tomee/lib/javassist-3.17.1-GA.jar
+7f0e898b2000-7f0e898b4000 r-xs 00003000 08:01 3019901                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/tomee/lib/tomee-jdbc-1.5.2.jar
+7f0e898b4000-7f0e898b8000 r-xs 0002a000 08:01 3019856                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/tomee/lib/kahadb-5.7.0.jar
+7f0e898b8000-7f0e898ba000 r-xs 00005000 08:01 3019895                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/tomee/lib/stax-api-1.0.1.jar
+7f0e898ba000-7f0e898df000 r-xs 002e3000 08:01 3019910                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/tomee/lib/xalan-2.7.1.jar
+7f0e898df000-7f0e898ea000 r-xs 0008b000 08:01 3019842                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/tomee/lib/cxf-rt-ws-security-2.6.4.jar
+7f0e898ea000-7f0e898f1000 r-xs 00039000 08:01 3019817                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/tomee/lib/commons-codec-1.7.jar
+7f0e898f1000-7f0e898fb000 r-xs 00068000 08:01 3019844                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/tomee/lib/geronimo-javamail_1.4_mail-1.8.2.jar
+7f0e898fb000-7f0e89900000 r-xs 00032000 08:01 3019839                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/tomee/lib/cxf-rt-transports-http-2.6.4.jar
+7f0e89900000-7f0e89903000 r-xs 00025000 08:01 3019819                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/tomee/lib/commons-dbcp-1.4.jar
+7f0e89903000-7f0e89905000 r-xs 0000c000 08:01 3019914                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/tomee/lib/xbean-naming-3.12.jar
+7f0e89905000-7f0e89918000 r-xs 0010d000 08:01 3019859                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/tomee/lib/myfaces-api-2.1.10.jar
+7f0e89918000-7f0e8991e000 r-xs 00048000 08:01 3019822                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/tomee/lib/commons-lang3-3.1.jar
+7f0e8991e000-7f0e89922000 r-xs 0001a000 08:01 3019843                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/tomee/lib/geronimo-connector-3.1.1.jar
+7f0e89922000-7f0e89924000 r-xs 0000d000 08:01 3019899                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/tomee/lib/tomee-common-1.5.2.jar
+7f0e89924000-7f0e89926000 r-xs 00004000 08:01 3019906                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/tomee/lib/tomee-webservices-1.5.2.jar
+7f0e89926000-7f0e89927000 r-xs 00002000 08:01 3019903                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/tomee/lib/tomee-mojarra-1.5.2.jar
+7f0e89927000-7f0e8992b000 r-xs 00024000 08:01 3019918                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/tomee/lib/xmlschema-core-2.0.3.jar
+7f0e8992b000-7f0e8992e000 r-xs 00010000 08:01 3019836                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/tomee/lib/cxf-rt-rs-extension-search-2.6.4.jar
+7f0e8992e000-7f0e8992f000 r-xs 00001000 08:01 3019894                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/tomee/lib/slf4j-jdk14-1.7.2.jar
+7f0e8992f000-7f0e89934000 r-xs 00042000 08:01 3019890                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/tomee/lib/saaj-impl-1.3.18.jar
+7f0e89934000-7f0e89954000 r-xs 001ce000 08:01 3019860                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/tomee/lib/myfaces-impl-2.1.10.jar
+7f0e89954000-7f0e8995a000 r-xs 0003e000 08:01 3019824                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/tomee/lib/commons-net-3.2.jar
+7f0e8995a000-7f0e89992000 r-xs 00425000 08:01 3019879                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/tomee/lib/openjpa-asm-shaded-2.2.0.jar
+7f0e89992000-7f0e89994000 r-xs 00008000 08:01 3019866                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/tomee/lib/openejb-cxf-rs-4.5.2.jar
+7f0e89994000-7f0e89996000 r-xs 0000d000 08:01 3019823                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/tomee/lib/commons-logging-1.1.1.jar
+7f0e89996000-7f0e89997000 r-xs 00002000 08:01 3019882                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/tomee/lib/openwebbeans-ee-common-1.1.8.jar
+7f0e89997000-7f0e89999000 r-xs 0000e000 08:01 3019834                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/tomee/lib/cxf-rt-frontend-simple-2.6.4.jar
+7f0e89999000-7f0e8999b000 r-xs 00008000 08:01 3019858                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/tomee/lib/mimepull-1.7.jar
+7f0e8999b000-7f0e8999d000 r-xs 0000a000 08:01 3019878                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/tomee/lib/openejb-webservices-4.5.2.jar
+7f0e8999d000-7f0e8999f000 r-xs 00010000 08:01 3019912                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/tomee/lib/xbean-bundleutils-3.12.jar
+7f0e8999f000-7f0e899a1000 r-xs 00013000 08:01 3019917                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/tomee/lib/xml-resolver-1.2.jar
+7f0e899a1000-7f0e899a4000 r-xs 00019000 08:01 3019850                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/tomee/lib/jansi-1.8.jar
+7f0e899a4000-7f0e899a6000 r-xs 00009000 08:01 3019816                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/tomee/lib/commons-cli-1.2.jar
+7f0e899a6000-7f0e899b5000 r-xs 00076000 08:01 3019855                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/tomee/lib/joda-time-1.6.2.jar
+7f0e899b5000-7f0e899b9000 r-xs 00020000 08:01 3019820                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/tomee/lib/commons-digester-1.8.jar
+7f0e899b9000-7f0e899cc000 r-xs 000e2000 08:01 3019826                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/tomee/lib/cxf-api-2.6.4.jar
+7f0e899cc000-7f0e899f4000 r-xs 00123000 08:01 3019880                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/tomee/lib/opensaml-2.5.1-1.jar
+7f0e899f4000-7f0e899f7000 r-xs 0000b000 08:01 3019897                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/tomee/lib/swizzle-stream-1.6.1.jar
+7f0e899f7000-7f0e899fa000 r-xs 0002b000 08:01 3019898                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/tomee/lib/tomee-catalina-1.5.2.jar
+7f0e899fa000-7f0e89a12000 r-xs 00115000 08:01 3019916                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/tomee/lib/xercesImpl-2.9.1.jar
+7f0e89a12000-7f0e89a1c000 r-xs 0007d000 08:01 3019884                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/tomee/lib/openwebbeans-impl-1.1.8.jar
+7f0e89a1c000-7f0e89a1f000 r-xs 00018000 08:01 3019877                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/tomee/lib/openejb-server-4.5.2.jar
+7f0e89a1f000-7f0e89a22000 r-xs 0000d000 08:01 3019807                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/tomee/lib/bval-core-0.5.jar
+7f0e89a22000-7f0e89a38000 r-xs 000fa000 08:01 3019853                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/tomee/lib/jaxb-impl-2.2.6.jar
+7f0e89a38000-7f0e89a3a000 r-xs 00003000 08:01 3019869                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/tomee/lib/openejb-hsql-4.5.2.jar
+7f0e89a3a000-7f0e89a47000 r-xs 00148000 08:01 3019849                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/tomee/lib/hsqldb-2.2.8.jar
+7f0e89a47000-7f0e89a49000 r-xs 00002000 08:01 3019871                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/tomee/lib/openejb-javaagent-4.5.2.jar
+7f0e89a49000-7f0e89a4b000 r-xs 00010000 08:01 3019846                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/tomee/lib/geronimo-transaction-3.1.1.jar
+7f0e89a4b000-7f0e89a51000 r-xs 00052000 08:01 3019830                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/tomee/lib/cxf-rt-core-2.6.4.jar
+7f0e89a51000-7f0e89a52000 r-xs 00004000 08:01 3019885                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/tomee/lib/openwebbeans-jsf-1.1.8.jar
+7f0e89a52000-7f0e89a55000 r-xs 00022000 08:01 3019793                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/tomee/lib/activemq-protobuf-1.1.jar
+7f0e89a55000-7f0e89a57000 r-xs 0000b000 08:01 3019902                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/tomee/lib/tomee-loader-1.5.2.jar
+7f0e89a57000-7f0e89a59000 r-xs 00007000 08:01 3019883                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/tomee/lib/openwebbeans-ejb-1.1.8.jar
+7f0e89a59000-7f0e89a5b000 r-xs 0000b000 08:01 3019887                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/tomee/lib/openwebbeans-web-1.1.8.jar
+7f0e89a5b000-7f0e89a5d000 r-xs 00014000 08:01 3019805                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/tomee/lib/activemq-ra-5.7.0.jar
+7f0e89a5d000-7f0e89a9b000 r-xs 0038a000 08:01 3019792                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/tomee/lib/activemq-core-5.7.0.jar
+7f0e89a9b000-7f0e89aa0000 r-xs 00020000 08:01 3019908                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/tomee/lib/wsdl4j-1.6.2.jar
+7f0e89aa0000-7f0e89aa2000 r-xs 0000c000 08:01 3019865                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/tomee/lib/openejb-cxf-4.5.2.jar
+7f0e89aa2000-7f0e89aa3000 r-xs 00002000 08:01 3019857                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/tomee/lib/mbean-annotation-api-4.5.2.jar
+7f0e89aa3000-7f0e89abc000 r-xs 0010e000 08:01 3019872                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/tomee/lib/openejb-jee-4.5.2.jar
+7f0e89abc000-7f0e89abe000 r-xs 00012000 08:01 3019870                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/tomee/lib/openejb-http-4.5.2.jar
+7f0e89abe000-7f0e89ac4000 r-xs 00071000 08:01 3019907                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/tomee/lib/woodstox-core-asl-4.0.8.jar
+7f0e89ac4000-7f0e89ac6000 r-xs 00003000 08:01 3019837                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/tomee/lib/cxf-rt-rs-security-cors-2.6.4.jar
+7f0e89ac6000-7f0e89ac8000 r-xs 00010000 08:01 3019835                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/tomee/lib/cxf-rt-rs-extension-providers-2.6.4.jar
+7f0e89ac8000-7f0e89ad5000 r-xs 0008f000 08:01 3019919                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/tomee/lib/xmlsec-1.5.3.jar
+7f0e89ad5000-7f0e89ade000 r-xs 00081000 08:01 3019889                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/tomee/lib/quartz-2.1.6.jar
+7f0e89ade000-7f0e89ae0000 r-xs 00008000 08:01 3019828                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/tomee/lib/cxf-rt-bindings-xml-2.6.4.jar
+7f0e89ae0000-7f0e89ae4000 r-xs 0002b000 08:01 3019827                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/tomee/lib/cxf-rt-bindings-soap-2.6.4.jar
+7f0e89ae4000-7f0e89ae9000 r-xs 00041000 08:01 3019821                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/tomee/lib/commons-lang-2.6.jar
+7f0e89ae9000-7f0e89aea000 r-xs 00008000 08:01 3019905                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/tomee/lib/tomee-webapp-1.5.2.jar
+7f0e89aea000-7f0e89af8000 r-xs 0007f000 08:01 3019818                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/tomee/lib/commons-collections-3.2.1.jar
+7f0e89af8000-7f0e89b14000 r-xs 0009e000 08:01 3019851                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/tomee/lib/javaee-api-6.0-5-tomcat.jar
+7f0e89b14000-7f0e89b1b000 r-xs 00075000 08:01 3019832                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/tomee/lib/cxf-rt-frontend-jaxrs-2.6.4.jar
+7f0e89b1b000-7f0e89b1d000 r-xs 00010000 08:01 3019854                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/tomee/lib/jettison-1.3.jar
+7f0e89b1d000-7f0e89b21000 r-xs 00028000 08:01 3019896                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/tomee/lib/stax2-api-3.0.2.jar
+7f0e89b21000-7f0e89b23000 r-xs 00003000 08:01 3019881                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/tomee/lib/openwebbeans-ee-1.1.8.jar
+7f0e89b23000-7f0e89b29000 r-xs 00065000 08:01 3019909                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/tomee/lib/wss4j-1.6.8.jar
+7f0e89b29000-7f0e89b2b000 r-xs 00003000 08:01 3019900                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/tomee/lib/tomee-jaxrs-1.5.2.jar
+7f0e89b2b000-7f0e89b2d000 r-xs 00005000 08:01 3019904                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/tomee/lib/tomee-myfaces-1.5.2.jar
+7f0e89b2d000-7f0e89b31000 r-xs 0002f000 08:01 3019892                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/tomee/lib/serp-1.13.1.jar
+7f0e89b31000-7f0e89b36000 r-xs 0002c000 08:01 3019841                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/tomee/lib/cxf-rt-ws-policy-2.6.4.jar
+7f0e89b36000-7f0e89b3f000 r-xs 0005e000 08:01 3019874                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/tomee/lib/openejb-jstl-1.2.jar
+7f0e89b3f000-7f0e89b43000 r-xs 00021000 08:01 3019915                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/tomee/lib/xbean-reflect-3.12.jar
+7f0e89b43000-7f0e89b57000 r-xs 00077000 08:01 3019888                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/tomee/lib/openws-1.4.2-1.jar
+7f0e89b57000-7f0e89b5a000 r-xs 0001b000 08:01 3019911                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/tomee/lib/xbean-asm-shaded-3.12.jar
+7f0e89b5a000-7f0e89b5e000 r-xs 00021000 08:01 3019913                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/tomee/lib/xbean-finder-shaded-3.12.jar
+7f0e89b5e000-7f0e89b64000 r-xs 00047000 08:01 3019863                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/tomee/lib/openejb-client-4.5.2.jar
+7f0e89b64000-7f0e89b67000 r-xs 00011000 08:01 3019875                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/tomee/lib/openejb-loader-4.5.2.jar
+7f0e89b67000-7f0e89b90000 r-xs 0025f000 08:01 3019864                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/tomee/lib/openejb-core-4.5.2.jar
+7f0e89b90000-7f0e89b92000 r-xs 0001a000 08:01 3019831                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/tomee/lib/cxf-rt-databinding-jaxb-2.6.4.jar
+7f0e89b92000-7f0e89b94000 r-xs 00012000 08:01 3019848                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/tomee/lib/howl-1.0.1-1.jar
+7f0e89b94000-7f0e89ba1000 r-xs 000b6000 08:01 38151173                   /home/leif/opt/mbs-tomcat-7.0.40/lib/tomcat-coyote.jar
+7f0e89ba1000-7f0e89ba7000 r-xp 00000000 08:01 393847                     /home/leif/redhat2014/jre1.6.0_45/lib/amd64/libmanagement.so
+7f0e89ba7000-7f0e89ca6000 ---p 00006000 08:01 393847                     /home/leif/redhat2014/jre1.6.0_45/lib/amd64/libmanagement.so
+7f0e89ca6000-7f0e89ca8000 rwxp 00005000 08:01 393847                     /home/leif/redhat2014/jre1.6.0_45/lib/amd64/libmanagement.so
+7f0e89ca8000-7f0e89ca9000 ---p 00000000 00:00 0 
+7f0e89ca9000-7f0e89da9000 rwxp 00000000 00:00 0 
+7f0e89da9000-7f0e89dac000 ---p 00000000 00:00 0 
+7f0e89dac000-7f0e89eaa000 rwxp 00000000 00:00 0 
+7f0e89eaa000-7f0e89ead000 ---p 00000000 00:00 0 
+7f0e89ead000-7f0e89fab000 rwxp 00000000 00:00 0 
+7f0e89fab000-7f0e89fae000 ---p 00000000 00:00 0 
+7f0e89fae000-7f0e8a0ac000 rwxp 00000000 00:00 0 
+7f0e8a0ac000-7f0e8a0af000 ---p 00000000 00:00 0 
+7f0e8a0af000-7f0e8a1ad000 rwxp 00000000 00:00 0 
+7f0e8a1ad000-7f0e8a1b0000 ---p 00000000 00:00 0 
+7f0e8a1b0000-7f0e8a2ae000 rwxp 00000000 00:00 0 
+7f0e8a2ae000-7f0e8a2b1000 r-xp 00000000 08:01 393836                     /home/leif/redhat2014/jre1.6.0_45/lib/amd64/libdt_socket.so
+7f0e8a2b1000-7f0e8a3b0000 ---p 00003000 08:01 393836                     /home/leif/redhat2014/jre1.6.0_45/lib/amd64/libdt_socket.so
+7f0e8a3b0000-7f0e8a3b2000 rwxp 00002000 08:01 393836                     /home/leif/redhat2014/jre1.6.0_45/lib/amd64/libdt_socket.so
+7f0e8a3b2000-7f0e8a3b5000 ---p 00000000 00:00 0 
+7f0e8a3b5000-7f0e8a4b3000 rwxp 00000000 00:00 0 
+7f0e8a4b3000-7f0e8a4b6000 ---p 00000000 00:00 0 
+7f0e8a4b6000-7f0e8a5b4000 rwxp 00000000 00:00 0 
+7f0e8a5b4000-7f0e8a5b7000 ---p 00000000 00:00 0 
+7f0e8a5b7000-7f0e8a6b5000 rwxp 00000000 00:00 0 
+7f0e8a6b5000-7f0e8a6b6000 ---p 00000000 00:00 0 
+7f0e8a6b6000-7f0e8b0f3000 rwxp 00000000 00:00 0 
+7f0e8b0f3000-7f0e8b28c000 r-xs 02b64000 08:01 41025641                   /home/leif/redhat2014/jre1.6.0_45/lib/rt.jar
+7f0e8b28c000-7f0e8b28d000 ---p 00000000 00:00 0 
+7f0e8b28d000-7f0e8b38d000 rwxp 00000000 00:00 0 
+7f0e8b38d000-7f0e8b38e000 ---p 00000000 00:00 0 
+7f0e8b38e000-7f0e8b48e000 rwxp 00000000 00:00 0 
+7f0e8b48e000-7f0e8b48f000 ---p 00000000 00:00 0 
+7f0e8b48f000-7f0e8b58f000 rwxp 00000000 00:00 0 
+7f0e8b58f000-7f0e8b590000 ---p 00000000 00:00 0 
+7f0e8b590000-7f0e8b690000 rwxp 00000000 00:00 0 
+7f0e8b690000-7f0e8b691000 ---p 00000000 00:00 0 
+7f0e8b691000-7f0e8b791000 rwxp 00000000 00:00 0 
+7f0e8b791000-7f0e8b792000 ---p 00000000 00:00 0 
+7f0e8b792000-7f0e8b892000 rwxp 00000000 00:00 0 
+7f0e8b892000-7f0e8b893000 ---p 00000000 00:00 0 
+7f0e8b893000-7f0e8b993000 rwxp 00000000 00:00 0 
+7f0e8b993000-7f0e8b994000 ---p 00000000 00:00 0 
+7f0e8b994000-7f0e8bb27000 rwxp 00000000 00:00 0 
+7f0e8bb27000-7f0e8bb87000 ---p 00000000 00:00 0 
+7f0e8bb87000-7f0e8bbea000 rwxp 00000000 00:00 0 
+7f0e8bbea000-7f0e8bc6a000 rwxp 00000000 00:00 0 
+7f0e8bc6a000-7f0e8bcfd000 rwxp 00000000 00:00 0 
+7f0e8bcfd000-7f0e8bd5d000 ---p 00000000 00:00 0 
+7f0e8bd5d000-7f0e8bdbf000 rwxp 00000000 00:00 0 
+7f0e8bdbf000-7f0e8be51000 rwxp 00000000 00:00 0 
+7f0e8be51000-7f0e8be6a000 ---p 00000000 00:00 0 
+7f0e8be6a000-7f0e8c9db000 rwxp 00000000 00:00 0 
+7f0e8c9db000-7f0e8ee6b000 rwxp 00000000 00:00 0 
+7f0e8ee6b000-7f0e8ee79000 r-xp 00000000 08:01 393810                     /home/leif/redhat2014/jre1.6.0_45/lib/amd64/libzip.so
+7f0e8ee79000-7f0e8ef7b000 ---p 0000e000 08:01 393810                     /home/leif/redhat2014/jre1.6.0_45/lib/amd64/libzip.so
+7f0e8ef7b000-7f0e8ef7e000 rwxp 00010000 08:01 393810                     /home/leif/redhat2014/jre1.6.0_45/lib/amd64/libzip.so
+7f0e8ef7e000-7f0e8ef7f000 rwxp 00000000 00:00 0 
+7f0e8ef7f000-7f0e8ef8b000 r-xp 00000000 08:01 34341415                   /lib/x86_64-linux-gnu/libnss_files-2.15.so
+7f0e8ef8b000-7f0e8f18a000 ---p 0000c000 08:01 34341415                   /lib/x86_64-linux-gnu/libnss_files-2.15.so
+7f0e8f18a000-7f0e8f18b000 r-xp 0000b000 08:01 34341415                   /lib/x86_64-linux-gnu/libnss_files-2.15.so
+7f0e8f18b000-7f0e8f18c000 rwxp 0000c000 08:01 34341415                   /lib/x86_64-linux-gnu/libnss_files-2.15.so
+7f0e8f18c000-7f0e8f196000 r-xp 00000000 08:01 34341423                   /lib/x86_64-linux-gnu/libnss_nis-2.15.so
+7f0e8f196000-7f0e8f396000 ---p 0000a000 08:01 34341423                   /lib/x86_64-linux-gnu/libnss_nis-2.15.so
+7f0e8f396000-7f0e8f397000 r-xp 0000a000 08:01 34341423                   /lib/x86_64-linux-gnu/libnss_nis-2.15.so
+7f0e8f397000-7f0e8f398000 rwxp 0000b000 08:01 34341423                   /lib/x86_64-linux-gnu/libnss_nis-2.15.so
+7f0e8f398000-7f0e8f3a0000 r-xp 00000000 08:01 34341411                   /lib/x86_64-linux-gnu/libnss_compat-2.15.so
+7f0e8f3a0000-7f0e8f59f000 ---p 00008000 08:01 34341411                   /lib/x86_64-linux-gnu/libnss_compat-2.15.so
+7f0e8f59f000-7f0e8f5a0000 r-xp 00007000 08:01 34341411                   /lib/x86_64-linux-gnu/libnss_compat-2.15.so
+7f0e8f5a0000-7f0e8f5a1000 rwxp 00008000 08:01 34341411                   /lib/x86_64-linux-gnu/libnss_compat-2.15.so
+7f0e8f5a1000-7f0e8f86d000 r-xp 00000000 08:01 37491397                   /usr/lib/locale/locale-archive
+7f0e8f86d000-7f0e8f870000 r-xp 00000000 08:01 393801                     /home/leif/redhat2014/jre1.6.0_45/lib/amd64/libnpt.so
+7f0e8f870000-7f0e8f96f000 ---p 00003000 08:01 393801                     /home/leif/redhat2014/jre1.6.0_45/lib/amd64/libnpt.so
+7f0e8f96f000-7f0e8f970000 rwxp 00002000 08:01 393801                     /home/leif/redhat2014/jre1.6.0_45/lib/amd64/libnpt.so
+7f0e8f970000-7f0e8f9a6000 r-xp 00000000 08:01 393828                     /home/leif/redhat2014/jre1.6.0_45/lib/amd64/libjdwp.so
+7f0e8f9a6000-7f0e8faa5000 ---p 00036000 08:01 393828                     /home/leif/redhat2014/jre1.6.0_45/lib/amd64/libjdwp.so
+7f0e8faa5000-7f0e8faaf000 rwxp 00035000 08:01 393828                     /home/leif/redhat2014/jre1.6.0_45/lib/amd64/libjdwp.so
+7f0e8faaf000-7f0e8fac6000 r-xp 00000000 08:01 34344052                   /lib/x86_64-linux-gnu/libnsl-2.15.so
+7f0e8fac6000-7f0e8fcc5000 ---p 00017000 08:01 34344052                   /lib/x86_64-linux-gnu/libnsl-2.15.so
+7f0e8fcc5000-7f0e8fcc6000 r-xp 00016000 08:01 34344052                   /lib/x86_64-linux-gnu/libnsl-2.15.so
+7f0e8fcc6000-7f0e8fcc7000 rwxp 00017000 08:01 34344052                   /lib/x86_64-linux-gnu/libnsl-2.15.so
+7f0e8fcc7000-7f0e8fcc9000 rwxp 00000000 00:00 0 
+7f0e8fcc9000-7f0e8fcf2000 r-xp 00000000 08:01 393824                     /home/leif/redhat2014/jre1.6.0_45/lib/amd64/libjava.so
+7f0e8fcf2000-7f0e8fdf1000 ---p 00029000 08:01 393824                     /home/leif/redhat2014/jre1.6.0_45/lib/amd64/libjava.so
+7f0e8fdf1000-7f0e8fdf8000 rwxp 00028000 08:01 393824                     /home/leif/redhat2014/jre1.6.0_45/lib/amd64/libjava.so
+7f0e8fdf8000-7f0e8fdff000 r-xp 00000000 08:01 34341421                   /lib/x86_64-linux-gnu/librt-2.15.so
+7f0e8fdff000-7f0e8fffe000 ---p 00007000 08:01 34341421                   /lib/x86_64-linux-gnu/librt-2.15.so
+7f0e8fffe000-7f0e8ffff000 r-xp 00006000 08:01 34341421                   /lib/x86_64-linux-gnu/librt-2.15.so
+7f0e8ffff000-7f0e90000000 rwxp 00007000 08:01 34341421                   /lib/x86_64-linux-gnu/librt-2.15.so
+7f0e90000000-7f0e91151000 rwxp 00000000 00:00 0 
+7f0e91151000-7f0e94000000 ---p 00000000 00:00 0 
+7f0e94000000-7f0e94001000 r-xs 00003000 08:01 39722648                   /home/leif/opt/mbs-tomcat-7.0.40/temp/1-mbs-ui/WEB-INF/lib/annotation-detector-3.0.1.jar
+7f0e94001000-7f0e94006000 r-xs 0003a000 08:01 38151164                   /home/leif/opt/mbs-tomcat-7.0.40/lib/catalina-tribes.jar
+7f0e94006000-7f0e94007000 r-xs 00001000 08:01 38151172                   /home/leif/opt/mbs-tomcat-7.0.40/lib/tomcat-api.jar
+7f0e94007000-7f0e9400a000 r-xs 0001e000 08:01 38151163                   /home/leif/opt/mbs-tomcat-7.0.40/lib/catalina-ha.jar
+7f0e9400a000-7f0e94019000 r-xs 001a9000 08:01 38151166                   /home/leif/opt/mbs-tomcat-7.0.40/lib/ecj-4.2.2.jar
+7f0e94019000-7f0e9401c000 r-xs 00013000 08:01 38151170                   /home/leif/opt/mbs-tomcat-7.0.40/lib/jsp-api.jar
+7f0e9401c000-7f0e9401e000 r-xs 0000b000 08:01 38151177                   /home/leif/opt/mbs-tomcat-7.0.40/lib/tomcat-i18n-ja.jar
+7f0e9401e000-7f0e94030000 r-xs 0016c000 08:01 38151165                   /home/leif/opt/mbs-tomcat-7.0.40/lib/catalina.jar
+7f0e94030000-7f0e940d8000 rwxp 00000000 00:00 0 
+7f0e940d8000-7f0e940e5000 r-xp 00000000 08:01 393805                     /home/leif/redhat2014/jre1.6.0_45/lib/amd64/libverify.so
+7f0e940e5000-7f0e941e4000 ---p 0000d000 08:01 393805                     /home/leif/redhat2014/jre1.6.0_45/lib/amd64/libverify.so
+7f0e941e4000-7f0e941e7000 rwxp 0000c000 08:01 393805                     /home/leif/redhat2014/jre1.6.0_45/lib/amd64/libverify.so
+7f0e941e7000-7f0e941ea000 ---p 00000000 00:00 0 
+7f0e941ea000-7f0e942e8000 rwxp 00000000 00:00 0 
+7f0e942e8000-7f0e943e3000 r-xp 00000000 08:01 34341496                   /lib/x86_64-linux-gnu/libm-2.15.so
+7f0e943e3000-7f0e945e2000 ---p 000fb000 08:01 34341496                   /lib/x86_64-linux-gnu/libm-2.15.so
+7f0e945e2000-7f0e945e3000 r-xp 000fa000 08:01 34341496                   /lib/x86_64-linux-gnu/libm-2.15.so
+7f0e945e3000-7f0e945e4000 rwxp 000fb000 08:01 34341496                   /lib/x86_64-linux-gnu/libm-2.15.so
+7f0e945e4000-7f0e94f02000 r-xp 00000000 08:01 393831                     /home/leif/redhat2014/jre1.6.0_45/lib/amd64/server/libjvm.so
+7f0e94f02000-7f0e95004000 ---p 0091e000 08:01 393831                     /home/leif/redhat2014/jre1.6.0_45/lib/amd64/server/libjvm.so
+7f0e95004000-7f0e951ba000 rwxp 00920000 08:01 393831                     /home/leif/redhat2014/jre1.6.0_45/lib/amd64/server/libjvm.so
+7f0e951ba000-7f0e951f4000 rwxp 00000000 00:00 0 
+7f0e951f4000-7f0e953a9000 r-xp 00000000 08:01 34341409                   /lib/x86_64-linux-gnu/libc-2.15.so
+7f0e953a9000-7f0e955a9000 ---p 001b5000 08:01 34341409                   /lib/x86_64-linux-gnu/libc-2.15.so
+7f0e955a9000-7f0e955ad000 r-xp 001b5000 08:01 34341409                   /lib/x86_64-linux-gnu/libc-2.15.so
+7f0e955ad000-7f0e955af000 rwxp 001b9000 08:01 34341409                   /lib/x86_64-linux-gnu/libc-2.15.so
+7f0e955af000-7f0e955b4000 rwxp 00000000 00:00 0 
+7f0e955b4000-7f0e955b6000 r-xp 00000000 08:01 34341508                   /lib/x86_64-linux-gnu/libdl-2.15.so
+7f0e955b6000-7f0e957b6000 ---p 00002000 08:01 34341508                   /lib/x86_64-linux-gnu/libdl-2.15.so
+7f0e957b6000-7f0e957b7000 r-xp 00002000 08:01 34341508                   /lib/x86_64-linux-gnu/libdl-2.15.so
+7f0e957b7000-7f0e957b8000 rwxp 00003000 08:01 34341508                   /lib/x86_64-linux-gnu/libdl-2.15.so
+7f0e957b8000-7f0e957d0000 r-xp 00000000 08:01 34341426                   /lib/x86_64-linux-gnu/libpthread-2.15.so
+7f0e957d0000-7f0e959cf000 ---p 00018000 08:01 34341426                   /lib/x86_64-linux-gnu/libpthread-2.15.so
+7f0e959cf000-7f0e959d0000 r-xp 00017000 08:01 34341426                   /lib/x86_64-linux-gnu/libpthread-2.15.so
+7f0e959d0000-7f0e959d1000 rwxp 00018000 08:01 34341426                   /lib/x86_64-linux-gnu/libpthread-2.15.so
+7f0e959d1000-7f0e959d5000 rwxp 00000000 00:00 0 
+7f0e959d5000-7f0e959f7000 r-xp 00000000 08:01 34341497                   /lib/x86_64-linux-gnu/ld-2.15.so
+7f0e959f7000-7f0e959f8000 r-xs 00007000 08:01 4331012                    /home/leif/opt/mbs-tomcat-7.0.40/webapps/ROOT/WEB-INF/lib/commons-email.jar
+7f0e959f8000-7f0e959fb000 r-xs 0001c000 08:01 38151178                   /home/leif/opt/mbs-tomcat-7.0.40/lib/tomcat-jdbc.jar
+7f0e959fb000-7f0e95a03000 r-xs 0008b000 08:01 38151169                   /home/leif/opt/mbs-tomcat-7.0.40/lib/jasper.jar
+7f0e95a03000-7f0e95a05000 r-xs 0000a000 08:01 38151176                   /home/leif/opt/mbs-tomcat-7.0.40/lib/tomcat-i18n-fr.jar
+7f0e95a05000-7f0e95a33000 rwxp 00000000 00:00 0 
+7f0e95a33000-7f0e95ac5000 rwxp 00000000 00:00 0 
+7f0e95ac5000-7f0e95ac8000 rwxp 00000000 00:00 0 
+7f0e95ac8000-7f0e95acf000 r-xp 00000000 08:01 393795                     /home/leif/redhat2014/jre1.6.0_45/lib/amd64/jli/libjli.so
+7f0e95acf000-7f0e95bd0000 ---p 00007000 08:01 393795                     /home/leif/redhat2014/jre1.6.0_45/lib/amd64/jli/libjli.so
+7f0e95bd0000-7f0e95bd2000 rwxp 00008000 08:01 393795                     /home/leif/redhat2014/jre1.6.0_45/lib/amd64/jli/libjli.so
+7f0e95bd2000-7f0e95bd3000 rwxp 00000000 00:00 0 
+7f0e95bd3000-7f0e95bd4000 r-xs 00005000 08:01 38151179                   /home/leif/opt/mbs-tomcat-7.0.40/lib/tomcat-util.jar
+7f0e95bd4000-7f0e95bd7000 r-xs 0001c000 08:01 38151168                   /home/leif/opt/mbs-tomcat-7.0.40/lib/jasper-el.jar
+7f0e95bd7000-7f0e95bda000 r-xs 00029000 08:01 38151171                   /home/leif/opt/mbs-tomcat-7.0.40/lib/servlet-api.jar
+7f0e95bda000-7f0e95bdc000 r-xs 00011000 08:01 38151175                   /home/leif/opt/mbs-tomcat-7.0.40/lib/tomcat-i18n-es.jar
+7f0e95bdc000-7f0e95be0000 r-xs 00036000 08:01 38151174                   /home/leif/opt/mbs-tomcat-7.0.40/lib/tomcat-dbcp.jar
+7f0e95be0000-7f0e95be2000 r-xs 0000c000 08:01 38151162                   /home/leif/opt/mbs-tomcat-7.0.40/lib/catalina-ant.jar
+7f0e95be2000-7f0e95be4000 r-xs 00008000 08:01 38151268                   /home/leif/opt/mbs-tomcat-7.0.40/bin/tomcat-juli.jar
+7f0e95be4000-7f0e95be5000 r-xs 00005000 08:01 38151251                   /home/leif/opt/mbs-tomcat-7.0.40/bin/commons-daemon.jar
+7f0e95be5000-7f0e95be6000 r-xs 00006000 08:01 38151246                   /home/leif/opt/mbs-tomcat-7.0.40/bin/bootstrap.jar
+7f0e95be6000-7f0e95be7000 rwxp 00000000 00:00 0 
+7f0e95be7000-7f0e95be8000 r-xs 00001000 08:01 38151229                   /home/leif/opt/mbs-tomcat-7.0.40/endorsed/annotation-api.jar
+7f0e95be8000-7f0e95beb000 r-xs 00010000 08:01 38151230                   /home/leif/opt/mbs-tomcat-7.0.40/endorsed/jaxb-api.jar
+7f0e95beb000-7f0e95bf3000 rwxs 00000000 08:01 36831250                   /tmp/hsperfdata_leif/21736
+7f0e95bf3000-7f0e95bf4000 rwxp 00000000 00:00 0 
+7f0e95bf4000-7f0e95bf5000 r-xp 00000000 00:00 0 
+7f0e95bf5000-7f0e95bf7000 rwxp 00000000 00:00 0 
+7f0e95bf7000-7f0e95bf8000 r-xp 00022000 08:01 34341497                   /lib/x86_64-linux-gnu/ld-2.15.so
+7f0e95bf8000-7f0e95bfa000 rwxp 00023000 08:01 34341497                   /lib/x86_64-linux-gnu/ld-2.15.so
+7ffff38b2000-7ffff38d4000 rwxp 00000000 00:00 0                          [stack]
+7ffff38f8000-7ffff38f9000 r-xp 00000000 00:00 0                          [vdso]
+ffffffffff600000-ffffffffff601000 r-xp 00000000 00:00 0                  [vsyscall]
+
+VM Arguments:
+jvm_args: -Djava.util.logging.config.file=/home/leif/opt/mbs-tomcat-7.0.40/conf/logging.properties -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager -Dfile.encoding=UTF8 -Dorg.apache.catalina.loader.WebappClassLoader.ENABLE_CLEAR_REFERENCES=false -Duser.timezone=GMT -Xmx1024m -XX:MaxPermSize=256m -Dderby.system.home=/home/leif/opt/mbs-tomcat-7.0.40/db -Xdebug -Xrunjdwp:transport=dt_socket,address=8787,server=y,suspend=n -Djava.endorsed.dirs=/home/leif/opt/mbs-tomcat-7.0.40/endorsed -Dcatalina.base=/home/leif/opt/mbs-tomcat-7.0.40 -Dcatalina.home=/home/leif/opt/mbs-tomcat-7.0.40 -Djava.io.tmpdir=/home/leif/opt/mbs-tomcat-7.0.40/temp 
+java_command: org.apache.catalina.startup.Bootstrap start
+Launcher Type: SUN_STANDARD
+
+Environment Variables:
+JAVA_HOME=/home/leif/redhat2014/jre1.6.0_45
+CLASSPATH=/home/leif/opt/mbs-tomcat-7.0.40/bin/bootstrap.jar:/home/leif/opt/mbs-tomcat-7.0.40/bin/tomcat-juli.jar
+PATH=.:/opt/mqm/bin:/opt/GMSEC/GMSEC_API/bin:/home/leif/netbeans-7.3.1/bin:/home/leif/opt/netbeans-7.3.1/java/ant/bin:/home/leif/redhat2014/jre1.6.0_45/bin:/opt/ActivePerl-5.10/bin:/home/leif/svn_checkout/nexus/trunk/bin:/bin:/home/leif/scripts:/opt/apache-maven-3.0.4/bin:.:/opt/mqm/bin:/opt/GMSEC/GMSEC_API/bin:/home/leif/netbeans-7.3.1/bin:/home/leif/opt/netbeans-7.3.1/java/ant/bin:/home/leif/redhat2014/jre1.6.0_45/bin:/opt/ActivePerl-5.10/bin:/home/leif/svn_checkout/nexus/trunk/bin:/bin:/home/leif/scripts:/opt/apache-maven-3.0.4/bin:/opt/jdk1.6.0_25/bin:/opt/ActivePerl-5.10/bin:/usr/lib/lightdm/lightdm:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games
+LD_LIBRARY_PATH=/home/leif/redhat2014/jre1.6.0_45/lib/amd64/server:/home/leif/redhat2014/jre1.6.0_45/lib/amd64:/home/leif/redhat2014/jre1.6.0_45/../lib/amd64:/opt/GMSEC/GMSEC_API/bin:/opt/mqm/lib64:/opt/GMSEC/GMSEC_API/bin:/opt/mqm/lib64:
+SHELL=/bin/bash
+DISPLAY=:0.0
+
+Signal Handlers:
+SIGSEGV: [libjvm.so+0x862a30], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+SIGBUS: [libjvm.so+0x862a30], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+SIGFPE: [libjvm.so+0x7106f0], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+SIGPIPE: [libjvm.so+0x7106f0], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+SIGXFSZ: [libjvm.so+0x7106f0], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+SIGILL: [libjvm.so+0x7106f0], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+SIGUSR1: SIG_DFL, sa_mask[0]=0x00000000, sa_flags=0x00000000
+SIGUSR2: [libjvm.so+0x713520], sa_mask[0]=0x00000000, sa_flags=0x10000004
+SIGHUP: [libjvm.so+0x713120], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+SIGINT: SIG_IGN, sa_mask[0]=0x00000000, sa_flags=0x00000000
+SIGTERM: [libjvm.so+0x713120], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+SIGQUIT: [libjvm.so+0x713120], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+
+
+---------------  S Y S T E M  ---------------
+
+OS:wheezy/sid
+
+uname:Linux 3.2.0-63-generic #95-Ubuntu SMP Thu May 15 23:05:57 UTC 2014 x86_64
+libc:glibc 2.15 NPTL 2.15 
+rlimit: STACK 8192k, CORE 0k, NPROC 63598, NOFILE 4096, AS infinity
+load average:2.09 1.70 1.54
+
+/proc/meminfo:
+MemTotal:        8158228 kB
+MemFree:          594080 kB
+Buffers:          498600 kB
+Cached:          2124268 kB
+SwapCached:            0 kB
+Active:          5289056 kB
+Inactive:        1641000 kB
+Active(anon):    4308812 kB
+Inactive(anon):    15104 kB
+Active(file):     980244 kB
+Inactive(file):  1625896 kB
+Unevictable:          16 kB
+Mlocked:              16 kB
+SwapTotal:       8369828 kB
+SwapFree:        8369828 kB
+Dirty:             19964 kB
+Writeback:           208 kB
+AnonPages:       4307348 kB
+Mapped:           354612 kB
+Shmem:             16688 kB
+Slab:             263192 kB
+SReclaimable:     220080 kB
+SUnreclaim:        43112 kB
+KernelStack:        5896 kB
+PageTables:        35740 kB
+NFS_Unstable:          0 kB
+Bounce:                0 kB
+WritebackTmp:          0 kB
+CommitLimit:    12448940 kB
+Committed_AS:    7597480 kB
+VmallocTotal:   34359738367 kB
+VmallocUsed:      144820 kB
+VmallocChunk:   34359546320 kB
+HardwareCorrupted:     0 kB
+AnonHugePages:         0 kB
+HugePages_Total:       0
+HugePages_Free:        0
+HugePages_Rsvd:        0
+HugePages_Surp:        0
+Hugepagesize:       2048 kB
+DirectMap4k:      282612 kB
+DirectMap2M:     8089600 kB
+
+
+CPU:total 8 (4 cores per cpu, 2 threads per core) family 6 model 42 stepping 7, cmov, cx8, fxsr, mmx, sse, sse2, sse3, ssse3, sse4.1, sse4.2, popcnt, ht
+
+/proc/cpuinfo:
+processor	: 0
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 42
+model name	: Intel(R) Core(TM) i7-2760QM CPU @ 2.40GHz
+stepping	: 7
+microcode	: 0x1a
+cpu MHz		: 1600.000
+cache size	: 6144 KB
+physical id	: 0
+siblings	: 8
+core id		: 0
+cpu cores	: 4
+apicid		: 0
+initial apicid	: 0
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 13
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx rdtscp lm constant_tsc arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 cx16 xtpr pdcm pcid sse4_1 sse4_2 x2apic popcnt tsc_deadline_timer aes xsave avx lahf_lm ida arat epb xsaveopt pln pts dtherm tpr_shadow vnmi flexpriority ept vpid
+bogomips	: 4788.79
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 36 bits physical, 48 bits virtual
+power management:
+
+processor	: 1
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 42
+model name	: Intel(R) Core(TM) i7-2760QM CPU @ 2.40GHz
+stepping	: 7
+microcode	: 0x1a
+cpu MHz		: 800.000
+cache size	: 6144 KB
+physical id	: 0
+siblings	: 8
+core id		: 1
+cpu cores	: 4
+apicid		: 2
+initial apicid	: 2
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 13
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx rdtscp lm constant_tsc arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 cx16 xtpr pdcm pcid sse4_1 sse4_2 x2apic popcnt tsc_deadline_timer aes xsave avx lahf_lm ida arat epb xsaveopt pln pts dtherm tpr_shadow vnmi flexpriority ept vpid
+bogomips	: 4788.99
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 36 bits physical, 48 bits virtual
+power management:
+
+processor	: 2
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 42
+model name	: Intel(R) Core(TM) i7-2760QM CPU @ 2.40GHz
+stepping	: 7
+microcode	: 0x1a
+cpu MHz		: 1200.000
+cache size	: 6144 KB
+physical id	: 0
+siblings	: 8
+core id		: 2
+cpu cores	: 4
+apicid		: 4
+initial apicid	: 4
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 13
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx rdtscp lm constant_tsc arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 cx16 xtpr pdcm pcid sse4_1 sse4_2 x2apic popcnt tsc_deadline_timer aes xsave avx lahf_lm ida arat epb xsaveopt pln pts dtherm tpr_shadow vnmi flexpriority ept vpid
+bogomips	: 4789.02
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 36 bits physical, 48 bits virtual
+power management:
+
+processor	: 3
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 42
+model name	: Intel(R) Core(TM) i7-2760QM CPU @ 2.40GHz
+stepping	: 7
+microcode	: 0x1a
+cpu MHz		: 800.000
+cache size	: 6144 KB
+physical id	: 0
+siblings	: 8
+core id		: 3
+cpu cores	: 4
+apicid		: 6
+initial apicid	: 6
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 13
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx rdtscp lm constant_tsc arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 cx16 xtpr pdcm pcid sse4_1 sse4_2 x2apic popcnt tsc_deadline_timer aes xsave avx lahf_lm ida arat epb xsaveopt pln pts dtherm tpr_shadow vnmi flexpriority ept vpid
+bogomips	: 4788.98
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 36 bits physical, 48 bits virtual
+power management:
+
+processor	: 4
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 42
+model name	: Intel(R) Core(TM) i7-2760QM CPU @ 2.40GHz
+stepping	: 7
+microcode	: 0x1a
+cpu MHz		: 800.000
+cache size	: 6144 KB
+physical id	: 0
+siblings	: 8
+core id		: 0
+cpu cores	: 4
+apicid		: 1
+initial apicid	: 1
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 13
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx rdtscp lm constant_tsc arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 cx16 xtpr pdcm pcid sse4_1 sse4_2 x2apic popcnt tsc_deadline_timer aes xsave avx lahf_lm ida arat epb xsaveopt pln pts dtherm tpr_shadow vnmi flexpriority ept vpid
+bogomips	: 4789.04
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 36 bits physical, 48 bits virtual
+power management:
+
+processor	: 5
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 42
+model name	: Intel(R) Core(TM) i7-2760QM CPU @ 2.40GHz
+stepping	: 7
+microcode	: 0x1a
+cpu MHz		: 800.000
+cache size	: 6144 KB
+physical id	: 0
+siblings	: 8
+core id		: 1
+cpu cores	: 4
+apicid		: 3
+initial apicid	: 3
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 13
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx rdtscp lm constant_tsc arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 cx16 xtpr pdcm pcid sse4_1 sse4_2 x2apic popcnt tsc_deadline_timer aes xsave avx lahf_lm ida arat epb xsaveopt pln pts dtherm tpr_shadow vnmi flexpriority ept vpid
+bogomips	: 4788.98
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 36 bits physical, 48 bits virtual
+power management:
+
+processor	: 6
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 42
+model name	: Intel(R) Core(TM) i7-2760QM CPU @ 2.40GHz
+stepping	: 7
+microcode	: 0x1a
+cpu MHz		: 800.000
+cache size	: 6144 KB
+physical id	: 0
+siblings	: 8
+core id		: 2
+cpu cores	: 4
+apicid		: 5
+initial apicid	: 5
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 13
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx rdtscp lm constant_tsc arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 cx16 xtpr pdcm pcid sse4_1 sse4_2 x2apic popcnt tsc_deadline_timer aes xsave avx lahf_lm ida arat epb xsaveopt pln pts dtherm tpr_shadow vnmi flexpriority ept vpid
+bogomips	: 4789.00
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 36 bits physical, 48 bits virtual
+power management:
+
+processor	: 7
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 42
+model name	: Intel(R) Core(TM) i7-2760QM CPU @ 2.40GHz
+stepping	: 7
+microcode	: 0x1a
+cpu MHz		: 800.000
+cache size	: 6144 KB
+physical id	: 0
+siblings	: 8
+core id		: 3
+cpu cores	: 4
+apicid		: 7
+initial apicid	: 7
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 13
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx rdtscp lm constant_tsc arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 cx16 xtpr pdcm pcid sse4_1 sse4_2 x2apic popcnt tsc_deadline_timer aes xsave avx lahf_lm ida arat epb xsaveopt pln pts dtherm tpr_shadow vnmi flexpriority ept vpid
+bogomips	: 4789.00
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 36 bits physical, 48 bits virtual
+power management:
+
+
+
+Memory: 4k page, physical 8158228k(594080k free), swap 8369828k(8369828k free)
+
+vm_info: Java HotSpot(TM) 64-Bit Server VM (20.45-b01) for linux-amd64 JRE (1.6.0_45-b06), built on Mar 26 2013 14:07:02 by "java_re" with gcc 3.2.2 (SuSE Linux)
+
+time: Fri May 23 16:00:37 2014
+elapsed time: 201 seconds
+

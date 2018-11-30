@@ -1,0 +1,625 @@
+Centrica SQL Queries
+
+Queries to monitor Centrica SMS device call:
+
+See if deivce cmd scheduled to run:
+select run_id, job_name, started_at, ended_at, job_group, message
+from scheduler_run where job_group != 'groupedCommandRequest' order by started_at desc;
+and ended_at > to_date(‘2011-01-17 23:59:59’, ‘yyyy-mm-dd HH24:MI:SS’)
+
+Monitor dev_logs for a given run id:
+select * from dev_logs where run_id='58739' order by timestamp desc;
+
+Check xml value content in device parameter value tbl:
+select * from tbldevice_parameter_values order by created_date desc;
+
+Other queries:
+select name, standing_charge from tblrateplan where name like 'default%';
+select *  from prepayment_balances order by read_date desc;
+select name, created_date, status, rateplan_type, fuel_type, standing_charge  from  tblrateplan;
+
+
+Other:
+select t1.name value_name, t1.description from tbldevice_parameter_values t1
+join tbldevice_parameter_template t2
+on t1.device_parameter_template_id = t2.device_parameter_template_id;
+
+select t1.name, t1.values_xml
+from tbldevice_parameter_values t1
+join tbldevice_parameter_template t2
+on t1.device_parameter_template_id = t2.device_parameter_template_id
+where t1.visibility_level='EXTERNAL';
+
+select * from u_scheduler_task where task_id ='1212227276637882228';
+select * from u_scheduler_run where run_id = '1205859276637900618';
+
+select * from tbldevice_param_temp_product where product_id=(select product_id from tblproduct where model='5262');
+
+select l.lookup_id , f.name, f.column_position, f.row_position from
+tbllookup l
+join tblfield f
+on
+l.lookup_id = f.entity_type
+where l.name = 'ET_DEVICE'
+order by f.row_position;
+---------
+
+SELECT pk.device_id,
+ r.status,
+ r.run_id TASK_MANAGER_RUN_ID,
+ t.name TASK_NAME,
+ t.created_date TASK_CREATED_DATE,
+ t.first_ran_on TASK_FIRST_RUN_TIME,
+ substr((t.first_ran_on - t.created_date),1,30)  "Task FirstRun - Created Delay",
+ l.command_timestamp "Task Sent to TM Time",
+ t.last_ran_on TASK_LAST_RUN_TIME,
+ r.started_at TASK_MANAGER_STARTED,
+ r.ended_at TASK_MANAGER_ENDED,  
+ substr((r.ended_at - l.command_timestamp),1,30)  "TM END - START  Delay"
+FROM tbldevice_command_log l
+INNER JOIN u_scheduler_run ur
+ON l.run_id = ur.run_id
+INNER JOIN u_Scheduler_task t
+ON ur.task_id = t.task_id
+INNER JOIN tbldevice_sync_event e
+ON e.task_id = t.task_id
+INNER JOIN scheduler_run r
+ON e.svc_request_id = r.run_id
+INNER JOIN device_pkey pk
+ON l.device_id            = pk.pkey
+WHERE l.command_timestamp > to_date('2010-11-16', 'yyyy-mm-dd')
+AND l.device_id          IS NOT NULL
+ORDER BY r.started_at desc
+-----------------------------------------------------------------------
+Count of errors in scheduler_run by date:
+
+SQL:
+select trunc(started_at,'DD') XX,count(trunc(started_at,'DD')) from smmhe.scheduler_run where job_group <> 'groupedCommandRequest' and status='failed'
+and message = 'Max Attempt 0/0: Communication completed with failure: internalStatus==failed, internalMessage==Error in function exectuteFunction at line 1 : null'
+group by trunc(started_at,'DD') order by trunc(started_at,'DD') desc;
+
+----------------
+select started_at, ended_at, job_group, job_name, message from SMMHE.scheduler_run where message
+IS NOT NULL and status <> ‘succeeded’ started_at > to_date(‘2011-01-26 23:59:59’, ‘yyyy-mm-dd HH24:MI:SS’) order by job_name;
+------------------------------------------------------------------------------------------------------------------------
+SELECT sr.status, sr.run_id, sr.job_name, dp.gsmnumber, sr.started_at, sr.ended_at, sr.job_group, sr.message
+FROM SMMHE.scheduler_run sr
+JOIN SMMHE.device_param_view dp
+ON sr.JOB_NAME = dp.DEVICE_ID
+WHERE job_group != ‘groupCommandRequest’
+AND ended_at > to_date(‘2011-01-27 22:59:59’, ‘yyyy-mm-dd HH24:MI:SS’)
+AND started_at > o_date(‘2011-01-26 22:59:59’, ‘yyyy-mm-dd HH24:MI:SS’)
+order by started_at desc;
+--------------------------------------------------------------------------------------------------------
+Queries to monitor Centrica SMS device call:
+See if deivce cmd scheduled to run:
+select run_id, job_name, started_at, ended_at, job_group, message
+from scheduler_run where job_group != 'groupedCommandRequest' order by started_at desc;
+
+Monitor dev_logs for a given run id:
+select * from dev_logs where run_id='58739' order by timestamp desc;
+
+Check xml value content in device parameter value tbl:
+select * from tbldevice_parameter_values order by created_date desc;
+
+Other queries:
+select name, standing_charge from tblrateplan where name like 'default%';
+select *  from prepayment_balances order by read_date desc;
+select name, created_date, status, rateplan_type, fuel_type, standing_charge  from  tblrateplan;
+
+Other:
+select t1.name value_name, t1.description from tbldevice_parameter_values t1
+join tbldevice_parameter_template t2
+on t1.device_parameter_template_id = t2.device_parameter_template_id;
+
+select t1.name, t1.values_xml
+from tbldevice_parameter_values t1
+join tbldevice_parameter_template t2
+on t1.device_parameter_template_id = t2.device_parameter_template_id
+where t1.visibility_level='EXTERNAL';
+
+select * from u_scheduler_task where task_id ='1212227276637882228';
+
+select * from u_scheduler_run where run_id = '1205859276637900618';
+
+select * from tbldevice_param_temp_product where product_id=(select product_id from tblproduct where model='5262');
+
+select l.lookup_id , f.name, f.column_position, f.row_position from
+tbllookup l
+join tblfield f
+on
+l.lookup_id = f.entity_type
+where l.name = 'ET_DEVICE'
+order by f.row_position;
+
+
+--------------------------------------------------------------------------------------------------------
+Unity Message Report
+select status, run_id, job_name, started_at, ended_at
+from SMMHE.scheduler_run
+where job_group != ‘groupedCommandRequest’
+and ended_at > to_date(‘2011-02-01 06:59:59’, ‘yyyy-mm-dd HH24:MI:SS’)
+order by job_name, ended_at asc;
+---------
+select job_name, sum(substr((ended_at - started_at),21,22)) elapsed,
+
+count(ended_at) msg_count,
+
+sum(case when status=’failed’ then 1 else 0 end) failed_msg,
+
+sum(case when status=’succeeded’ then 1 else 0 end) failed_msg
+from SMMHE.scheduler_run
+where job_group != ‘groupedCommandRequest’
+and ended_at > to_date(‘2011-02-01 06:59:59’, ‘yyyy-mm-dd HH24:MI:SS’)
+group by job_name;
+------------------------------------------------------------------------------------------------------------
+SELECT t1.job_name, (t1.last_end - t1.first_start) elapsed
+FROM
+    (SELECT job_name, min(started_at) first_start, max(ended_at) last_end
+
+FROM SMMHE.scheduler_run
+
+WHEREjob_group != ‘groupedCommandRequest’
+
+AND ended_at > to_date(‘2011-02-01 06:59:59’, ‘yyyy-mm-dd HH24:MI:SS’)
+
+GROUP BY job_name) t1
+WHERE
+t1.name IS NOT NULL;
+------------------------------------------------------------------------------------------------------------
+SELECT t1.job_name, (t1.last_end - t1.first_start) elapsed, t1.msg_count, t1.failed_msg, t1.successful_msg
+FROM
+    (SELECT job_name, min(started_at) first_start, max(ended_at) last_end,
+       count(ended_at) msg_count,
+       sum(case when status='failed' then 1 else 0 end) failed_msg,
+       sum(case when status='succeeded' then 1 else 0 end) successful_msg
+       FROM SMMHE.scheduler_run
+    WHERE job_group != 'groupedCommandRequest'
+    AND
+       ended_at
+    BETWEEN to_date('2011-02-01 06:59:59','yyyy-mm-dd HH24:MI:SS')
+    AND
+       to_date('2011-02-01 17:59:59','yyyy-mm-dd HH24:MI:SS')
+    GROUP BY job_name) t1
+;
+-------------------------------------------------------------------------------------------------------------------
+SELECT t1.job_name device_id, dp.gsmnumber gsmnumber, (t1.last_end - t1.first_start) elapsed, t1.msg_count, t1.failed_msg, t1.successful_msg
+FROM
+
+(SELECT job_name, min(started_at) first_start, max(ended_at) last_end,
+
+count(ended_at) msg_count,
+
+sum(case when status='failed' then 1 else 0 end) failed_msg,
+
+sum(case when status='succeeded' then 1 else 0 end) successful_msg
+
+FROM SMMHE.scheduler_run
+
+WHERE job_group != 'groupedCommandRequest'
+
+AND
+
+ended_at
+
+BETWEEN
+
+to_date('2011-02-01 06:59:59','yyyy-mm-dd HH24:MI:SS')
+
+AND
+
+to_date('2011-02-01 17:59:59','yyyy-mm-dd HH24:MI:SS')
+
+GROUP BY job_name) t1
+JOIN SMMHE.device_param_view dp
+ON t1.job_name=dp.device_id;
+
+-----------------
+select device_id from device_pkey where pkey in (
+select tb.device_id
+from tbldevice_info tb
+join tblproduct tp
+on tb.product_id = tp.product_id
+where tp.name='Centrica 2b Gas Meter');
+-----------------
+select * from reading where device_id in (
+select device_id from device_pkey where pkey in (
+select tb.device_id
+from tbldevice_info tb
+join tblproduct tp
+on tb.product_id = tp.product_id
+where tp.name='Centrica 2b Electric Meter'));
+----------------------------------------------------------
+select t1.job_name, t1.first,  t1.last, (t1.last - t1.first) elapsed, t1.msg_count, t1.failed_msg, t1.succeed_msg
+from (
+select job_name, min(started_at) first, max(ended_at) last,
+count(ended_at) msg_count,
+sum(case when status='failed' then 1 else 0 end) failed_msg,
+sum(case when status='succeeded' then 1 else 0 end) succeed_msg
+from smmhe.scheduler_run
+where job_group <> 'groupedCommandrequest'
+and job_group <> 'getIhuConfig'
+and job_name > 'PER61259'
+and job_name < 'PER61310'
+group by job_name
+order by job_name) t1
+SELECT parent_run_id
+
+(to_number(extract (second from (max(ended_at) - min(started_at) ))) +
+
+to_number(extract (minute from (max(ended_at) - min(started_at) ))) * 60 +
+
+to_number(extract (hour from (max(ended_at) - min(started_at) ))) * 60 * 60 +
+
+to_number(extract (day from (max(ended_at) - min(started_at) ))) * 60 * 60 * 24) / 60 as time_taken,
+
+count(parent_run_id) parent_cnt
+FROM SMMHE.SCHEDULER_RUN GROUP BY parent_run_id,
+
+started HAVING count(parent_run_id) > 6
+
+and to_char(started_at, ‘dd/yyyy’) = ‘15/2011’;
+
+Report of Failed Messages
+select * from
+
+FROM SMMHE.scheduler_run
+
+WHERE status = ‘failed’
+
+AND job_group != 'groupedCommandRequest'
+
+AND job_group != 'commandBeansContainer’'
+
+AND ended_at
+
+BETWEEN
+
+to_date('2011-02-01 06:59:59','yyyy-mm-dd HH24:MI:SS')
+
+AND
+
+to_date('2011-02-01 17:59:59','yyyy-mm-dd HH24:MI:SS')
+---------------------------------------------------
+select smmhe.scheduler_run.device_id, count(*) as NumberOfTasks from smmhe.scheduler_run
+where started_at BETWEEN TO_TIMESTAMP('07/03/2011 01:00:00.000000','DD/MM/YYYY HH24:MI:SS.FF')
+AND TO_TIMESTAMP('07/03/2011 17:12:00.000000','DD/MM/YYYY HH24:MI:SS.FF') and status = 'succeeded'
+and job_name != 'commandBeansContainer' and job_name != 'groupedCommandRequest'
+group by device_id order by NumberOfTasks;
+
+TRUNCATE (much faster than DELETE)
+
+----------------------------------------------------------------------------------------------------------------------------
+Query that Approximates Newly Commissioned Devices
+Electric:
+SELECT r.status, r.device_id, i.sdp_id as MPAN, r.started_at, r.ended_at
+  FROM scheduler_run r
+INNER JOIN device_pkey pk
+    ON pk.device_id = r.device_id
+INNER JOIN tbldevice_info i
+    ON i.device_id = pk.pkey
+ WHERE started_at BETWEEN to_date('2010-11-01', 'yyyy-mm-dd') AND to_date('2010-11-08', 'yyyy-mm-dd')
+AND job_group = 'setBillingPeriod'
+ORDER BY started_at;
+
+
+Gas:
+SELECT s.status, s.device_id AS Associated_Electric_device, d.device_id AS Gas_device,
+ i.sdp_id as MPRN, s.started_at, s.ended_at
+  FROM scheduler_run s
+INNER JOIN device d
+    ON d.comm_module_id = s.device_id
+INNER JOIN device_pkey pk
+    ON pk.device_id = d.device_id
+INNER JOIN tbldevice_info i
+    ON i.device_id = pk.pkey
+ WHERE started_at BETWEEN to_date('2010-11-01', 'yyyy-mm-dd') AND to_date('2010-11-08', 'yyyy-mm-dd')
+AND job_group = 'setGasFullConfiguration'
+ORDER BY started_at;
+
+Device Command Logs tab
+select * from SMMHE.tbldevice_command_log
+where function_id <> 'getDeviceCommandState'
+and device_id =
+(select pkey from smmhe.device_pkey where device_id = 'M10X159049');
+
+-----------------------
+-- Commisioned Electric
+select count(*) from tbldevice_info t2
+join
+(select pkey
+from device_pkey
+join device
+on device_pkey.device_id = device.device_id
+where device.device_class = 'NEMA.76.71.48.52')
+t1
+on t1.pkey = t2.device_id
+where t2.sdp_id <> ' '
+
+(or t2.account_id is not null;
+
+
+
+--Identify missing messaging
+select t2.started_at, t2.ended_at, t2.run_id, t2.job_name, t2.job_group, t1.message_count from scheduler_run t2
+join (
+select parent_run_id, job_name,
+count(parent_run_id) as message_count
+from scheduler_run
+group by parent_run_id, job_name HAVING count(parent_run_id) < 6
+) t1
+on t1.parent_run_id = t2.parent_run_id
+where t2.started_at > to_date('2011-04-10','yyyy-mm-dd');
+
+select * from scheduler_run where run_id = 25384516;
+desc scheduler_run;
+desc dev_logs;
+and (job_group = 'setGasTariff'
+or job_group = 'setGasFullConfiguration');
+-------------------------------------------------------------------------------------------------------
+select count(parent_run_id) parent_cnt, device_id from scheduler_run
+where started_at > to_date('2011-04-26','yyyy-mm-dd')
+and job_name <> 'groupedCommandRequest'
+and job_name <> 'commandBeansContainer'
+and status = 'succeeded'
+group by device_id
+order by device_id;
+
+select count(*) from activemq_msgs;
+
+select * from device t1
+join device_pkey pkey
+on pkey.device_id = t1.device_id
+join tbldevice_info t2
+on t2.device_id = pkey.pkey
+where t2.sdp_id <> ' ‘
+and t1.device_class = 'NEMA.76.71.48.52'
+
+
+--Identify missing messaging
+select t2.started_at, t2.ended_at, t2.run_id, t2.job_name, t2.job_group, t1.message_count from scheduler_run t2
+join (
+select parent_run_id, job_name,
+count(parent_run_id) as message_count
+from scheduler_run
+group by parent_run_id, job_name HAVING count(parent_run_id) < 6
+) t1
+on t1.parent_run_id = t2.parent_run_id
+where t2.started_at > to_date('2011-04-10','yyyy-mm-dd');
+
+select * from scheduler_run where run_id = 25384516;
+desc scheduler_run;
+desc dev_logs;
+and (job_group = 'setGasTariff'
+or job_group = 'setGasFullConfiguration');
+
+-----------------------------------------
+select count(*) as messaged_devices from (
+select distinct job_name from scheduler_run
+where job_name <> 'groupedCommandRequest'
+and job_name <> 'commandBeansContainer'
+);
+
+--43,305
+select count(*) as commissioned_devices from tbldevice_info where sdp_id <> ' ';
+
+--Query used by MDUS to find Commissioned devices returns 43,305
+select count(*) from tbldevice_info where sdp_id <> ' ';
+
+--Query of the scheduler_run table which should have record of all device communication, returns 15,752
+select count(*) from (
+select parent_run_id, job_name,
+count(parent_run_id) as Message_Count
+from scheduler_run
+GROUP BY parent_run_id, job_name HAVING count(parent_run_id) > 1);
+
+--Query of the scheduler_run to get distinct device ids, returns 30,051
+select count(*) from (
+select distinct job_name from scheduler_run
+where job_name <> 'groupedCommandRequest'
+and job_name <> 'commandBeansContainer');
+
+select count(*) from tbldevice_info t2
+join
+(select pkey
+from device_pkey
+join device
+on device_pkey.device_id = device.device_id
+where device.device_class = 'NEMA.76.71.48.52')
+t1
+on t1.pkey = t2.device_id
+where t2.sdp_id <> ' ';
+--26,003
+Active Device Report
+
+-- select commissioned electric
+select di.device_id from tbldevice_info di
+join device_pkey on device_pkey.pkey = di.device_id
+join device on device.device_id = device_pkey.device_id
+where device.device_class = 'NEMA.76.71.48.52'
+and di.sdp_id <> ' ';
+
+--Query for Missing Scheduled Reads from Commissioned Elec Meters
+select t1.device_id from
+( select dev.device_id from smmhe.device dev
+join smmhe.tbldevice_info on tbldevice_info.device_id = dev.id
+where dev.device_class = ‘NEMA.76.71.48.52’
+and smmhe.tbldevice_info.sdp_id <> ‘ ‘) t1
+left outer join
+(select rd.device_id from smmhe.reading rd
+where rd.reg_sequence_number = 0
+and rd.time = to_date(‘2011-05-23’,’yyyy-mm-dd’)) t2
+on t1.device_id = t2.device_id
+where t2.device_id is null
+order by t1.device_id asc;
+
+---Not sure as acturate as joining day sets, but much simpler:
+--Query for Missing Scheduled Reads from Commissioned Elec Meters
+(replace time criteria from above)
+and rd.time between to_date(‘2011-05-23’,’yyyy-mm-dd’) and to_date(‘2011-05-28’,’yyyy-mm-dd’)
+
+---- Commissioned devices missing any reads -------
+select RP.NAME "RATE PROGRAM", DI.sdp_id MPAN, DEV.device_id MSN, DI.LAST_MODIFIED_BY_DATE "INSTALL DATE"
+from smmhe.tbldevice_info DI, smmhe.device_pkey DP, smmhe.tblrateprogram RP, smmhe.device DEV
+where DI.device_id = DP.pkey
+and DI.rateprogram_id = RP.rateprogram_id
+and DI.device_id = DEV.ID
+and DI.account_id is not null and DI.rateprogram_id is not null
+and DEV.DEVICE_ID in(
+select d.DEVICE_ID
+from smmhe.tbldevice_info di, smmhe.device d
+where di.DEVICE_ID=d.ID
+and sdp_id is not null
+and not exists (
+select * from smmhe.reading r
+where r.DEVICE_ID=d.DEVICE_ID))
+order by DI.LAST_MODIFIED_BY_DATE desc;
+
+--- Get accounts of commissioned devices ---
+select dev.device_id, tblaccount.name from device dev
+join tbldevice_info on tbldevice_info.device_id = dev.id
+join tblaccount on tblaccount.account_id = tbldevice_info.account_id
+where dev.device_class = ‘NEMA.76.71.48.52’;
+
+----------------------------------------------------------------
+Process to get missing AUT SCH READS for devices per day
+1. Parse SVC std.out with get sms rds bash script (under /home/unityadm/scripts)
+2. import that log into a table sms_received
+    time_stamp datetime, device_id varchar, message varchar
+3. Select date(time_stamp) where message like '__84%'
+    to get only SCH RDS (truncates time portion)
+4. Do a group by device_id, time_stamp to get only distinct
+entries for device_id, timestamp (only one device_id per day)
+
+select device_id, time_stamp, count(message) from sch_reads
+group by device_id, time_stamp
+
+5. Export that as device_id, date_stamp.  Import that into
+table (time_stamp varchar, device_id varchar).  Index both fields.
+eg sch_reads3
+
+6. Use application(prepdata SmsFileProcessor) to generate output of row per device_id per date
+in range (2011-06-19...06-28) Import that output into
+table date_stamp varchar, device_id varchar
+
+7. Do left outer join the complete set of device per date with actual (sch_reads3)
+to find missing aut sch reads set.  Use a where condition specifying particular day from the range
+
+select t1.device_id, t1.date_stamp as date from
+(select device_id, date_stamp from day_device
+where date_stamp = '2011-06-20 00:00:00') as t1
+left outer join
+(select device_id, time_stamp from sch_reads3
+where time_stamp = '2011-06-20 00:00:00') as t2
+on t1.device_id = t2.device_id
+where t2.device_id is null;
+-----------------------------------------------
+
+Howto query for all devices effected by a tariff update:
+select * from tbldevice_info where account_id in
+(select account_id from tblaccount_rate_program where
+rate_program_id = (select rateprogram_id from tblrateprogram where name like ‘ED-D1___EA’));
+
+select dev.device_id from
+
+(select rateprogram_id from tblrateprogram where
+
+name like ‘ED-D1___EA’
+
+or name like ‘ED-D1__LO’) rp
+
+join
+
+tblaccount_rate_program arp on arp.rate_program_id = rp.rateprogram_id
+
+join
+
+tbldevice_info di on di.account_id = arp.account_id
+
+join
+
+device dev on dev.id = device_id;
+
+select * from dev_logs where message like '%Exception%' and timestamp > TIMESTAMP'2011-05-26 00:00:00' and timestamp < TIMESTAMP'2011-07-14 00:00:00' order by timestamp
+
+--------------------
+
+Get all Commisioned Devices
+
+select * from device t1
+
+join tbldevice_info t2
+on t2.device_id = t1.id
+where t2.sdp_id <> ' ‘
+and (t1.device_class = 'NEMA.76.71.48.52'
+
+or t1.device_class = 'NEMA.76.71.48.53');
+
+select t1.device_id as "Meter Serial Number", t2.sdp_id as "MPxN", t2.created_date as "Creation Date", t2.last_modified_by_date as "Last Change Date"  from device t1
+
+join tbldevice_info t2
+
+on t2.device_id = t1.id
+
+where (t2.sdp_id <> ' ' and t2.sdp_id is not null)
+
+and (t1.device_class = 'NEMA.76.71.48.52'
+
+or t1.device_class = 'NEMA.76.71.48.53');
+
+--------------------
+
+-- For your locally derived from SVC log schema - finding instances of duplicate reads for given days
+select a_date, device_id, message from
+(SELECT str_to_date(time_stamp,'%Y-%m-%d') as a_date, device_id, message FROM missingreads.sms_received
+where message like '__84%'
+and time_stamp < str_to_date('2011-06-22','%Y-%m-%d')
+and device_id like 'A10N064%'
+order by device_id, time_stamp) as sms_reads
+group by a_date
+
+having count(a_date) > 1;
+
+---------------------------
+
+select count(*) from smmhe.Reading Where
+
+TIME BETWEEN TO_TIMESTAMP('22/05/2011 23:00:00.000000','DD/MM/YYYY HH24:MI:SS.FF')
+
+AND TO_TIMESTAMP('23/05/2011 22:59:59.000000','DD/MM/YYYY HH24:MI:SS.FF') order by TIME;
+
+select smmhe.device.device_id, smmhe.tblaccount_rate_program.sdp_id, smmhe.tbldevice_info.sdp_id, smmhe.tblaccount_rate_program.type,
+
+smmhe.reading.data_register, smmhe.reading.time from smmhe.tblaccount_rate_program
+
+INNER JOIN smmhe.tbldevice_info on smmhe.tbldevice_info.sdp_id = smmhe.tblaccount_rate_program.sdp_id
+
+INNER JOIN smmhe.device on smmhe.tbldevice_info.device_id = smmhe.device.id
+
+INNER JOIN smmhe.reading on reading.device_id = smmhe.device.device_id where smmhe.tbldevice_info.sdp_id is not null and smmhe.reading.reg_sequence_number = 0
+
+and smmhe.tblaccount_rate_program.type = 'Electric' and smmhe.reading.TIME BETWEEN TO_TIMESTAMP('22/05/2011 23:00:00.000000','DD/MM/YYYY HH24:MI:SS.FF')
+
+AND TO_TIMESTAMP('23/05/2011 22:59:59.000000','DD/MM/YYYY HH24:MI:SS.FF') order by smmhe.reading.time;
+
+-------------------
+
+select * from smmhe.scheduler_run where job_name between 'PER801200' and 'PER801799' and
+
+started_at between TO_TIMESTAMP('21/07/2011 13:00:00.000000','DD/MM/YYYY HH24:MI:SS.FF')
+
+AND TO_TIMESTAMP('21/07/2011 23:59:00.000000','DD/MM/YYYY HH24:MI:SS.FF') order by job_name;
+
+select job_name, count(*) as NumberOfTasks from smmhe.scheduler_run where job_name between 'PER801200' and 'PER801799' and
+
+started_at between TO_TIMESTAMP('21/07/2011 13:00:00.000000','DD/MM/YYYY HH24:MI:SS.FF')
+
+AND TO_TIMESTAMP('21/07/2011 23:59:00.000000','DD/MM/YYYY HH24:MI:SS.FF')
+
+and job_group like 'set%' group by job_name order by job_name;
+
+--Find rate+plan name like GD-DS___XX
+select name, end_datetime from smmhe.tblrateplan
+where 
+name like 'GD-DS\_%' ESCAPE '\';
+

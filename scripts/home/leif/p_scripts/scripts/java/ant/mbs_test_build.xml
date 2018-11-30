@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project basedir="." default="all" name="test">
+
+    <target name="init">
+        <property environment="env"/>
+        
+        <property name="mbs.home" value="../mbs"/>
+        <property name="classes.dir" location="classes"/>
+        <property name="dist.dir" location="dist"/>
+        <property name="java.dir" location="src/java"/>
+        <property name="lib.dir" location="lib"/>
+        <property name="gmsec.lib.dir" location="../gmsec/lib"/>
+        <property name="ws.lib.dir" location="../ws/lib"/>
+        <property name="catalina.home" location="${env.CATALINA_HOME}"/>
+        <property name="test.report.dir" location="report"/>
+
+        <path id="mbs.classpath">
+            <pathelement path="${classes.dir}"/>
+            <fileset dir="${lib.dir}">
+                <include name="**/*.jar"/>
+            </fileset>
+            <fileset dir="${gmsec.lib.dir}">
+                <include name="**/*.jar"/>
+            </fileset>
+            <fileset dir="${ws.lib.dir}">
+                <include name="**/*.jar"/>
+            </fileset>
+            <fileset dir="${mbs.home}/lib">
+                <include name="**/*.jar"/>
+            </fileset>
+            <fileset dir="${mbs.home}/dist">
+                <include name="**/*.jar"/>
+            </fileset>
+            <fileset dir="${mbs.home}/server">
+                <include name="**/*.jar"/>
+            </fileset>
+        </path>
+        
+        <path id="test.classpath">
+            <pathelement location="${classes.dir}" />
+        </path>
+        
+        <taskdef resource="net/sf/antcontrib/antlib.xml" classpath="${mbs.home}/lib/ant-contrib-1.0b3.jar"/>
+    </target>
+    
+    <target depends="init" name="compile">
+        <mkdir dir="${classes.dir}"/>
+        <javac debug="true" deprecation="true" destdir="${classes.dir}" srcdir="${java.dir}" listfiles="true" includeAntRuntime="false" target="1.6" source="1.6">
+            <classpath refid="mbs.classpath"/>
+            <include name="**/*.java"/>
+        </javac>
+    </target>
+
+    <target depends="init" name="clean" description="Clean all build products">
+        <delete dir="${classes.dir}"/>
+    </target>
+
+    <target name="LDAPClient" depends="compile">
+        <java classname="com.emergentspace.mbs.mbs.LDAPClient">
+            <classpath refid="mbs.classpath"/>
+            <arg value="uid=admin,ou=system"/>
+            <arg value="secret"/>
+        </java>
+    </target>
+
+    <target name="LDAPRoleClient" depends="compile">
+        <java classname="com.emergentspace.mbs.mbs.LDAPRoleClient">
+            <classpath refid="mbs.classpath"/>
+            <arg value="uid=admin,ou=system"/>
+            <arg value="secret"/>
+        </java>
+    </target>
+
+    <target depends="compile" name="debugLDAPRoleClient">
+        <nbjpdastart addressproperty="jpda.address" name="nexus" transport="dt_socket">
+            <classpath refid="mbs.classpath"/>
+        </nbjpdastart>
+        <java classname="com.emergentspace.mbs.mbs.LDAPRoleClient">
+            <classpath refid="mbs.classpath"/>
+            <arg value="uid=admin,ou=system"/>
+            <arg value="secret"/>
+            <jvmarg value="-Xdebug"/>
+            <jvmarg value="-Xrunjdwp:transport=dt_socket,address=${jpda.address}"/>
+        </java>
+    </target>
+
+    <target name="gmpubACUWS_mb" depends="compile">
+        <java classname="com.emergentspace.mbs.gmsec.gmpubACUWS">
+            <classpath refid="mbs.classpath"/>
+            <arg value="connectionType=gmsec_mb"/>
+            <arg value="server=localhost"/>
+            <!--arg value="server=mbs3"/-->
+        </java>
+    </target>
+
+    <target name="gmpubACUWS_bolt" depends="compile">
+        <java classname="com.emergentspace.mbs.gmsec.gmpubACUWS">
+            <classpath refid="mbs.classpath"/>
+            <arg value="connectionType=gmsec_bolt"/>
+            <arg value="server=mbs3"/>
+        </java>
+    </target>
+   
+    <target name="gmpubACUWS_mq" depends="compile">
+        <java classname="com.emergentspace.mbs.gmsec.gmpubACUWS">
+            <classpath refid="mbs.classpath"/>
+            <arg value="connectionType=gmsec_websphere7"/>
+            <arg value="server=mbs1"/>
+            <arg value="mw-channel=SrvConn1"/>
+        </java>
+    </target>
+
+    <target name="gmpubDummy" depends="compile">
+        <java classname="com.emergentspace.mbs.gmsec.gmpubDummy">
+            <classpath refid="mbs.classpath"/>
+            <arg value="connectionType=gmsec_mb"/>
+            <arg value="server=localhost"/>
+            <!--arg value="server=mbs3"/-->
+        </java>
+    </target>
+
+    <target name="gmsub" depends="compile">
+        <java classname="com.emergentspace.mbs.gmsec.gmsub">
+            <classpath refid="mbs.classpath"/>
+            <arg value="connectionType=gmsec_mb"/>
+        </java>
+    </target>
+
+    <target name="ACUWSTest" depends="compile">
+        <java classname="com.emergentspace.mbs.ws.ACUWSTest">
+            <classpath refid="mbs.classpath"/>
+            <!--arg value="http://mbs2:8080/axis2/services"-->
+        </java>
+    </target>
+
+    <target name="gmpubTR1516" depends="compile">
+        <java classname="com.emergentspace.mbs.gmsec.gmpubTR1516">
+            <classpath refid="mbs.classpath"/>
+            <arg value="connectionType=gmsec_mb"/>
+        </java>
+    </target>
+
+    <target name="gmpubTR1518" depends="compile">
+        <java classname="com.emergentspace.mbs.gmsec.gmpubTR1518">
+            <classpath refid="mbs.classpath"/>
+            <arg value="connectionType=gmsec_mb"/>
+        </java>
+    </target>
+
+    <target name="testConnectionEditor" depends="compile">
+        <java classname="com.emergentspace.mbs.mbs.TestConnectionEditor">
+            <classpath refid="mbs.classpath"/>
+        </java>
+    </target>
+
+    <target name="testUserRoleManager" depends="compile">
+        <java classname="com.emergentspace.mbs.mbs.TestUserRoleManager">
+            <classpath refid="mbs.classpath"/>
+        </java>
+    </target>
+
+    <target name="testCompression" depends="compile">
+        <java classname="com.emergentspace.mbs.gmsec.TestCompression">
+            <classpath refid="mbs.classpath"/>
+        </java>
+    </target>
+
+    <target name="testWebServicesConnect" depends="compile">
+        <java classname="com.emergentspace.mbs.ws.WebServicesConnectivityTest">
+            <classpath refid="mbs.classpath"/>
+            <arg value="http://mbs2:8080/axis2/services/"/>
+        </java>
+    </target>
+
+    <target name="testEnum" depends="compile">
+        <java classname="com.emergentspace.mbs.mbs.TestEnum">
+            <classpath refid="mbs.classpath"/>
+        </java>
+    </target>
+
+    <target name="testPolicyManager" depends="compile">
+        <java classname="com.emergentspace.mbs.mbs.TestPolicyManager">
+            <classpath refid="mbs.classpath"/>
+        </java>
+    </target>
+
+    <target name="testAttributeManager" depends="compile">
+        <java classname="com.emergentspace.mbs.mbs.TestAttributeManager">
+            <classpath refid="mbs.classpath"/>
+        </java>
+    </target>
+
+    <target name="testPolicyTopicManager" depends="compile">
+        <java classname="com.emergentspace.mbs.mbs.TestPolicyTopicManager">
+            <classpath refid="mbs.classpath"/>
+        </java>
+    </target>
+
+    <target name="testRoleManager" depends="compile">
+        <java classname="com.emergentspace.mbs.mbs.TestRoleManager">
+            <classpath refid="mbs.classpath"/>
+        </java>
+    </target>
+
+    <target name="userManagerTest" depends="compile">
+        <java classname="com.emergentspace.mbs.mbs.UserManagerTest">
+            <classpath refid="mbs.classpath"/>
+        </java>
+    </target>
+
+    <target name="testConnectionManager" depends="compile">
+        <java classname="com.emergentspace.mbs.mbs.TestConnectionManager">
+            <classpath refid="mbs.classpath"/>
+        </java>
+    </target>
+
+    <target depends="compile" name="debug_testConnectionEditor">
+        <nbjpdastart addressproperty="jpda.address" name="nexus" transport="dt_socket">
+            <classpath refid="mbs.classpath"/>
+        </nbjpdastart>
+        <java classname="com.emergentspace.mbs.mbs.TestConnectionEditor">
+            <classpath refid="mbs.classpath"/>
+            <jvmarg value="-Xdebug"/>
+            <jvmarg value="-Xrunjdwp:transport=dt_socket,address=${jpda.address}"/>
+        </java>
+    </target>
+
+    <target depends="compile" name="debug_testRoleManager">
+        <nbjpdastart addressproperty="jpda.address" name="nexus" transport="dt_socket">
+            <classpath refid="mbs.classpath"/>
+        </nbjpdastart>
+        <java classname="com.emergentspace.mbs.mbs.TestRoleManager">
+            <classpath refid="mbs.classpath"/>
+            <jvmarg value="-Xdebug"/>
+            <jvmarg value="-Xrunjdwp:transport=dt_socket,address=${jpda.address}"/>
+        </java>
+    </target>
+
+    <target name="debug_testPolicyTopicManager" depends="compile">
+        <nbjpdastart addressproperty="jpda.address" name="nexus" transport="dt_socket">
+            <classpath refid="mbs.classpath"/>
+        </nbjpdastart>
+        <java classname="com.emergentspace.mbs.mbs.TestPolicyTopicManager">
+            <classpath refid="mbs.classpath"/>
+            <jvmarg value="-Xdebug"/>
+            <jvmarg value="-Xrunjdwp:transport=dt_socket,address=${jpda.address}"/>
+        </java>        
+    </target>
+    
+    <target name="debug_testPolicyManager" depends="compile">
+        <nbjpdastart addressproperty="jpda.address" name="nexus" transport="dt_socket">
+            <classpath refid="mbs.classpath"/>
+        </nbjpdastart>
+        <java classname="com.emergentspace.mbs.mbs.TestPolicyManager">
+            <classpath refid="mbs.classpath"/>
+            <jvmarg value="-Xdebug"/>
+            <jvmarg value="-Xrunjdwp:transport=dt_socket,address=${jpda.address}"/>
+        </java>        
+    </target>    
+
+    <target name="test" depends="init,compile">
+        <delete quiet="true">
+            <fileset dir="${test.report.dir}" includes="**/*.*"/>
+        </delete>
+        <mkdir dir="${test.report.dir}"/>
+        <mkdir dir="${test.report.dir}/html"/>
+        
+        <junit showoutput="true" printsummary="yes" haltonfailure="no">
+            <classpath refid="mbs.classpath"/>
+            <test name="com.emergentspace.mbs.test.TestSuite" todir="${test.report.dir}"/>
+            <formatter type="xml"/>                
+            <!--formatter type="brief" usefile="false"/-->                
+        </junit>
+
+        <junitreport todir="report">
+            <fileset dir="report">
+                <include name="*.xml"/>
+            </fileset>
+            <report format="frames" todir="report/html"/>
+        </junitreport>
+       <!-- 
+        <junitreport todir="${test.report.dir}">
+            <fileset dir="${test.report.dir}">
+                <include name="*.xml"/>
+            </fileset>
+            <report format="frames" todir="${test.report.dir}"/>
+        </junitreport>
+        -->
+    </target>
+
+    <target name="test_report">
+        <junitreport todir="report">
+            <fileset dir="report">
+                <include name="*.xml"/>
+            </fileset>
+            <report format="frames" todir="report/html"/>
+        </junitreport>
+    </target>
+
+</project>

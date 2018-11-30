@@ -1,0 +1,36 @@
+<time_stamp>, <device_id>, <5E84>
+<time_stamp>, AUT_SCHED_READ, <device_id>
+<time_stamp>, SCHEDULED_READ notificatio, <device_id>
+
+1) Get these from std out
+[java] 2011-11-18 02:28:16.628 UTC DEBUG Autonomous message received. (type=AUT_SCHED_READ, electricDeviceId=Z10W000115, gasDeviceId=)
+[java] 2011-11-18 02:29:17.581 UTC INFO SCHEDULED_READ notification sent for device id 'Z10W000115'
+
+2) Transform it into
+<time_stamp>, <device_id>, <process>, <server>
+2011-11-18 02:28:16.628, AUT_SCHED_READ, <electric_id>, <server_host_name>
+2011-11-18 02:29:17.581, Z10W000115, SCHEDULED_READ notification sent, <server>
+
+duplicate across cnrv_10 cnrv_11
+How do we know 40 sec is the best ACK timeout?
+
+#!/bin/bash
+#####################################################################
+#
+# Purpose: Parse ServiewCom TaskManager std log to determine
+#          AUT schedule reads received for a given day.
+#
+# Arguments: date in format yyyy-mm-dd 
+# Usage:    $./getScheduledReads.sh 2011-11-07
+# Ouput Sample:
+#
+# 2011-11-07 01:39:22.703, AUT_SCHED_READ, electricDeviceId=Z11QK01032, gasDeviceId=E6S02111801154
+#   
+# Author: lolson
+#
+#####################################################################
+cat stdout.log | grep $1 | grep AUT_SCHED_READ | awk '{print $2 " " $3 ", " $9 " " $10 " " $11
+}' | sed 's/.type=//g' | sed 's/.$//g'
+
+
+# Alternative query user_support_logs / dev_logs (run_id) see email Philip Bridger

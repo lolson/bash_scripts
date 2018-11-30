@@ -1,0 +1,49 @@
+Using Oracle
+
+Want to know all tables in the dB?
+SELECT table_name FROM sys.all_tables;
+or
+SELECT owner, table_name FROM sys.all_tables;
++-------------------------------------------------------+
+* Use DBCA to create database from scratch
++-------------------------------------------------------+
+* To view running ORA services:
+run lsnrctl from command line to view ora services
+
+Check Connection:
+- use tnsping
+// eg. tnsping xe 4
++-------------------------------------------------------+
+* Drop all schema objects for a user.
+It's easiest to just drop/add the user.  Make sure no open SQL developer 
+apps coonected as svc.  Connect as SYSTEM : ora220 Then run:
+
+drop user svc cascade;
+purge recyclebin;
+select * from user_objects
+
+Use web interface to create a svc user with all privileges
+Reconnect with SQL Developer to SID "xe" svc/svc and confirm
+all db objects gone
+sql plus connect as sysdba, login as sys / ora220
+create user lge identified by lge;
+grant connect to lge;
+grant create any table to lge;
+grant create table to lge;select
+grant unlimited tablespace to lge;
+
+(from cmd line run "@c:\sql\create_svc.sql") or do the following
+create user svc identified by svc;
+grant connect to svc;
+grant create any table to svc;
+grant create table to svc;
+grant unlimited tablespace to svc;
+grant create sequence to svc;
+grant create trigger to svc;
+grant create procedure to svc;
+grant create materialized view to svc;
+grant create view to svc;
+ALTER USER svc quota unlimited on USERS;
+
++-------------------------------------------------------+
+

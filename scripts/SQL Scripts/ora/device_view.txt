@@ -1,0 +1,43 @@
+
+ CREATE OR REPLACE FORCE VIEW "SVC_MATHIEU_SFTW0"."DEVICE_VIEW" 
+("COMMMODULEID", "CALLEDAPTITLE", "CALLINGAPTITLE", "RESPONSETIMEOUT", "SERVERADDRESS", "SERVERPORT", "SERVERSESSION", 
+"DESCRIPTION", "DEVICECLASS", "DEVICEID", "ALTITUDE", "LATITUDE", "LONGITUDE", "MESH_RADIO_VERSION", "MODEL", "HARDWARE_VERSION",
+"FIRMWARE_VERSION", "MFG_SERIAL_NUMBER", "INSERVICETIME", "LASTCOMMUNICATION", "LASTRESETDATE", "NAME", "NEXTINBOUNDCALL", 
+"OUT_SERVICE_TIME", "STATUS", "TIMEZONEID", "UTILITYDEVICEID", "DSTAPPLIED", "DSTRULEYEAR", "NEEDREFRESH", "PKEY", "SIMCARDNUMBER", 
+"PAYMENTCARDNUMBER", "EXCHANGECODE", "REMOVALCODE", "GSMNUMBER", "SECURITYCODE", "CARRIER", "ELECTRICCO2CONVERSIONFACTOR", 
+"GASCO2CONVERSIONFACTOR", "LOWDEMANDINDICATORTHRESHOLD", "HIGHDEMANDINDICATORTHRESHOLD") AS 
+
+  SELECT a.COMM_MODULE_ID commModuleId, 
+CASE a.DEVICE_CLASS WHEN 'NEMA.78.68.48.53' THEN B.meshgateApTitle ELSE b.calledApTitle END calledApTitle , 
+CASE a.DEVICE_CLASS WHEN 'NEMA.78.68.48.53' THEN b.callingApTitle END callingApTitle, 
+CASE a.DEVICE_CLASS WHEN 'NEMA.78.68.48.53' THEN b.responseTimeout END responseTimeout, 
+CASE a.DEVICE_CLASS WHEN 'NEMA.78.68.48.53' THEN B.serverAddress ELSE e.next_hop END serverAddress, 
+CASE a.DEVICE_CLASS WHEN 'NEMA.78.68.48.53' THEN B.serverPort END serverPort, 
+CASE a.DEVICE_CLASS WHEN 'NEMA.78.68.48.53' THEN B.ser_session END serversession, 
+a.DESCRIPTION description,
+ a.device_class deviceClass, d.DEVICE_ID deviceId , c.altitude, c.latitude, c.longitude, c.mesh_radio_version, 
+f.MODEL, f.HARDWARE_VERSION, f.FIRMWARE_VERSION, f.MFG_SERIAL_NUMBER, a.IN_SERVICE_TIME inServiceTime, a.LAST_COMMUNICATION lastCommunication, 
+a.LAST_RESET_DATE lastResetDate, a.NAME name , a.NEXT_INBOUND_CALL nextInboundCall , a.OUT_SERVICE_TIME OUT_SERVICE_TIME , a.CUSTOM status , 
+a.TIMEZONE_ID timezoneId, a.UTILITY_DEVICE_ID utilityDeviceId, a.DST_APPLIED dstApplied , a.DST_RULE_YEAR dstRuleYear , a.NEEDS_REFRESH needRefresh , 
+d.PKEY, 
+CASE WHEN a.DEVICE_CLASS IN ('NEMA.76.71.48.49', 'NEMA.76.71.48.52') THEN B.simCardNumber END simCardNumber, 
+CASE WHEN a.DEVICE_CLASS IN ('NEMA.76.71.48.49', 'NEMA.76.71.48.50', 'NEMA.76.71.48.52', 'NEMA.76.71.48.53') THEN B.paymentCardNumber END paymentCardNumber, 
+CASE WHEN a.DEVICE_CLASS IN ('NEMA.76.71.48.49', 'NEMA.76.71.48.50', 'NEMA.76.71.48.52', 'NEMA.76.71.48.53') THEN B.exchangeCode END exchangeCode, 
+CASE WHEN a.DEVICE_CLASS IN ('NEMA.76.71.48.49', 'NEMA.76.71.48.50', 'NEMA.76.71.48.52', 'NEMA.76.71.48.53') THEN B.removalCode END removalCode, 
+CASE WHEN a.DEVICE_CLASS IN ('NEMA.76.71.48.49', 'NEMA.76.71.48.52') THEN B.gsmNumber END gsmNumber,
+ CASE WHEN a.DEVICE_CLASS IN ('NEMA.76.71.48.49', 'NEMA.76.71.48.52') THEN B.securityCode END securityCode, 
+CASE WHEN a.DEVICE_CLASS IN ('NEMA.76.71.48.49', 'NEMA.76.71.48.52') THEN B.carrier END carrier, 
+CASE a.DEVICE_CLASS WHEN 'NEMA.76.71.48.51' THEN C.electricCo2ConversionFactor END electricCo2ConversionFactor, 
+CASE a.DEVICE_CLASS WHEN 'NEMA.76.71.48.51' THEN C.gasCo2ConversionFactor END gasCo2ConversionFactor, 
+CASE a.DEVICE_CLASS WHEN 'NEMA.76.71.48.51' THEN C.lowDemandIndicatorThreshold END lowDemandIndicatorThreshold, 
+CASE a.DEVICE_CLASS WHEN 'NEMA.76.71.48.51' THEN C.highDemandIndicatorThreshold END highDemandIndicatorThreshold FROM 
+device a, 
+device_param_view b, 
+info_view c,
+device_pkey d , 
+registration e, 
+manufacturer_info f 
+
+WHERE a.device_id=b.device_id (+) AND a.device_id=c.device_id (+) AND a.device_id=d.device_id AND a.device_id=e.device_id (+) AND a.device_id = f.device_id (+);
+ 
+

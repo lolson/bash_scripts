@@ -1,0 +1,2 @@
+update tbluser set password_created_date=timestamp'2010-08-30 00:00:00.123456789' where name = 'dev user';
+-- http://psoug.org/reference/timestamp.html

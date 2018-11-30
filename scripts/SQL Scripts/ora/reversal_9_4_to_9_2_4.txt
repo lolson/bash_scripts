@@ -1,0 +1,323 @@
+Guide for Reverting from Unity Release 9.4GA to 9.2.4
+-----------------------------------------------------
+
+Pre-requisites: the following artifacts are required:
+
+1. trilliant_UnitySuite 9.2.4 Release.war
+2. unityami_UnitySuite 9.2.4 Release.war
+3. SerViewComTaskManagerInstaller_9.2.3-12920.bin
+
+
+
+INSTALLATION STEPS
+------------------
+
+1. Stop Unity 
+	Verify no active java process for Unity
+2. Stop Task Manager
+	Verify no active java process for Task Manager
+
+3. Stop the Configuration Manager
+	Verify no active java process for the Configuration Manager
+	
+4. Revert 9.4 GA specific upgrades to the database 
+
+ALTER TABLE TBLUSER DROP column PASSWORD_CREATED_DATE; 
+ALTER TABLE TBLPARTNER DROP column PASSWORD_EXPIRATION; 
+ALTER TABLE TBLRATEPLAN DROP column STANDING_CHARGE ;
+ALTER TABLE TBLACCOUNT_RATE_PROGRAM DROP column COMMAND_NAME ;
+ALTER TABLE TBLACCOUNT_RATE_PROGRAM DROP column COMMAND_DATE ;
+ALTER TABLE TBLACCOUNT_RATE_PROGRAM DROP column COMMAND_STATUS; 
+ALTER TABLE TBLACCOUNT_RATE_PROGRAM DROP column COMMAND_UPDATE_DATE ;
+ALTER TABLE TBLACCOUNT_RATE_PROGRAM DROP column COMMAND_EXTRA_INFO; 
+
+DROP INDEX U_SCH_RUN_TASK_IDX; 
+
+DELETE FROM tblfield WHERE NAME='standingChargeGas' ;
+DELETE FROM tblfield WHERE NAME='standingChargeElec';
+DELETE FROM tblfield WHERE NAME='prePaymentKey';
+DELETE FROM tblfield WHERE NAME='passwordExpiration';
+DELETE FROM tblrole_permission where permission_id=(select permission_id from tblpermission WHERE NAME='Apply Emergency Credit'); 
+DELETE FROM tblrole_permission where permission_id=(select permission_id from tblpermission WHERE NAME='Change Meter Mode'); 
+DELETE FROM tblrole_permission where permission_id=(select permission_id from tblpermission WHERE NAME='Edit Prepayment Key'); 
+DELETE FROM tblpermission WHERE NAME='Apply Emergency Credit';
+DELETE FROM tblpermission WHERE NAME='Change Meter Mode';
+DELETE FROM tblpermission WHERE NAME='Edit Prepayment Key';
+DELETE FROM tbltemplate where name='Meter Information';
+
+DROP VIEW current_emergency_credit;
+
+DROP TABLE emergency_credit;
+DROP TABLE prepayment_balances;
+
+DROP SEQUENCE prepay_bal_sequence;
+	
+ALTER TABLE device DROP column payment_mode;
+
+DROP TABLE vend_code_transaction;
+
+DROP SEQUENCE vct_sequence;
+	
+DROP TABLE running_avg_voltage cascade constraints;
+DROP TABLE daily_voltage_log cascade constraints;
+	
+DELETE FROM code WHERE code='90001';
+DELETE FROM code WHERE code='90002';
+DELETE FROM code WHERE code='90006';
+DELETE FROM code WHERE code='90008';
+DELETE FROM code WHERE code='90011';
+DELETE FROM code WHERE code='90037';
+DELETE FROM code WHERE code='90038';
+DELETE FROM code WHERE code='90039';
+DELETE FROM code WHERE code='90041';
+DELETE FROM code WHERE code='90042';
+DELETE FROM code WHERE code='90043';
+DELETE FROM code WHERE code='92050';
+DELETE FROM code WHERE code='92051';
+DELETE FROM code WHERE code='92052';
+DELETE FROM code WHERE code='92053';
+DELETE FROM code WHERE code='92054';
+DELETE FROM code WHERE code='92055';
+DELETE FROM code WHERE code='92056';
+DELETE FROM code WHERE code='92057';
+DELETE FROM code WHERE code='92058';
+DELETE FROM code WHERE code='92059';
+DELETE FROM code WHERE code='92060';
+DELETE FROM code WHERE code='92097';
+DELETE FROM code WHERE code='92098';
+DELETE FROM code WHERE code='92099';
+DELETE FROM code WHERE code='92100';
+DELETE FROM code WHERE code='92101';
+DELETE FROM code WHERE code='92102';
+DELETE FROM code WHERE code='92112';
+DELETE FROM code WHERE code='92113';
+DELETE FROM code WHERE code='92114';
+DELETE FROM code WHERE code='92116';
+DELETE FROM code WHERE code='92117';
+DELETE FROM code WHERE code='92118';
+DELETE FROM code WHERE code='92128';
+DELETE FROM code WHERE code='92129';
+DELETE FROM code WHERE code='92130';
+DELETE FROM code WHERE code='92133';
+DELETE FROM code WHERE code='92144';
+DELETE FROM code WHERE code='92145';
+DELETE FROM code WHERE code='92146';
+DELETE FROM code WHERE code='92147';
+DELETE FROM code WHERE code='92148';
+DELETE FROM code WHERE code='92149';
+DELETE FROM code WHERE code='92150';
+DELETE FROM code WHERE code='92151';
+DELETE FROM code WHERE code='92152';
+DELETE FROM code WHERE code='92176';
+
+----- Refresh device views
+		
+	CREATE OR REPLACE VIEW
+		    DEVICE_PARAM_VIEW ( DEVICE_ID, CALLEDAPTITLE, MESHGATEAPTITLE, CALLINGAPTITLE, RESPONSETIMEOUT, SERVERADDRESS, SERVERPORT, SER_SESSION, SIMCARDNUMBER, PAYMENTCARDNUMBER, EXCHANGECODE, REMOVALCODE, GSMNUMBER, SECURITYCODE, CARRIER, SUPPLYCONNECTED ) AS
+		SELECT
+		    e.device_id ,
+		    MAX(DECODE(e.dev_info, 1, e.value,NULL))  AS calledApTitle ,
+		    MAX(DECODE(e.dev_info, 2, e.value,NULL))  AS meshgateApTitle ,
+		    MAX(DECODE(e.dev_info, 3, e.value,NULL))  AS callingApTitle ,
+		    MAX(DECODE(e.dev_info, 4, e.value,NULL))  AS responseTimeout ,
+		    MAX(DECODE(e.dev_info, 5, e.value,NULL))  AS serverAddress ,
+		    MAX(DECODE(e.dev_info, 6, e.value,NULL))  AS serverPort ,
+		    MAX(DECODE(e.dev_info, 7, e.value,NULL))  AS ser_session ,
+		    MAX(DECODE(e.dev_info, 8, e.value,NULL))  AS simCardNumber ,
+		    MAX(DECODE(e.dev_info, 9, e.value,NULL))  AS paymentCardNumber ,
+		    MAX(DECODE(e.dev_info, 10, e.value,NULL)) AS exchangeCode ,
+		    MAX(DECODE(e.dev_info, 11, e.value,NULL)) AS removalCode ,
+		    MAX(DECODE(e.dev_info, 12, e.value,NULL)) AS gsmNumber ,
+		    MAX(DECODE(e.dev_info, 13, e.value,NULL)) AS securityCode ,
+		    MAX(DECODE(e.dev_info, 14, e.value,NULL)) AS carrier,
+		    MAX(DECODE(e.dev_info, 15, e.value,NULL)) AS supplyConnected 
+
+		FROM
+		    (
+			SELECT
+			    device_id,
+			    information_type,
+			    value ,
+			    DECODE(information_type,'c1222IOHandler.calledApTitle',1, 'c1222IOHandler.meshgateApTitle',2, 'c1222IOHandler.callingApTitle',3, 'c1222IOHandler.responseTimeOut',4, 'c1222IOHandler.serverAddress',5, 'c1222IOHandler.serverPort',6, 'c1222IOHandler.session',7, 'simCardNumber',8, 'paymentCardNumber',9, 'exchangeCode',10, 'removalCode',11, 'gsmNumber',12, 'securityCode',13, 'carrier',14, 0, 'supplyConnected',15) dev_info
+			FROM
+			    device_parameter
+		    )
+		    e
+		GROUP BY
+		    e.device_id;
+
+
+
+
+		CREATE OR REPLACE VIEW
+		    DEVICE_VIEW ( COMMMODULEID, CALLEDAPTITLE, CALLINGAPTITLE, RESPONSETIMEOUT, SERVERADDRESS, SERVERPORT, SERVERSESSION, DESCRIPTION, DEVICECLASS, DEVICEID, ACTIVE, ALTITUDE, LATITUDE, LONGITUDE, MESH_RADIO_VERSION, MODEL, HARDWARE_VERSION, FIRMWARE_VERSION, MFG_SERIAL_NUMBER, INSERVICETIME, LASTCOMMUNICATION, LASTRESETDATE, NAME, NEXTINBOUNDCALL, OUT_SERVICE_TIME, STATUS, TIMEZONEID, UTILITYDEVICEID, DSTAPPLIED, DSTRULEYEAR, NEEDREFRESH, PKEY, SIMCARDNUMBER, PAYMENTCARDNUMBER, EXCHANGECODE, REMOVALCODE, SUPPLYCONNECTED, GSMNUMBER, SECURITYCODE, CARRIER, ELECTRICCO2CONVERSIONFACTOR, GASCO2CONVERSIONFACTOR, LOWDEMANDINDICATORTHRESHOLD, HIGHDEMANDINDICATORTHRESHOLD) AS
+		SELECT
+		    a.COMM_MODULE_ID commModuleId,
+		    CASE a.DEVICE_CLASS
+			WHEN 'NEMA.78.68.48.53'
+			THEN B.meshgateApTitle
+			ELSE b.calledApTitle
+		    END calledApTitle ,
+		    CASE a.DEVICE_CLASS
+			WHEN 'NEMA.78.68.48.53'
+			THEN b.callingApTitle
+		    END callingApTitle,
+		    CASE a.DEVICE_CLASS
+			WHEN 'NEMA.78.68.48.53'
+			THEN b.responseTimeout
+		    END responseTimeout,
+		    CASE a.DEVICE_CLASS
+			WHEN 'NEMA.78.68.48.53'
+			THEN B.serverAddress
+			ELSE e.next_hop
+		    END serverAddress,
+		    CASE a.DEVICE_CLASS
+			WHEN 'NEMA.78.68.48.53'
+			THEN B.serverPort
+		    END serverPort,
+		    CASE a.DEVICE_CLASS
+			WHEN 'NEMA.78.68.48.53'
+			THEN B.ser_session
+		    END serversession,
+		    a.DESCRIPTION description,
+		    a.device_class deviceClass,
+		    d.DEVICE_ID deviceId,
+		    a.active active,
+		    c.altitude,
+		    c.latitude,
+		    c.longitude,
+		    c.mesh_radio_version,
+		    f.MODEL,
+		    f.HARDWARE_VERSION,
+		    f.FIRMWARE_VERSION,
+		    f.MFG_SERIAL_NUMBER,
+		    a.IN_SERVICE_TIME inServiceTime,
+		    a.LAST_COMMUNICATION lastCommunication,
+		    a.LAST_RESET_DATE lastResetDate,
+		    a.NAME name ,
+		    a.NEXT_INBOUND_CALL nextInboundCall ,
+		    a.OUT_SERVICE_TIME OUT_SERVICE_TIME ,
+		    a.CUSTOM status ,
+		    a.TIMEZONE_ID timezoneId,
+		    a.UTILITY_DEVICE_ID utilityDeviceId,
+		    a.DST_APPLIED dstApplied ,
+		    a.DST_RULE_YEAR dstRuleYear ,
+		    a.NEEDS_REFRESH needRefresh ,
+		    d.PKEY,
+		    CASE WHEN a.DEVICE_CLASS IN ('NEMA.76.71.48.49', 'NEMA.76.71.48.52')
+			THEN B.simCardNumber
+		    END simCardNumber,
+		    CASE WHEN a.DEVICE_CLASS IN ('NEMA.76.71.48.49', 'NEMA.76.71.48.50', 'NEMA.76.71.48.52', 'NEMA.76.71.48.53')
+			THEN B.paymentCardNumber
+		    END paymentCardNumber,
+		    CASE WHEN a.DEVICE_CLASS IN ('NEMA.76.71.48.49', 'NEMA.76.71.48.50', 'NEMA.76.71.48.52', 'NEMA.76.71.48.53')
+			THEN B.exchangeCode
+		    END exchangeCode,
+		    CASE WHEN a.DEVICE_CLASS IN ('NEMA.76.71.48.49', 'NEMA.76.71.48.50', 'NEMA.76.71.48.52', 'NEMA.76.71.48.53')
+			THEN B.removalCode
+		    END removalCode,
+		    CASE WHEN a.DEVICE_CLASS IN ('NEMA.76.71.48.49', 'NEMA.76.71.48.50', 'NEMA.76.71.48.52', 'NEMA.76.71.48.53') 
+				    THEN B.supplyConnected 
+			  END supplyConnected,
+		    CASE WHEN a.DEVICE_CLASS IN ('NEMA.76.71.48.49', 'NEMA.76.71.48.52')
+			THEN B.gsmNumber
+		    END gsmNumber,
+		    CASE WHEN a.DEVICE_CLASS IN ('NEMA.76.71.48.49', 'NEMA.76.71.48.52')
+			THEN B.securityCode
+		    END securityCode,
+		    CASE WHEN a.DEVICE_CLASS IN ('NEMA.76.71.48.49', 'NEMA.76.71.48.52')
+			THEN B.carrier
+		    END carrier,
+		    CASE a.DEVICE_CLASS
+			WHEN 'NEMA.76.71.48.51'
+			THEN C.electricCo2ConversionFactor
+		    END electricCo2ConversionFactor,
+		    CASE a.DEVICE_CLASS
+			WHEN 'NEMA.76.71.48.51'
+			THEN C.gasCo2ConversionFactor
+		    END gasCo2ConversionFactor,
+		    CASE a.DEVICE_CLASS
+			WHEN 'NEMA.76.71.48.51'
+			THEN C.lowDemandIndicatorThreshold
+		    END lowDemandIndicatorThreshold,
+		    CASE a.DEVICE_CLASS
+			WHEN 'NEMA.76.71.48.51'
+			THEN C.highDemandIndicatorThreshold
+		    END highDemandIndicatorThreshold       
+		FROM
+		    device a,
+		    device_param_view b,
+		    info_view c,
+		    device_pkey d ,
+		    registration e,
+		    manufacturer_info f
+		WHERE
+		    a.device_id=b.device_id (+)
+		AND a.device_id=c.device_id (+)
+		AND a.device_id=d.device_id
+		AND a.device_id=e.device_id (+)
+		AND a.device_id = f.device_id (+);
+
+
+5. Upgrade Configuration Manager
+
+	1.	Create a backup of <configuration_manager_home> directory
+	2. 	Ensure you take a back up of the derby folder : <configuration_manager_home>/Tomcat/bin/derby
+	3.      Delete the contents in the <configuration_manager_home>/Tomcat/work and <configuration_manager_home>/Tomcat/temp folders.
+	4.	Install the old configurationManager: bash <configurationmanager_installer_executable> -f <properties_file> -i console
+		You could use the same properties file used during installation of the previous version.
+	5.	Once installation process is completed, delete directory <configurationmanager_home>/Tomcat/bin/derby  
+	6.	Restore derby from your backup directory : Move <configurationmanager_home_backup>/Tomcat/bin/derby  to <configurationmanager_home>/Tomcat/bin/derby  
+
+6. Start Configuration Manager
+
+	Start configuration manager process (Tomcat) :  sudo bash <configuration_manager_home>/Tomcat/bin/startup.sh
+	1.	Log in configuration manager add go to the following URL: http://<configuration_manager_server>:<configuration_manager_port>/svccnfg	
+	2. 	Ensure that all your process containers are populated correctly
+	
+7. Upgrade Task Manager
+
+	1.	Run: sudo chmod +x <installer_excutable_file>
+	2.	Start the installation process:  sudo bash <installer_executable> -f <properties_file> -i console
+		You can use properties file of the previous release. Be sure that the licence file (the path is set in the properties file) is still available.
+	3.	Once completed, user can examine the installation log file to ensure that the installation process completed without error.
+	4.	Execute : sudo chmod -R +x <SVC_HOME>/bin/*
+	5.	Upgrade database: sudo bash <SVC_HOME>/bin/upgradeDB.sh (this is create the procedures that did not get created from the db refresh)
+                Once completed, user can look the content of the file <SVC_HOME>/bin/upgradeDB.log to ensure that the process completed without error.
+
+
+8. Start Task Manager
+	1. Ensure that all older cache folders are deleted. (<SVC_HOME>/bin/cache)
+	2. Start the task manager: sudo bash <SVC_HOME>/bin/taskManagerStart.sh
+	3. The content of the file stdout.log can be inspected to validate that the task manager is started correctly.
+
+
+9. Upgrade Unity DB
+	
+	1. Upgrade DB
+		1. Extract "unity-centrica-installer_B348.zip"
+		2. modify the db.properties file and ensure you have the correct database connection settings
+		3. execute the script "upgrade_db.sh"
+		4. Once that is complete execute the script "seed_upgrade_db.sh"
+		5. Ensure that there are no errors.
+	2. Run the script from Oracle SQL Client
+		update tbllookup set description = '(£) United Kingdom - Pounds', value = '£' where name = 'CS_GBP';
+
+
+
+10.	Unity Installation: 
+	1. Backup trilliant.war and unityami.war.	
+	2. Clean up tomcat's webapps folder 
+		Navigate to the /opt/tomcat/webapps folder and clean up the trilliant and unitami folders. 
+	3. Clean up the temp files and generated files
+	4. Delete the work folder /opt/tomcat/work
+	5. Navigate the to the /opt/tomcat/conf folder. There should be another folder in there called Catalina. Inside that you should see another folder called localhost (/opt/tomcat/conf/Catalina/localhost). Delete the two files in there -> trilliant.xml and unityami.xml
+	6. Copy the two war files (unityami_UnitySuite 9.2.4 Release.war, trilliant_UnitySuite 9.2.4 Release.war) to the /opt/tomcat/webapps folder.
+	7. Rename the war files as below
+		mv "unityami_UnitySuite 9.2.4 Release.war" unityami.war
+		mv "trilliant_UnitySuite 9.2.4 Release.war" trilliant.war
+	8. Start up tomcat
+		Navigate to the tomcat bin folder (/opt/tomcat/bin) and execute "./startup.sh"
+	9. Have a look at the tomcat log to ensure that tomcat started without any issues.
+		"tail -f /opt/tomcat/logs/catalina.out" 
+	10. Once its started open a browser and launch unity.

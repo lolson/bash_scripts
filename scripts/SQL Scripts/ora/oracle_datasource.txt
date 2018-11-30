@@ -1,0 +1,12 @@
+ <!-- ORACLE -->
+ <Environment name="jndi/unityDialect" type="java.lang.String" value="org.hibernate.dialect.Oracle9Dialect"/>
+ <Resource name="jdbc/unity"
+     auth="Container"
+     type="javax.sql.DataSource"
+     username="unityqa2"
+     password="unityqa2"
+     driverClassName="oracle.jdbc.driver.OracleDriver"
+     url="jdbc:oracle:thin:@192.168.200.201:1521:proof"
+     maxActive="10"
+     maxIdle="2"
+     maxWait="-1" />

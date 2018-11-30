@@ -1,0 +1,34 @@
+#!/usr/bin/perl -w
+
+use strict;
+use File::Basename;
+
+my $dos        = "\x0D\x0A";
+my $mac        = "\x0D";
+my $unix       = "\n";
+my $myPlatform = $unix;
+my $iam        = basename($0);
+
+$myPlatform = $mac if $^O =~ /mac/i;
+$myPlatform = $dos if $^O =~ /win|dos/i;
+
+my %subs = (
+  crlf     => sub { s/[$dos$mac$unix]+/$myPlatform/og },
+  dos2unix => sub { s/$dos/$unix/o },
+  unix2dos => sub { s/$unix/$dos/o },
+  mac2dos  => sub { s/$mac/$dos/o  },
+  mac2unix => sub { s/$mac/$unix/o },
+  dos2mac  => sub { s/$dos/$mac/o  },
+  unix2mac => sub { s/$unix/$mac/o },
+);
+
+die "I do not recognize my own name."
+  unless exists ($subs{$iam});
+
+my $sub = $subs{$iam};
+while(<STDIN>) {
+  &$sub;
+  print;
+}
+
+exit(0);
